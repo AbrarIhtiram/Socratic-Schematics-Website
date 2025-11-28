@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Socratic Schematics — Robots</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root { --navy: #0b2545; }
+</style>
+</head>
+<body class="bg-gray-50 text-gray-900 font-sans">
+
+<!-- Header (same as index.html) -->
+<header class="bg-[var(--navy)] text-white sticky top-0 z-40">
+  <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-xl font-bold">SS</div>
+      <div>
+        <div class="font-bold text-lg">Socratic Schematics</div>
+        <div class="text-sm opacity-90">Karl G. Maeser Preparatory Academy — Team 8885</div>
+      </div>
+    </div>
+    <nav class="hidden md:flex gap-6 items-center">
+      <a href="index.html" class="hover:underline">Home</a>
+      <a href="robots.html" class="hover:underline">Robots</a>
+      <a href="team.html" class="hover:underline">Team</a>
+      <a href="sponsors.html" class="hover:underline">Sponsors</a>
+      <a href="donate.html" class="hover:underline">Donate</a>
+      <a href="snacks.html" class="hover:underline">Snack Prices</a>
+      <a href="contact.html" class="hover:underline">Contact</a>
+      <a href="gallery.html" class="btn-sm bg-white text-[var(--navy)] font-semibold rounded px-3 py-1">Gallery</a>
+    </nav>
+    <button class="md:hidden" id="mobile-nav-toggle" aria-label="Toggle navigation">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+  </div>
+  <div class="md:hidden bg-white text-[var(--navy)] px-4 py-3 hidden" id="mobile-nav">
+    <a href="index.html" class="block py-1">Home</a>
+    <a href="robots.html" class="block py-1">Robots</a>
+    <a href="team.html" class="block py-1">Team</a>
+    <a href="sponsors.html" class="block py-1">Sponsors</a>
+    <a href="snacks.html" class="block py-1">Snack Prices</a>
+    <a href="contact.html" class="block py-1">Contact</a>
+  </div>
+</header>
+
+<main class="max-w-6xl mx-auto px-4 py-10">
+  <h1 class="text-3xl text-center font-bold mb-4">Previous Robots</h1>
+  <p class="mb-6 text-center">Short descriptions of last season's robots — features, competition results, and notable innovations.</p>
+
+  <div class="grid md:grid-cols-3 gap-6">
+    <div class="bg-white p-4 rounded-lg shadow">
+      <img src="assets/robot1.jpg" alt="Robot 2024" class="w-full h-40 object-cover rounded" onerror="this.src='assets/placeholder.jpg'"/>
+      <h3 class="mt-3 text-center font-semibold">"Athena" — Season 4 (2024)</h3>
+      <p class="mt-2 text-center text-sm">We built a swerve drive train base, with an elevator and arm on top. The elevator used motors and chains to extend upwards, and then an arm powered by a motor could rotate outwards from the elevator. On the end of the arm was a 'hand' with wheels that could spin to grab a large piece of pvc pipe or a large kickball (the game pieces of the year). The elevator then allowed the robot to deposit the game pieces into scoring zones at various heights. The robot was named Athena because Athena was another ancient Greek figure, and because a handful of members wanted another female name, and many people liked Athena.</p>
+    </div>
+
+    <div class="bg-white p-4 rounded-lg shadow">
+      <img src="assets/robot2.jpg" alt="Robot 2023" class="w-full h-40 object-cover rounded" onerror="this.src='assets/placeholder.jpg'"/>
+      <h3 class="mt-3 text-center font-semibold">"Snakerates" — Pre-season 4 (2023)</h3>
+      <p class="mt-2 text-center text-sm">We reused the base of Socrates, which at this point was the only part of it left. We added a shaft with wheels near ground level to grab and intake pickleballs called 'eggs'. It then stored them in a trough before feeding them into a flywheel that launched them up into the scoring zone. It was named Snakerates (Snake and then the ‘rates’ from Socrates) because it 'gobbled up' the 'eggs' like a snake (we put eyes and teeth on the intake). Additionally it's flywheel looked like a scorpion's tail, since it looped back around towards the front, which added to the reptilian name. Finally, we wanted to preserve some part of its original name, and so we added the rates from Socrates. </p>
+    </div>
+
+    <div class="bg-white p-4 rounded-lg shadow">
+      <img src="assets/robot3.jpg" alt="Robot 2022" class="w-full h-40 object-cover rounded" onerror="this.src='assets/placeholder.jpg'"/>
+      <h3 class="mt-3 text-center font-semibold">"Themistoclea" — Season 3 (2023)</h3>
+      <p class="mt-2 text-center text-sm">We built a tank drive train with a pivoting set of arms on top. The arms were supposed to have a launcher between them that would intake and launch foam hoops, but we never completed it before competition. We named it Themistoclea because Themistoclea was an ancient Greek figure, and because she was female, and many members on the team felt like more female representation was needed.</p>
+    </div>
+
+    <div class="bg-white p-4 rounded-lg shadow">
+      <img src="assets/robot3.jpg" alt="Robot 2022" class="w-full h-40 object-cover rounded" onerror="this.src='assets/placeholder.jpg'"/>
+      <h3 class="mt-3 text-center font-semibold">"Pythagoras" — Pre-season 3 (2022)</h3>
+      <p class="mt-2 text-center text-sm">We used Pythagoras again, and added some additional pneumatics on top of it to perform robot pull-ups.</p>
+    </div>
+
+    <div class="bg-white p-4 rounded-lg shadow">
+      <img src="assets/robot3.jpg" alt="Robot 2022" class="w-full h-40 object-cover rounded" onerror="this.src='assets/placeholder.jpg'"/>
+      <h3 class="mt-3 text-center font-semibold">"Pythagoras" — Season 2 (2022)</h3>
+      <p class="mt-2 text-center text-sm">Full Metal Robot with a tank drive train, and a tower structure on top. The tower had a set of arms that could rotate around a pivot point at the top of the tower, and the arms had pneumatic pistons that could change their length. At the end of the arm was a grabber claw that could grab and release the game pieces of the year, which were an inflatable cube, and a malleable plastic cone. It also used pneumatics to actuate the claw. We named it Pythagoras because Pythagoras was an ancient Greek figure. It is also said that Pythagoras once picked a man up and threw him off a roof. Since our robot was picking cubes and cones up and dropping them onto a shelf of sorts, we decided it was fitting.</p>
+    </div>
+
+    <div class="bg-white p-4 rounded-lg shadow">
+      <img src="assets/robot3.jpg" alt="Robot 2022" class="w-full h-40 object-cover rounded" onerror="this.src='assets/placeholder.jpg'"/>
+      <h3 class="mt-3 text-center font-semibold">"Daedelus" — Pre-season 1 (2021)</h3>
+      <p class="mt-2 text-center text-sm">We merely reused Daedelus with some slight modifications to allow it to play the pre-season game which used the same game pieces and a scoring zone at a similar height.</p>
+    </div>
+
+    <div class="bg-white p-4 rounded-lg shadow">
+      <img src="assets/robot3.jpg" alt="Robot 2022" class="w-full h-40 object-cover rounded" onerror="this.src='assets/placeholder.jpg'"/>
+      <h3 class="mt-3 text-center font-semibold">"Daedelus" — Season 1 (2021)</h3>
+      <p class="mt-2 text-center text-sm">Full metal robot with a mekanum wheel drive base and a metal structure on top. The structure could deploy "wings" to pull in the same 9-inch tennis balls from the pre-season. It then funneled the balls into a chute that used a conveyer belt of sorts to pull them upwards into a flywheel that spit them out into a scoring zone. We named it Daedelus because of its "wings" and because it set a precedent of naming robots after ancient Greek figures.</p>
+    </div>
+
+     <div class="bg-white p-4 rounded-lg shadow">
+      <img src="assets/robot3.jpg" alt="Robot 2022" class="w-full h-40 object-cover rounded" onerror="this.src='assets/placeholder.jpg'"/>
+      <h3 class="mt-3 text-center font-semibold">"Socrates" — Pre-season 1 (2021)</h3>
+      <p class="mt-2 text-center text-sm">Metal base with a tank drive train that had a wooden structure on top that could be human loaded with 9-inch tennis ball style game pieces, and launch them into a scoring zone with a flywheel. We named it Socrates because of our school ties to Socrates the philosopher. 
+</p>
+    </div>
+  </div>
+</main>
+
+<!-- Footer (same as index.html) -->
+<footer class="bg-white border-t py-6">
+  <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
+    <div>
+      <div class="font-semibold">Socratic Schematics — Team 8885</div>
+      <div class="text-sm text-gray-600">Karl G. Maeser Preparatory Academy</div>
+    </div>
+    <div class="flex gap-4 items-center">
+      <a href="sponsors.html" class="text-sm">Sponsor</a>
+      <a href="gallery.html" class="text-sm">Gallery</a>
+      <a href="donate.html" class="text-sm">Donate</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const toggleBtn = document.getElementById('mobile-nav-toggle');
+  const mobileNav = document.getElementById('mobile-nav');
+  toggleBtn.addEventListener('click', ()=> { mobileNav.classList.toggle('hidden'); });
+</script>
+</body>
+</html>
