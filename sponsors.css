@@ -1,0 +1,116 @@
+/* ========================
+   Sponsorship Tiers CSS
+   ======================== */
+
+/* Base card styling */
+.tier-card {
+  background-color: #0f172a; /* dark slate background */
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Card hover lift */
+.tier-card:hover {
+  transform: translateY(-6px);
+}
+
+/* Top bar stripe */
+.tier-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 0.5rem;
+  width: 100%;
+}
+
+/* Text styling */
+.tier-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.tier-text {
+  font-size: 0.875rem;
+  color: #cbd5f5; /* slate-300 */
+  margin-bottom: 0.5rem;
+}
+
+.tier-price {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #f8fafc;
+  margin-top: 0.75rem;
+}
+
+/* ========================
+   Tier Glow Effects
+   ======================== */
+.platinum { box-shadow: 0 0 24px rgba(230,217,255,0.35); }
+.diamond  { box-shadow: 0 0 22px rgba(185,242,255,0.35); }
+.gold     { box-shadow: 0 0 18px rgba(255,215,0,0.35); }
+.silver   { box-shadow: 0 0 14px rgba(192,192,192,0.30); }
+.bronze   { box-shadow: 0 0 12px rgba(205,127,50,0.30); }
+.coal     { box-shadow: 0 0 8px rgba(60,60,60,0.35); }
+
+/* Optional Coal hover glow */
+.coal:hover {
+  box-shadow: 0 0 12px rgba(90,90,90,0.45);
+}
+
+/* ========================
+   Tier Bar Colors
+   ======================== */
+.platinum .tier-bar { background-color: #E6D9FF; }  /* Lilac */
+.diamond  .tier-bar { background-color: #B9F2FF; }  /* Icy Diamond */
+.gold     .tier-bar { background-color: #FFD700; }  /* Gold */
+.silver   .tier-bar { background-color: #C0C0C0; }  /* Silver */
+.bronze   .tier-bar { background-color: #CD7F32; }  /* Bronze */
+.coal     .tier-bar { background-color: #2B2B2B; }  /* Coal */
+
+/* ========================
+   Tier Title Colors
+   ======================== */
+.platinum .tier-title { color: #E6D9FF; }
+.diamond  .tier-title { color: #B9F2FF; }
+.gold     .tier-title { color: #FFD700; }
+.silver   .tier-title { color: #C0C0C0; }
+.bronze   .tier-title { color: #CD7F32; }
+.coal     .tier-title { color: #9CA3AF; }
+
+/* ========================
+   Tier Text Colors
+   ======================== */
+.platinum .tier-text,
+.diamond .tier-text,
+.gold .tier-text,
+.silver .tier-text,
+.bronze .tier-text,
+.coal .tier-text {
+  color: #cbd5f5; /* soft slate for readability */
+}
+
+/* ========================
+   Optional Animations
+   ======================== */
+/* Example stripe animation (diagonal shimmer) */
+@keyframes stripeMove {
+  0% { background-position: 0 0; }
+  100% { background-position: 50px 50px; }
+}
+
+.animated-stripe {
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(255,255,255,0.1) 0,
+    rgba(255,255,255,0.1) 10px,
+    rgba(255,255,255,0.05) 10px,
+    rgba(255,255,255,0.05) 20px
+  );
+  animation: stripeMove 3s linear infinite;
+}
