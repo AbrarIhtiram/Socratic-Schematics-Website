@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Socratic Schematics — Robots</title>
+<link rel="icon" href="assets/socraticschematicslogo.jpg" type="image/jpeg">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root {
+    --navy: #0b2545;
+    --navy-dark: #081d36;
+    --navy-mid: #102f55;
+    --navy-light: #163b66;
+    --slate-card: #1e293b;
+    --text-light: #f1f5f9;
+    --gold: #d4af37;
+    --cyan-glint: rgba(0,255,255,0.15);
+  }
+
+  body { background-color: var(--navy-mid); }
+
+  .carousel-container {
+    position: relative;
+    width: 100%;
+    padding: 4rem 0;
+    overflow: visible; /* allow hover scaling */
+  }
+
+  .marquee-wrapper {
+    overflow-x: hidden; /* hide scrollbar*/
+    overflow-y: visible; 
+    width: 100%;
+    position: relative;
+    padding: 0 2rem;
+  }
+
+  .marquee-track {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 2rem;
+    position: relative;
+    align-items: flex-start;
+    z-index: 0; /* base layer */
+  }
+
+  .robot-card {
+    min-width: 320px;
+    max-width: 340px;
+    flex-shrink: 0;
+    cursor: pointer;
+    padding: 1rem;
+    background-color: var(--slate-card);
+    border-radius: 1rem;
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--text-light);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    position: relative;
+    overflow: visible; /* allow hover to expand */
+    z-index: 1; /* normal cards */
+  }
+
+  .robot-card img { 
+    width: 100%; 
+    height: 200px; 
+    object-fit: cover; 
+    border-radius: 0.75rem; 
+    margin-bottom: 0.75rem; 
+  }
+
+  .robot-card h3 { 
+    font-weight: 600; 
+    text-align: center; 
+  }
+
+  .robot-card:hover {
+    transform: translateY(-5px) scale(1.03);
+    box-shadow: 0 10px 25px var(--cyan-glint);
+    background-color: #0f2a4d;
+    z-index: 10; /* bring hovered card to front */
+  }
+
+  .carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 50; /* above cards */
+    background-color: rgba(255,255,255,0.7);
+    color: var(--navy);
+    font-size: 2rem;
+    padding: 0.75rem;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: all 0.2s ease;
+  }
+  .carousel-arrow:hover { 
+    background-color: rgba(255,255,255,1); 
+    box-shadow: 0 0 15px rgba(255,255,255,0.8); 
+  }
+  #prevBtn { left: 0.5rem; }
+  #nextBtn { right: 0.5rem; }
+
+  /* MODAL */
+  #robotModal { 
+    display: none; 
+    position: fixed; 
+    inset:0; 
+    background-color: rgba(0,0,0,0.85); 
+    z-index: 60; 
+    align-items: center; 
+    justify-content: center; 
+    padding: 2rem; 
+  }
+  #robotModal.active { display: flex; }
+  #robotModal .modal-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    max-width: 900px;
+    width: 100%;
+    background-color: var(--navy-mid);
+    color: var(--text-light);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    position: relative;
+  }
+  #robotModal img { width: 100%; height: auto; border-radius: 0.75rem; object-fit: contain; }
+  #robotModal h2 { font-size: 1.75rem; margin-bottom: 0.5rem; }
+  #robotModal p { font-size: 1rem; line-height: 1.6; }
+  #robotModal button { position: absolute; top: 1rem; right: 1rem; font-size: 1.5rem; color: var(--text-light); background: none; border: none; cursor: pointer; }
+
+  @media(max-width:768px){#robotModal .modal-content{grid-template-columns:1fr;}}
+</style>
+</head>
+<body class="text-gray-900 font-sans flex flex-col min-h-screen">
+
+<!-- HEADER -->
+<header class="bg-[var(--navy)] text-white sticky top-0 z-40">
+  <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-12 h-12 rounded-full overflow-hidden">
+        <img src="assets/socraticschematicslogo.jpg" class="w-full h-full object-cover">
+      </div>
+      <div>
+        <div class="font-bold text-lg">Socratic Schematics</div>
+        <div class="text-sm opacity-90">Karl G. Maeser Preparatory Academy — Team 8885</div>
+      </div>
+    </div>
+    <nav class="hidden md:flex gap-6 items-center">
+      <a href="index.html">Home</a>
+      <a href="robots.html">Robots</a>
+      <a href="team.html">Team</a>
+      <a href="sponsors.html">Sponsors</a>
+      <a href="donate.html">Donate</a>
+      <a href="snacks.html">Snack Prices</a>
+      <a href="contact.html">Contact</a>
+      <a href="gallery.html" class="bg-white text-[var(--navy)] font-semibold rounded px-3 py-1">Gallery</a>
+    </nav>
+    <button class="md:hidden" id="mobile-nav-toggle">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
+  </div>
+  <div class="md:hidden bg-[var(--navy-dark)] text-[var(--text-light)] px-4 py-3 hidden" id="mobile-nav">
+    <a href="index.html" class="block py-1">Home</a>
+    <a href="robots.html" class="block py-1">Robots</a>
+    <a href="team.html" class="block py-1">Team</a>
+    <a href="sponsors.html" class="block py-1">Sponsors</a>
+    <a href="donate.html" class="block py-1">Donate</a>
+    <a href="snacks.html" class="block py-1">Snack Prices</a>
+    <a href="contact.html" class="block py-1">Contact</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="relative bg-[var(--navy)] text-white py-24 text-center">
+  <div class="absolute inset-0 bg-gradient-to-br from-black/40 to-black/10"></div>
+  <h1 class="relative z-10 text-5xl md:text-6xl font-extrabold mb-4">Our Robots</h1>
+  <p class="relative z-10 max-w-3xl mx-auto text-lg opacity-90">
+    Each season we design, prototype, fail, iterate, and build machines that reflect our growth as future engineers.
+  </p>
+  <div class="relative z-10 w-40 h-1 bg-yellow-500 mx-auto mt-8"></div>
+</section>
+
+<!-- CAROUSEL -->
+<main class="flex-grow carousel-container">
+  <div class="marquee-wrapper">
+    <div id="marquee" class="marquee-track">
+
+      <!-- ROBOT CARDS -->
+      <div class="robot-card" data-img="assets/athenapink.png" data-title="Athena — Season 4 (2024)" data-desc="We built a swerve drive train base, with an elevator and arm on top. The elevator used motors and chains to extend upwards, and then an arm powered by a motor could rotate outwards from the elevator. On the end of the arm was a hand with wheels that could spin to grab a large piece of pvc pipe or a large kickball. The elevator then allowed the robot to deposit the game pieces into scoring zones at various heights. The robot was named Athena because Athena was another ancient Greek figure, and because a handful of members wanted another female name, and many people liked Athena.">
+        <img src="assets/athenapink.png">
+        <h3 class="mt-3 text-center font-semibold">Athena — 2024 Main Season</h3>
+      </div>
+
+      <div class="robot-card" data-img="assets/robot2.jpg" data-title="Snakerates — Pre-season 4 (2023)" data-desc="We reused the base of Socrates and made some modifications for Pre-season testing. This allowed us to try new mechanisms before the main season.">
+        <img src="assets/robot2.jpg">
+        <h3 class="mt-3 text-center font-semibold">Snakerates — 2023 Pre-Season</h3>
+      </div>
+
+      <div class="robot-card" data-img="assets/robot3.jpg" data-title="Pythagoras — Pre-season 3 (2022)" data-desc="We used Pythagoras again, and added some additional pneumatics for manipulating game pieces, improving precision.">
+        <img src="assets/robot3.jpg">
+        <h3 class="mt-3 text-center font-semibold">Pythagoras — 2022 Main Season</h3>
+      </div>
+
+      <div class="robot-card" data-img="assets/robot3.jpg" data-title="Pythagoras — Season 2 (2022)" data-desc="Full Metal Robot with a tank drive train, and a tower structure on top. Designed for testing mechanisms and improving our drive system.">
+        <img src="assets/robot3.jpg">
+        <h3 class="mt-3 text-center font-semibold">Pythagoras — 2022 Pre-Season</h3>
+      </div>
+
+      <div class="robot-card" data-img="assets/robot3.jpg" data-title="Daedelus — Season 1 (2021)" data-desc="Full metal robot with a mekanum wheel drive base. Included tower and arm for scoring game pieces.">
+        <img src="assets/robot3.jpg">
+        <h3 class="mt-3 text-center font-semibold">Daedelus — 2021 Main Season</h3>
+      </div>
+
+      <div class="robot-card" data-img="assets/robot3.jpg" data-title="Daedelus — Pre-season 2 (2021)" data-desc="We merely reused Daedelus with some slight modifications to test mechanisms and drive stability.">
+        <img src="assets/robot3.jpg">
+        <h3 class="mt-3 text-center font-semibold">Daedelus — 2021 Pre-Season</h3>
+      </div>
+
+      <div class="robot-card" data-img="assets/robot3.jpg" data-title="Socrates — Pre-season 1 (2021)" data-desc="Metal base with a tank drive train that had a wooden structure on top. Used for early testing and prototyping.">
+        <img src="assets/robot3.jpg">
+        <h3 class="mt-3 text-center font-semibold">Socrates — 2021 Main Season</h3>
+      </div>
+
+    </div>
+  </div>
+  <button id="prevBtn" class="carousel-arrow">&#10094;</button>
+  <button id="nextBtn" class="carousel-arrow">&#10095;</button>
+</main>
+
+<!-- MODAL -->
+<div id="robotModal">
+  <div class="modal-content">
+    <button onclick="closeRobot()">✕</button>
+    <img id="modalImg">
+    <div>
+      <h2 id="modalTitle"></h2>
+      <p id="modalDesc"></p>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="bg-[var(--navy)] py-6 mt-auto">
+  <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
+    <div class="text-white">
+      <div class="font-semibold">Socratic Schematics — Team 8885</div>
+      <div class="text-sm">Karl G. Maeser Preparatory Academy</div>
+    </div>
+    <div class="flex gap-4 text-sm">
+      <a href="sponsors.html" class="text-white hover:underline">Sponsor</a>
+      <a href="gallery.html" class="text-white hover:underline">Gallery</a>
+      <a href="donate.html" class="text-white hover:underline">Donate</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // MOBILE NAV
+  document.getElementById('mobile-nav-toggle').addEventListener('click', () =>
+    document.getElementById('mobile-nav').classList.toggle('hidden')
+  );
+
+  // MODAL
+  const modal = document.getElementById('robotModal');
+  const modalImg = document.getElementById('modalImg');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalDesc = document.getElementById('modalDesc');
+
+  function openRobot(img, title, desc) {
+    modalImg.src = img;
+    modalTitle.textContent = title;
+    modalDesc.textContent = desc;
+    modal.classList.add('active');
+  }
+  function closeRobot() { modal.classList.remove('active'); }
+
+  // CAROUSEL SCROLL
+  const wrapper = document.querySelector('.marquee-wrapper');
+  const track = document.getElementById('marquee');
+
+  // Duplicate cards for infinite scroll
+  const cards = Array.from(track.children);
+  cards.forEach(card => track.appendChild(card.cloneNode(true)));
+
+  // Attach click listeners to all cards including clones
+  function attachCardListeners() {
+    document.querySelectorAll('.robot-card').forEach(card => {
+      card.addEventListener('click', () => {
+        openRobot(card.dataset.img, card.dataset.title, card.dataset.desc);
+      });
+    });
+  }
+  attachCardListeners();
+
+  // Auto scroll horizontally
+  let autoScrollSpeed = 0.5;
+  function startAutoScroll() {
+    return setInterval(() => {
+      wrapper.scrollLeft += autoScrollSpeed;
+      if(wrapper.scrollLeft >= track.scrollWidth / 2) wrapper.scrollLeft = 0;
+    }, 16);
+  }
+  let autoScrollInterval = startAutoScroll();
+
+  wrapper.addEventListener('mouseenter', ()=> clearInterval(autoScrollInterval));
+  wrapper.addEventListener('mouseleave', ()=> autoScrollInterval = startAutoScroll());
+
+  function smoothScrollBy(wrapper, amount){
+    const start = wrapper.scrollLeft;
+    const end = start + amount;
+    const duration = 400;
+    let startTime;
+    function step(time){
+      if(!startTime) startTime=time;
+      const progress = Math.min((time-startTime)/duration,1);
+      wrapper.scrollLeft = start + (end-start)*progress;
+      if(progress<1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  document.getElementById('prevBtn').addEventListener('click', ()=> smoothScrollBy(wrapper,-350));
+  document.getElementById('nextBtn').addEventListener('click', ()=> smoothScrollBy(wrapper,350));
+</script>
+</body>
+</html>
+
+<!-- fix the overlap issues somehow w/ the cards-->

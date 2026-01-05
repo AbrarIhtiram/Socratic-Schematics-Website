@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Socratic Schematics — Home</title>
+<link rel="icon" href="assets/socraticschematicslogo.jpg" type="image/jpeg">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root {
+    --navy: #0b2545;
+    --navy-dark: #081e38;
+    --navy-mid: #102f55;
+    --navy-light: #163b66;
+    --slate-card: #1e293b;
+    --gold: #d4af37;
+  }
+  
+  /* Smooth fade for carousel images */
+  .carousel-img {
+    transition: opacity 1.5s ease-in-out;
+  }
+</style>
+</head>
+<body class="bg-gray-50 text-gray-900 font-sans">
+
+<!-- Header -->
+<header class="bg-[var(--navy)] text-white sticky top-0 z-40">
+  <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-12 h-12 rounded-full overflow-hidden flex items-center justify-center">
+        <img src="assets/socraticschematicslogo.jpg" alt="Socratic Schematics Logo" class="w-full h-full object-cover">
+      </div>
+      <div>
+        <div class="font-bold text-lg">Socratic Schematics</div>
+        <div class="text-sm opacity-90">Karl G. Maeser Preparatory Academy — Team 8885</div>
+      </div>
+    </div>
+    <nav class="hidden md:flex gap-6 items-center">
+      <a href="index.html" class="hover:underline">Home</a>
+      <a href="robots.html" class="hover:underline">Robots</a>
+      <a href="team.html" class="hover:underline">Team</a>
+      <a href="sponsors.html" class="hover:underline">Sponsors</a>
+      <a href="donate.html" class="hover:underline">Donate</a>
+      <a href="snacks.html" class="hover:underline">Snack Prices</a>
+      <a href="contact.html" class="hover:underline">Contact</a>
+      <a href="gallery.html" class="btn-sm bg-white text-[var(--navy)] font-semibold rounded px-3 py-1">Gallery</a>
+    </nav>
+    <button class="md:hidden" id="mobile-nav-toggle" aria-label="Toggle navigation">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+  </div>
+  <div class="md:hidden bg-[var(--navy-dark)] text-[var(--text-light)] px-4 py-3 hidden" id="mobile-nav">
+    <a href="index.html" class="block py-1">Home</a>
+    <a href="robots.html" class="block py-1">Robots</a>
+    <a href="team.html" class="block py-1">Team</a>
+    <a href="sponsors.html" class="block py-1">Sponsors</a>
+    <a href="donate.html" class="block py-1">Donate</a>
+    <a href="snacks.html" class="block py-1">Snack Prices</a>
+    <a href="contact.html" class="block py-1">Contact</a>
+  </div>
+</header>
+
+<!-- Main -->
+<main class="max-w-full mx-auto px-0">
+
+  <!-- Hero Section with Smooth Carousel Background and Centered Content -->
+  <section class="relative w-full h-[1000px] md:h-[875px] flex items-center justify-center overflow-hidden">
+    <!-- Background carousel images -->
+    <div class="absolute inset-0 z-0">
+      <div class="carousel">
+        <img src="assets/PXL_20241214_202826192.jpg" alt="Team photo 1" class="carousel-img absolute inset-0 w-full h-full object-cover">
+        <img src="assets/PXL_20251107_221957705.jpg" alt="Team photo 2" class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0">
+        <img src="assets/IMG_20221207_164354543.jpg" alt="Team photo 3" class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0">
+        <img src="assets/IMG_20221210_114248298.jpg" alt="Team photo 4" class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0">
+      </div>
+      <!-- Overlay for readability -->
+      <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+    </div>
+
+    <!-- Centered hero content -->
+    <div class="relative z-10 flex flex-col justify-center items-center text-center px-8 md:px-16 max-w-4xl text-white">
+      <h1 class="text-4xl md:text-6xl font-extrabold mb-4">Socratic Schematics</h1>
+      <h1 class="text-4xl md:text-6xl font-extrabold mb-4">Team 8885</h1>
+      <p class="text-lg md:text-xl mb-6">We are Maeser Robotics: students competing in FRC, building robots, serving our community, and inspiring the next generation of engineers. We welcome partners and sponsors eager to support STEM education.</p>
+      <div class="flex flex-wrap gap-4 justify-center">
+        <a href="sponsors.html" class="btn bg-yellow-500 hover:bg-yellow-600 text-white font-semibold px-5 py-3 rounded-lg shadow">
+          Sponsor Us
+        </a>
+        <a href="gallery.html" class="btn border border-white text-white px-5 py-3 rounded-lg hover:bg-white hover:text-[var(--navy)] transition">
+          View Full Gallery
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sponsors mini-strip -->
+  <div class="bg-white py-8 flex flex-col items-center">
+    <h2 class="text-2xl font-semibold mb-4">Our Sponsors</h2>
+    <div class="w-40 h-2 bg-yellow-500 mb-4"></div>
+    <a href="https://www.rtx.com/" target="_blank">
+      <img src="assets/rtxlogo.png" alt="Sponsor 1" class="h-32 object-contain">
+    </a>
+  </div>
+
+</main>
+
+<!-- Footer -->
+<footer class="bg-[var(--navy)] border-t py-6">
+  <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
+    <div>
+      <div class="text-white font-semibold">Socratic Schematics — Team 8885</div>
+      <div class="text-sm text-white">Karl G. Maeser Preparatory Academy</div>
+    </div>
+    <div class="flex gap-4 items-center">
+      <a href="sponsors.html" class="text-sm text-white hover:underline">Sponsor</a>
+      <a href="gallery.html" class="text-sm text-white hover:underline">Gallery</a>
+      <a href="donate.html" class="text-sm text-white hover:underline">Donate</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script>
+  const toggleBtn = document.getElementById('mobile-nav-toggle');
+  const mobileNav = document.getElementById('mobile-nav');
+  toggleBtn.addEventListener('click', ()=> { mobileNav.classList.toggle('hidden'); });
+
+  // Smooth fade carousel
+  const images = document.querySelectorAll('.carousel-img');
+  let current = 0;
+  function nextImage() {
+    images[current].classList.add('opacity-0');
+    current = (current + 1) % images.length;
+    images[current].classList.remove('opacity-0');
+  }
+  setInterval(nextImage, 5000); // change image every 5 seconds
+</script>
+
+</body>
+</html>
