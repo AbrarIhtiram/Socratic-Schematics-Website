@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Socratic Schematics — Gallery</title>
+<link rel="icon" href="assets/socraticschematicslogo.jpg" type="image/jpeg">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root {
+    --navy: #0b2545;
+    --navy-dark: #081e38;
+    --navy-mid: #102f55;
+    --navy-light: #163b66;
+    --slate-card: #1e293b;
+    --gold: #d4af37;
+    --cyan-glint: rgba(0,255,255,0.15);
+    --modal-bg: rgba(0,0,0,0.85);
+  }
+</style>
+</head>
+<body class="bg-[var(--navy-dark)] text-white font-sans flex flex-col min-h-screen">
+
+<!-- Header -->
+<header class="bg-[var(--navy)] text-white sticky top-0 z-40">
+  <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-12 h-12 rounded-full overflow-hidden flex items-center justify-center">
+        <img src="assets/socraticschematicslogo.jpg" alt="Socratic Schematics Logo" class="w-full h-full object-cover">
+      </div>
+      <div>
+        <div class="font-bold text-lg">Socratic Schematics</div>
+        <div class="text-sm opacity-90">Karl G. Maeser Preparatory Academy — Team 8885</div>
+      </div>
+    </div>
+    <nav class="hidden md:flex gap-6 items-center">
+      <a href="index.html" class="hover:underline">Home</a>
+      <a href="robots.html" class="hover:underline">Robots</a>
+      <a href="team.html" class="hover:underline">Team</a>
+      <a href="sponsors.html" class="hover:underline">Sponsors</a>
+      <a href="donate.html" class="hover:underline">Donate</a>
+      <a href="snacks.html" class="hover:underline">Snack Prices</a>
+      <a href="contact.html" class="hover:underline">Contact</a>
+      <a href="gallery.html" class="btn-sm bg-white text-[var(--navy)] font-semibold rounded px-3 py-1">Gallery</a>
+    </nav>
+    <button class="md:hidden" id="mobile-nav-toggle" aria-label="Toggle navigation">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+  </div>
+  <div class="md:hidden bg-[var(--navy-dark)] text-[var(--text-light)] px-4 py-3 hidden" id="mobile-nav">
+    <a href="index.html" class="block py-1">Home</a>
+    <a href="robots.html" class="block py-1">Robots</a>
+    <a href="team.html" class="block py-1">Team</a>
+    <a href="sponsors.html" class="block py-1">Sponsors</a>
+    <a href="donate.html" class="block py-1">Donate</a>
+    <a href="snacks.html" class="block py-1">Snack Prices</a>
+    <a href="contact.html" class="block py-1">Contact</a>
+  </div>
+</header>
+
+<!-- Main Content -->
+<main class="max-w-6xl mx-auto px-4 py-10 flex-grow">
+  <h1 class="text-3xl font-bold mb-6 text-center">Gallery</h1>
+  <p class="mb-8 text-center">Click on a thumbnail to view the full-size image in our Google Photos album.</p>
+
+  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+    <!-- Example thumbnails -->
+    <a href="https://photos.google.com/share/AF1QipP8c8yCEq65jSrbu0e6mnCfrwQwZBMwiP6L2o-vWTUqvCeXK0MzWyByu1dgEUzTwg?key=cENCYkJfVDdTYmFwdzZoQWUzVXZsRHF1MW13ZFBR" target="_blank">
+      <img src="assets/IMG_20211022_163144358.jpg" alt="Gallery Image 1" class="w-full h-40 object-cover rounded shadow hover:scale-105 transition-transform">
+    </a>
+    <a href="https://photos.google.com/share/AF1QipP8c8yCEq65jSrbu0e6mnCfrwQwZBMwiP6L2o-vWTUqvCeXK0MzWyByu1dgEUzTwg?key=cENCYkJfVDdTYmFwdzZoQWUzVXZsRHF1MW13ZFBR" target="_blank">
+      <img src="assets/IMG_20220325_173741540.jpg" alt="Gallery Image 2" class="w-full h-40 object-cover rounded shadow hover:scale-105 transition-transform">
+    </a>
+    <a href="https://photos.google.com/share/AF1QipP8c8yCEq65jSrbu0e6mnCfrwQwZBMwiP6L2o-vWTUqvCeXK0MzWyByu1dgEUzTwg?key=cENCYkJfVDdTYmFwdzZoQWUzVXZsRHF1MW13ZFBR" target="_blank">
+      <img src="assets/IMG_20220408_080532356.jpg" alt="Gallery Image 3" class="w-full h-40 object-cover rounded shadow hover:scale-105 transition-transform">
+    </a>
+    <a href="https://photos.google.com/share/AF1QipP8c8yCEq65jSrbu0e6mnCfrwQwZBMwiP6L2o-vWTUqvCeXK0MzWyByu1dgEUzTwg?key=cENCYkJfVDdTYmFwdzZoQWUzVXZsRHF1MW13ZFBR" target="_blank">
+      <img src="assets/IMG_20220409_131110090_HDR.jpg" alt="Gallery Image 4" class="w-full h-40 object-cover rounded shadow hover:scale-105 transition-transform">
+    </a>
+    <a href="https://photos.google.com/share/AF1QipP8c8yCEq65jSrbu0e6mnCfrwQwZBMwiP6L2o-vWTUqvCeXK0MzWyByu1dgEUzTwg?key=cENCYkJfVDdTYmFwdzZoQWUzVXZsRHF1MW13ZFBR" target="_blank">
+      <img src="assets/IMG_20220421_161141009.jpg" alt="Gallery Image 5" class="w-full h-40 object-cover rounded shadow hover:scale-105 transition-transform">
+    </a>
+    <a href="https://photos.google.com/share/AF1QipP8c8yCEq65jSrbu0e6mnCfrwQwZBMwiP6L2o-vWTUqvCeXK0MzWyByu1dgEUzTwg?key=cENCYkJfVDdTYmFwdzZoQWUzVXZsRHF1MW13ZFBR" target="_blank">
+      <img src="assets/IMG_20240229_160042603.jpg" alt="Gallery Image 6" class="w-full h-40 object-cover rounded shadow hover:scale-105 transition-transform">
+    </a>
+    <a href="https://photos.google.com/share/AF1QipP8c8yCEq65jSrbu0e6mnCfrwQwZBMwiP6L2o-vWTUqvCeXK0MzWyByu1dgEUzTwg?key=cENCYkJfVDdTYmFwdzZoQWUzVXZsRHF1MW13ZFBR" target="_blank">
+      <img src="assets/PXL_20241030_223105391.jpg" alt="Gallery Image 7" class="w-full h-40 object-cover rounded shadow hover:scale-105 transition-transform">
+    </a>
+    <a href="https://photos.google.com/share/AF1QipP8c8yCEq65jSrbu0e6mnCfrwQwZBMwiP6L2o-vWTUqvCeXK0MzWyByu1dgEUzTwg?key=cENCYkJfVDdTYmFwdzZoQWUzVXZsRHF1MW13ZFBR" target="_blank">
+      <img src="assets/PXL_20241204_233334527.jpg" alt="Gallery Image 8" class="w-full h-40 object-cover rounded shadow hover:scale-105 transition-transform">
+    </a>
+    <a href="https://photos.google.com/share/AF1QipP8c8yCEq65jSrbu0e6mnCfrwQwZBMwiP6L2o-vWTUqvCeXK0MzWyByu1dgEUzTwg?key=cENCYkJfVDdTYmFwdzZoQWUzVXZsRHF1MW13ZFBR" target="_blank">
+      <img src="assets/PXL_20251110_231528966.jpg" alt="Gallery Image 9" class="w-full h-40 object-cover rounded shadow hover:scale-105 transition-transform">
+    </a>
+    <a href="https://photos.google.com/share/AF1QipP8c8yCEq65jSrbu0e6mnCfrwQwZBMwiP6L2o-vWTUqvCeXK0MzWyByu1dgEUzTwg?key=cENCYkJfVDdTYmFwdzZoQWUzVXZsRHF1MW13ZFBR" target="_blank">
+      <img src="assets/PXL_20251115_203635552.jpg" alt="Gallery Image 10" class="w-full h-40 object-cover rounded shadow hover:scale-105 transition-transform">
+    </a>
+    <a href="https://photos.google.com/share/AF1QipP8c8yCEq65jSrbu0e6mnCfrwQwZBMwiP6L2o-vWTUqvCeXK0MzWyByu1dgEUzTwg?key=cENCYkJfVDdTYmFwdzZoQWUzVXZsRHF1MW13ZFBR" target="_blank">
+      <img src="assets/PXL_20250728_150926739.jpg" alt="Gallery Image 11" class="w-full h-40 object-cover rounded shadow hover:scale-105 transition-transform">
+    </a>
+    <a href="https://photos.google.com/share/AF1QipP8c8yCEq65jSrbu0e6mnCfrwQwZBMwiP6L2o-vWTUqvCeXK0MzWyByu1dgEUzTwg?key=cENCYkJfVDdTYmFwdzZoQWUzVXZsRHF1MW13ZFBR" target="_blank">
+      <img src="assets/PXL_20251107_220346425.jpg" alt="Gallery Image 12" class="w-full h-40 object-cover rounded shadow hover:scale-105 transition-transform">
+    </a>
+  </div>
+</main>
+
+<!-- Footer -->
+<footer class="bg-[var(--navy)] py-6 mt-20">
+  <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4 text-gray-300">
+    
+    <!-- Left text -->
+    <div>
+      <div class="font-semibold text-white">Socratic Schematics — Team 8885</div>
+      <div class="text-sm opacity-80">Karl G. Maeser Preparatory Academy</div>
+    </div>
+
+    <!-- Icon links -->
+    <div class="flex gap-6">
+      
+      <!-- Instagram -->
+      <a
+        href="https://instagram.com/socraticschematics"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="transform transition duration-300 hover:scale-125"
+        aria-label="Instagram"
+      >
+        <svg class="w-6 h-6 text-gray-300 hover:text-white" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5a4.25 4.25 0 0 0 4.25-4.25v-8.5A4.25 4.25 0 0 0 16.25 3.5h-8.5z"/>
+          <path d="M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 1.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z"/>
+          <circle cx="17.5" cy="6.5" r="1"/>
+        </svg>
+      </a>
+
+      <!-- Email -->
+      <a
+        href="https://mail.google.com/mail/?view=cm&fs=1&to=socraticschematics@gmail.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="transform transition duration-300 hover:scale-125"
+        aria-label="Email"
+      >
+        <svg class="w-6 h-6 text-gray-300 hover:text-white" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm0 3.2v10.8h16V7.2l-8 5-8-5zm8 3.3 8-5H4l8 5z"/>
+        </svg>
+      </a>
+
+      <!-- Phone -->
+      <a
+        href="tel:+13854521613"
+        class="transform transition duration-300 hover:scale-125"
+        aria-label="Phone"
+      >
+        <svg class="w-6 h-6 text-gray-300 hover:text-white" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25c1.1.37 2.3.57 3.6.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.3 21 3 13.7 3 4a1 1 0 0 1 1-1h3.4a1 1 0 0 1 1 1c0 1.3.2 2.5.57 3.6a1 1 0 0 1-.25 1L6.6 10.8z"/>
+        </svg>
+      </a>
+
+    </div>
+  </div>
+</footer>
+
+<script>
+  const toggleBtn = document.getElementById('mobile-nav-toggle');
+  const mobileNav = document.getElementById('mobile-nav');
+  toggleBtn.addEventListener('click', ()=> { mobileNav.classList.toggle('hidden'); });
+</script>
+
+</body>
+</html>
