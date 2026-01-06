@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Socratic Schematics — Sponsors</title>
+<link rel="icon" href="assets/socraticschematicslogo.jpg" type="image/jpeg">
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+  :root {
+    --navy: #0b2545;
+    --navy-dark: #081e38;
+    --navy-mid: #102f55;
+    --navy-light: #163b66;
+    --slate-card: #1e293b;
+    --gold: #d4af37;
+  }
+
+  @keyframes stripe-slide {
+    0% { background-position: 0 0; }
+    100% { background-position: 125% 0; }
+  }
+
+  .animated-stripe {
+    background-image: linear-gradient(
+      45deg,
+      rgba(255,255,255,0.15) 25%,
+      transparent 25%,
+      transparent 50%,
+      rgba(255,255,255,0.15) 50%,
+      rgba(255,255,255,0.15) 75%,
+      transparent 75%,
+      transparent
+    );
+    background-size: 40px 40px;
+    animation: stripe-slide 6s linear infinite;
+  }
+
+  /* Sponsor card hover */
+  .sponsor-card {
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+  }
+
+  .sponsor-card::after {
+    content: "";
+    position: absolute;
+    top: -120%;
+    left: -60%;
+    width: 50%;
+    height: 300%;
+    background: linear-gradient(
+      120deg,
+      transparent,
+      rgba(255,255,255,0.18),
+      transparent
+    );
+    transform: rotate(25deg);
+    opacity: 0;
+    transition: opacity 0.3s ease, left 0.6s ease;
+    pointer-events: none;
+  }
+
+  .sponsor-rtx {
+    border: 2px solid var(--gold);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.04);
+    animation: floatGlow 6s ease-in-out infinite;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+    
+  }
+
+  .sponsor-rtx:hover {
+    transform: scale(1.15);
+    box-shadow: 0 0 45px rgba(212, 175, 55, 0.8);
+    animation-play-state: paused;
+  }
+
+  /* Banner hover */
+  .banner-hover {
+    cursor: zoom-in;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+  }
+
+  .banner-hover:hover {
+    transform: scale(1.04);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.45);
+  }
+
+  /* Modal */
+  .modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+    padding: 1rem;
+  }
+
+  .modal img {
+    max-width: 95%;
+    max-height: 95%;
+    border-radius: 0.75rem;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+    animation: zoomIn 0.25s ease;
+  }
+
+  @keyframes zoomIn {
+    from { transform: scale(0.92); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+</style>
+</head>
+
+<body class="bg-[#070f1c] text-gray-200 font-sans">
+
+<!-- Header -->
+<header class="bg-[var(--navy)] text-white sticky top-0 z-40">
+  <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-12 h-12 rounded-full overflow-hidden">
+        <img src="assets/socraticschematicslogo.jpg" class="w-full h-full object-cover" alt="Logo">
+      </div>
+      <div>
+        <div class="font-bold text-lg">Socratic Schematics</div>
+        <div class="text-sm opacity-90">Karl G. Maeser Preparatory Academy — Team 8885</div>
+      </div>
+    </div>
+
+    <nav class="hidden md:flex gap-6 items-center">
+      <a href="index.html" class="hover:underline">Home</a>
+      <a href="robots.html" class="hover:underline">Robots</a>
+      <a href="team.html" class="hover:underline">Team</a>
+      <a href="sponsors.html" class="hover:underline">Sponsors</a>
+      <a href="donate.html" class="hover:underline">Donate</a>
+      <a href="snacks.html" class="hover:underline">Snack Prices</a>
+      <a href="contact.html" class="hover:underline">Contact</a>
+      <a href="gallery.html" class="bg-white text-[var(--navy)] font-semibold rounded px-3 py-1">Gallery</a>
+    </nav>
+
+    <button class="md:hidden" id="mobile-nav-toggle">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+  </div>
+  <div class="md:hidden bg-[var(--navy-dark)] text-[var(--text-light)] px-4 py-3 hidden" id="mobile-nav">
+    <a href="index.html" class="block py-1">Home</a>
+    <a href="robots.html" class="block py-1">Robots</a>
+    <a href="team.html" class="block py-1">Team</a>
+    <a href="sponsors.html" class="block py-1">Sponsors</a>
+    <a href="donate.html" class="block py-1">Donate</a>
+    <a href="snacks.html" class="block py-1">Snack Prices</a>
+    <a href="contact.html" class="block py-1">Contact</a>
+  </div>
+</header>
+
+<main class="max-w-6xl mx-auto px-4 py-14">
+
+  <h1 class="text-4xl font-bold mb-6 text-center text-white">Our Sponsors</h1>
+  <p class="mb-10 text-center text-gray-300">
+    We are grateful for the generous support from our sponsors who help Team 8885 succeed.
+  </p>
+
+  <!-- Sponsorship Tiers -->
+  <h2 class="text-2xl font-semibold mb-4 text-center">Sponsorship Tiers</h2>
+  <div class="w-20 h-1 bg-[var(--gold)] mx-auto mb-10 rounded"></div>
+
+  <div class="grid md:grid-cols-3 gap-6 mb-10">
+
+    <!-- Bronze -->
+    <div class="bg-[var(--slate-card)] p-6 rounded-xl shadow-lg text-center relative border border-white/5 sponsor-card flex flex-col">
+      <div class="absolute top-0 left-0 w-full h-2 bg-[#d18a44] animated-stripe"></div>
+      <h3 class="font-semibold text-xl mb-2 mt-4 text-white">Bronze Sponsor</h3>
+      <p class="text-sm mb-2 text-gray-300">Small name and logo on the team website</p>
+      <p class="text-sm mb-2 text-gray-300">Logo on the t-shirts</p>
+      <p class="text-lg font-bold text-[var(--gold)] mt-auto">Under $499</p>
+    </div>
+
+    <!-- Silver -->
+    <div class="bg-[var(--slate-card)] p-6 rounded-xl shadow-lg text-center relative border border-white/5 sponsor-card flex flex-col">
+      <div class="absolute top-0 left-0 w-full h-2 bg-[#ababab] animated-stripe"></div>
+      <h3 class="font-semibold text-xl mb-2 mt-4 text-white">Silver Sponsor</h3>
+      <p class="text-sm mb-2 text-gray-300">Medium name and logo on the team banner </p>
+      <p class="text-sm mb-2 text-gray-300">Medium name and logo on the team website</p>
+      <p class="text-sm mb-2 text-gray-300">Logo on the t-shirts</p>
+      <p class="text-lg font-bold text-[var(--gold)] mt-auto">$500-1999</p>
+    </div>
+
+    <!-- Gold -->
+    <div class="bg-[var(--slate-card)] p-6 rounded-xl shadow-lg text-center relative border border-white/5 sponsor-card flex flex-col">
+      <div class="absolute top-0 left-0 w-full h-2 bg-[#d4ae00] animated-stripe"></div>
+      <h3 class="font-semibold text-xl mb-2 mt-4 text-white">Gold Sponsor</h3>
+      <p class="text-sm mb-2 text-gray-300">Large name and logo on the team banner</p>
+      <p class="text-sm mb-2 text-gray-300">Large name and logo on the team website</p>
+      <p class="text-sm mb-2 text-gray-300">Logo on the t-shirts</p>
+      <p class="text-sm mb-2 text-gray-300">Name and logo on the season robot</p>
+      <p class="text-sm mb-2 text-gray-300">Optional robot demonstration in company</p>
+      <p class="text-lg font-bold text-[var(--gold)] mt-auto">$2000+</p>
+    </div>
+
+  </div>
+
+  <!-- Sponsors mini-strip -->
+  <div class="bg-[#070f1c] py-10 flex flex-col items-center">
+    <h2 class="text-2xl font-semibold mb-4">Our Sponsors</h2>
+    <div class="w-40 h-2 bg-yellow-500 mb-8"></div>
+
+    <a href="https://www.rtx.com/" target="_blank" class="sponsor-rtx">
+      <img src="assets/rtxlogo.png" alt="RTX Sponsor" class="h-36 object-contain">
+    </a>
+  </div>
+
+</main>
+
+  <!-- Banner Sale -->
+  <section class="max-w-4xl mx-auto px-4 py-12 bg-[var(--navy-dark)] rounded-xl shadow-lg mt-20 border border-white/5">
+    <h2 class="text-2xl font-bold mb-6 text-center text-white">Maeser Prep Banner Sale</h2>
+
+    <div class="flex justify-center mb-6">
+      <img
+        src="assets/roboticsbannersaleposter.png"
+        class="w-full max-w-xl rounded shadow banner-hover"
+        alt="Banner Sale"
+        id="bannerImage"
+      >
+    </div>
+
+    <details class="bg-[var(--navy-mid)] rounded p-4">
+      <summary class="cursor-pointer font-semibold text-center text-[var(--gold)] mb-4">
+        Learn More
+      </summary>
+
+      <div class="mt-4 space-y-4 text-center text-gray-300">
+        <p>Want to get your business in front of a lot of eyeballs? Buy a banner from Maeser Prep Robotics.</p>
+        <p>Banners will be hung along fences visible from 1600 North Orem traffic.</p>
+        <p>A 3’ x 6’ banner is <span class="font-bold text-white">$500</span> for one year.</p>
+        <p>
+          Contact
+          <a href="mailto:jared.norris@maeserprep.org" class="text-blue-400 hover:underline">
+            Mr. Norris
+          </a>
+          to get started.
+        </p>
+        <div class="flex justify-center">
+          <a href="https://karlgmaeserpreparatoryacademy-bloom.kindful.com/?campaign=1365341"
+             target="_blank"
+             class="bg-[var(--gold)] text-black px-6 py-3 rounded-lg font-semibold hover:brightness-110 transition">
+            Buy Your Banner
+          </a>
+        </div>
+        <p class="font-semibold text-white">Thank you for supporting Maeser Robotics.</p>
+      </div>
+    </details>
+  </section>
+
+</main>
+
+<!-- Modal -->
+<div class="modal" id="imageModal">
+  <img src="assets/roboticsbannersaleposter.png" alt="Zoomed Banner">
+</div>
+
+<!-- Footer -->
+<footer class="bg-[var(--navy)] py-6 mt-20">
+  <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4 text-gray-300">
+    
+    <!-- Left text -->
+    <div>
+      <div class="font-semibold text-white">Socratic Schematics — Team 8885</div>
+      <div class="text-sm opacity-80">Karl G. Maeser Preparatory Academy</div>
+    </div>
+
+    <!-- Icon links -->
+    <div class="flex gap-6">
+      
+      <!-- Instagram -->
+      <a
+        href="https://instagram.com/socraticschematics"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="transform transition duration-300 hover:scale-125"
+        aria-label="Instagram"
+      >
+        <svg class="w-6 h-6 text-gray-300 hover:text-white" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5a4.25 4.25 0 0 0 4.25-4.25v-8.5A4.25 4.25 0 0 0 16.25 3.5h-8.5z"/>
+          <path d="M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 1.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z"/>
+          <circle cx="17.5" cy="6.5" r="1"/>
+        </svg>
+      </a>
+
+      <!-- Email -->
+      <a
+        href="https://mail.google.com/mail/?view=cm&fs=1&to=socraticschematics@gmail.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="transform transition duration-300 hover:scale-125"
+        aria-label="Email"
+      >
+        <svg class="w-6 h-6 text-gray-300 hover:text-white" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm0 3.2v10.8h16V7.2l-8 5-8-5zm8 3.3 8-5H4l8 5z"/>
+        </svg>
+      </a>
+
+      <!-- Phone -->
+      <a
+        href="tel:+18012359000x1223"
+        class="transform transition duration-300 hover:scale-125"
+        aria-label="Phone"
+      >
+        <svg class="w-6 h-6 text-gray-300 hover:text-white" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25c1.1.37 2.3.57 3.6.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.3 21 3 13.7 3 4a1 1 0 0 1 1-1h3.4a1 1 0 0 1 1 1c0 1.3.2 2.5.57 3.6a1 1 0 0 1-.25 1L6.6 10.8z"/>
+        </svg>
+      </a>
+
+    </div>
+  </div>
+</footer>
+
+<script>
+  const toggleBtn = document.getElementById('mobile-nav-toggle');
+  const mobileNav = document.getElementById('mobile-nav');
+  toggleBtn.addEventListener('click', () => {
+    mobileNav.classList.toggle('hidden');
+  });
+
+  const bannerImage = document.getElementById('bannerImage');
+  const imageModal = document.getElementById('imageModal');
+
+  bannerImage.addEventListener('click', () => {
+    imageModal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  });
+
+  imageModal.addEventListener('click', () => {
+    imageModal.style.display = 'none';
+    document.body.style.overflow = '';
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      imageModal.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+  });
+</script>
+
+</body>
+</html>
