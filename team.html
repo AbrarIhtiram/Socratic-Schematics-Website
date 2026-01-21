@@ -19,10 +19,66 @@
     --modal-bg: rgba(0,0,0,0.85);
   }
 
-  #modal-bio p {
-  margin-bottom: 1rem;
+  #modal-bio p { margin-bottom: 1rem; }
+
+  /* Modal animation */
+  .modal-panel {
+    transform: translateY(30px) scale(0.98);
+    opacity: 0;
+    transition: all 0.35s cubic-bezier(.22,1,.36,1);
   }
 
+  .modal-open .modal-panel {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+
+  /* Mentor styling */
+  .mentor-modal {
+    border: 1px solid rgba(212,175,55,0.35);
+    background: linear-gradient(180deg, #0b2545, #081e38);
+  }
+
+  @media (max-width: 768px) {
+    #modal-name { font-size: 1.5rem; }
+    #modal-role { font-size: 1rem; }
+    #modal-bio { font-size: 0.9rem; line-height: 1.6; }
+  }
+
+  .team-card {
+    background: var(--slate-card);
+    padding: 1.25rem;
+    border-radius: 0.75rem;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.06);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+    transition:
+      transform 0.35s cubic-bezier(.22,1,.36,1),
+      box-shadow 0.35s cubic-bezier(.22,1,.36,1);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .team-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 35px rgba(0,0,0,0.55);
+  }
+
+  .team-card img {
+    width: 8rem;
+    height: 10rem;
+    margin: 0 auto 0.75rem;
+    border-radius: 0.5rem;
+    object-fit: cover;
+  }
+
+  .mentor-tag {
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
 </style>
 </head>
 
@@ -203,13 +259,14 @@
 
       <div class="team-card mentor-card cursor-pointer"
      onclick="openModal('Isaac Felt', 'Mentor', 'assets/isaacfeltcard.jpg',`
-       <p>Hi! I'm Isaac Felt. I'm a former team member, turned mentor. I was the Team captain for the 2025 FRC season, and now I help out wherever I can as a mentor. I am versed in FRC electrical, fabrication, basic CADing, basic programming, and whatever I don't know, I'm willing to learn.</p>
+      <p>Hi! I'm Isaac Felt. I'm a former team member turned mentor. I was the Team captain for the 2025 FRC season, and now I help out wherever I can. I am versed in FRC electrical, fabrication, basic CADing, basic programming, and whatever I don't know, I'm willing to learn.</p>
 
-       <p>I joined the team in 9th grade, and consider that to be one of the best choices I ever made. My first year on the team was the year the team was created, so I've had the honor to watch the team grow and change these past 5 years. When I joined the team, I had very little experience, but over my 4 years as a team member, I learned so much. Now, as a mentor, I'm still learning, but I also have a unique opportunity to teach others what I've learned.</p>
+      <p>I joined the team in 9th grade, and consider that one of the best choices I ever made. My first year on the team was the year it was created, so I've had the honor to watch it grow and change these past 5 years. Over my 4 years as a team member, I learned so much. Now, as a mentor, I still learn while teaching others what I've learned.</p>
 
-       <p>Outside of robotics, I love tinkering with computers, and practicing my Chinese (often with Millie). I'm also going to be serving an LDS Mission in Taiwan later this year, and am super excited for that. Unfortunately, that means I won't be able to mentor the team for a couple years, but when I return home, you bet I'll be getting involved in robotics again.</p>
+      <p>Outside of robotics, I love tinkering with computers and practicing my Chinese (often with Millie). I'm also going to be serving an LDS Mission in Taiwan later this year, and am super excited for that. Unfortunately, I won't be able to mentor the team for a couple years, but when I return, I’ll be getting involved again.</p>
 
-       <p>I wish everyone could have as amazing of an experience with something in their life, as I've had with robotics. If it weren't for this team, I likely wouldn't have discovered my love for engineering and STEM. I love robotics.</p>
+      <p>I wish everyone could have as amazing an experience with something in their life as I've had with robotics. If it weren't for this team, I likely wouldn't have discovered my love for engineering and STEM. I love robotics.</p>
+
        `
      )">
   <img src="assets/isaacfelt.jpg">
@@ -276,18 +333,78 @@
   </div>
 </footer>
 
-<!-- Modal -->
-<div id="teamModal" class="fixed inset-0 hidden items-center justify-center z-50 bg-[var(--modal-bg)]">
-  <div class="bg-[var(--navy-dark)] rounded-xl max-w-4xl w-full mx-4 md:mx-0 p-6 flex flex-col md:flex-row gap-6 relative">
-    <button onclick="closeModal()" class="absolute top-4 right-4 text-white text-2xl font-bold">&times;</button>
-    <img id="modal-img" src="" class="w-full md:w-1/2 h-auto rounded-lg object-cover">
-    <div class="text-white md:w-1/2">
+<!-- ================= MODAL ================= -->
+<div id="teamModal"
+     class="fixed inset-0 hidden items-center justify-center z-50 bg-[var(--modal-bg)]">
+
+  <div id="modalPanel"
+       class="modal-panel bg-[var(--navy-dark)] rounded-xl max-w-4xl w-full
+              mx-3 md:mx-0 p-4 md:p-6 flex flex-col md:flex-row
+              gap-4 md:gap-6 relative max-h-[90vh] overflow-hidden">
+
+    <button onclick="closeModal()"
+      class="absolute top-3 right-3 md:top-4 md:right-4
+             text-white text-2xl font-bold bg-black/40
+             rounded-full w-9 h-9 flex items-center justify-center">
+      &times;
+    </button>
+
+    <img id="modal-img"
+         class="w-full md:w-1/2 h-48 md:h-auto rounded-lg object-cover flex-shrink-0">
+
+    <div class="text-white md:w-1/2 overflow-y-auto pr-1">
       <h2 id="modal-name" class="text-3xl font-bold mb-2"></h2>
       <h3 id="modal-role" class="text-xl font-semibold mb-4 opacity-80"></h3>
-      <p id="modal-bio" class="text-white/80 leading-relaxed"></p>
+      <div id="modal-bio" class="text-white/80 leading-relaxed"></div>
     </div>
   </div>
 </div>
+
+<!-- ================= MODAL JS (FIXED) ================= -->
+<script>
+  let startY = null;
+
+  function openModal(name, role, img, bio) {
+    const modal = document.getElementById('teamModal');
+    const panel = document.getElementById('modalPanel');
+
+    document.getElementById('modal-name').innerText = name;
+    document.getElementById('modal-role').innerText = role;
+    document.getElementById('modal-img').src = img;
+    document.getElementById('modal-bio').innerHTML = bio;
+
+    panel.classList.toggle('mentor-modal', role.toLowerCase().includes('mentor'));
+
+    modal.classList.remove('hidden');
+    modal.classList.add('flex', 'modal-open');
+  }
+
+  function closeModal() {
+    const modal = document.getElementById('teamModal');
+    modal.classList.remove('modal-open');
+    setTimeout(() => {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }, 200);
+  }
+
+  document.getElementById('teamModal').addEventListener('click', e => {
+    if (e.target.id === 'teamModal') closeModal();
+  });
+
+  const panel = document.getElementById('modalPanel');
+
+  panel.addEventListener('touchstart', e => {
+    startY = e.touches[0].clientY;
+  });
+
+  panel.addEventListener('touchmove', e => {
+    if (!startY) return;
+    if (e.touches[0].clientY - startY > 90) closeModal();
+  });
+
+  panel.addEventListener('touchend', () => startY = null);
+</script>
 
 <!-- Card Styling + Motion -->
 <style>
@@ -354,28 +471,6 @@
     margin-top: 0.25rem;
   }
 </style>
-
-<!-- Modal JS -->
-<script>
-  function openModal(name, role, img, bio) {
-    document.getElementById('modal-name').innerText = name;
-    document.getElementById('modal-role').innerText = role;
-    document.getElementById('modal-img').src = img;
-    document.getElementById('modal-bio').innerHTML = bio;
-    document.getElementById('teamModal').classList.remove('hidden');
-    document.getElementById('teamModal').classList.add('flex');
-  }
-
-  function closeModal() {
-    document.getElementById('teamModal').classList.add('hidden');
-    document.getElementById('teamModal').classList.remove('flex');
-  }
-
-  // close modal if click outside content
-  document.getElementById('teamModal').addEventListener('click', function(e) {
-    if (e.target.id === 'teamModal') closeModal();
-  });
-</script>
 
 </body>
 </html>
