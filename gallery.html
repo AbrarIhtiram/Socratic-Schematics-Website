@@ -6,6 +6,7 @@
 <title>Socratic Schematics — Gallery</title>
 <link rel="icon" href="assets/socraticschematicslogo.jpg" type="image/jpeg">
 <script src="https://cdn.tailwindcss.com"></script>
+
 <style>
   :root {
     --navy: #0b2545;
@@ -14,42 +15,58 @@
     --navy-light: #163b66;
     --slate-card: #1e293b;
     --gold: #d4af37;
-    --cyan-glint: rgba(0,255,255,0.15);
     --modal-bg: rgba(0,0,0,0.85);
+  }
+
+  .zoom-in {
+    animation: zoomIn 0.25s ease-out;
+  }
+
+  @keyframes zoomIn {
+    from {
+      transform: scale(0.92);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
   }
 </style>
 </head>
+
 <body class="bg-[var(--navy-dark)] text-white font-sans flex flex-col min-h-screen">
 
 <!-- Header -->
-<header class="bg-[var(--navy)] text-white sticky top-0 z-40">
-  <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+<header class="bg-[var(--navy)] sticky top-0 z-40">
+  <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
     <div class="flex items-center gap-3">
-      <div class="w-12 h-12 rounded-full overflow-hidden flex items-center justify-center">
-        <img src="assets/socraticschematicslogo.jpg" alt="Socratic Schematics Logo" class="w-full h-full object-cover">
+      <div class="w-12 h-12 rounded-full overflow-hidden">
+        <img src="assets/socraticschematicslogo.jpg" class="w-full h-full object-cover">
       </div>
       <div>
         <div class="font-bold text-lg">Socratic Schematics</div>
         <div class="text-sm opacity-90">Karl G. Maeser Preparatory Academy — Team 8885</div>
       </div>
     </div>
-    <nav class="hidden md:flex gap-6 items-center">
-      <a href="index.html" class="hover:underline">Home</a>
-      <a href="robots.html" class="hover:underline">Robots</a>
-      <a href="team.html" class="hover:underline">Team</a>
-      <a href="sponsors.html" class="hover:underline">Sponsors</a>
-      <a href="donate.html" class="hover:underline">Donate</a>
-      <a href="snacks.html" class="hover:underline">Snack Prices</a>
-      <a href="contact.html" class="hover:underline">Contact</a>
-      <a href="gallery.html" class="btn-sm bg-white text-[var(--navy)] font-semibold rounded px-3 py-1">Gallery</a>
+    <nav class="hidden md:flex gap-6">
+      <a href="index.html">Home</a>
+      <a href="robots.html">Robots</a>
+      <a href="team.html">Team</a>
+      <a href="sponsors.html">Sponsors</a>
+      <a href="donate.html">Donate</a>
+      <a href="snacks.html">Snack Prices</a>
+      <a href="contact.html">Contact</a>
+      <a href="gallery.html" class="bg-white text-[var(--navy)] px-3 py-1 rounded font-semibold">Gallery</a>
     </nav>
-    <button class="md:hidden" id="mobile-nav-toggle" aria-label="Toggle navigation">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+    <button id="mobile-nav-toggle" class="md:hidden">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
       </svg>
     </button>
   </div>
-  <div class="md:hidden bg-[var(--navy-dark)] text-[var(--text-light)] px-4 py-3 hidden" id="mobile-nav">
+
+  <div id="mobile-nav" class="hidden bg-[var(--navy-dark)] px-4 py-3 md:hidden">
     <a href="index.html" class="block py-1">Home</a>
     <a href="robots.html" class="block py-1">Robots</a>
     <a href="team.html" class="block py-1">Team</a>
@@ -60,51 +77,48 @@
   </div>
 </header>
 
-<!-- Main Content -->
+<!-- Main -->
 <main class="max-w-6xl mx-auto px-4 py-10 flex-grow">
-  <h1 class="text-3xl font-bold mb-6 text-center">Gallery</h1>
-  <p class="mb-8 text-center">Click on a thumbnail to view the full-size image in our Google Photos album.</p>
+  <h1 class="text-3xl font-bold text-center mb-6">Gallery</h1>
+  <p class="text-center mb-8">Tap any image to view it full-screen.</p>
 
   <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-    <!-- Example thumbnails -->
-    <a>
-      <img src="assets/IMG_20211022_163144358.jpg" alt="Gallery Image 1" class="w-full h-40 object-cover rounded shadow hover:scale-105 transition-transform">
-    </a>
-    <a>
-      <img src="assets/IMG_20220325_173741540.jpg" alt="Gallery Image 2" class="w-full h-40 object-cover rounded shadow hover:scale-105 transition-transform">
-    </a>
-    <a>
-      <img src="assets/IMG_20220408_080532356.jpg" alt="Gallery Image 3" class="w-full h-40 object-cover rounded shadow hover:scale-105 transition-transform">
-    </a>
-    <a>
-      <img src="assets/IMG_20220409_131110090_HDR.jpg" alt="Gallery Image 4" class="w-full h-40 object-cover rounded shadow hover:scale-105 transition-transform">
-    </a>
-    <a>
-      <img src="assets/IMG_20220421_161141009.jpg" alt="Gallery Image 5" class="w-full h-40 object-cover rounded shadow hover:scale-105 transition-transform">
-    </a>
-    <a>
-      <img src="assets/IMG_20240229_160042603.jpg" alt="Gallery Image 6" class="w-full h-40 object-cover rounded shadow hover:scale-105 transition-transform">
-    </a>
-    <a>
-      <img src="assets/PXL_20241030_223105391.jpg" alt="Gallery Image 7" class="w-full h-40 object-cover rounded shadow hover:scale-105 transition-transform">
-    </a>
-    <a>
-      <img src="assets/PXL_20241204_233334527.jpg" alt="Gallery Image 8" class="w-full h-40 object-cover rounded shadow hover:scale-105 transition-transform">
-    </a>
-    <a>
-      <img src="assets/PXL_20251110_231528966.jpg" alt="Gallery Image 9" class="w-full h-40 object-cover rounded shadow hover:scale-105 transition-transform">
-    </a>
-    <a>
-      <img src="assets/PXL_20251115_203635552.jpg" alt="Gallery Image 10" class="w-full h-40 object-cover rounded shadow hover:scale-105 transition-transform">
-    </a>
-    <a>
-      <img src="assets/PXL_20250728_150926739.jpg" alt="Gallery Image 11" class="w-full h-40 object-cover rounded shadow hover:scale-105 transition-transform">
-    </a>
-    <a>
-      <img src="assets/PXL_20251107_220346425.jpg" alt="Gallery Image 12" class="w-full h-40 object-cover rounded shadow hover:scale-105 transition-transform">
-    </a>
+    <a class="gallery-item" data-src="assets/IMG_20211022_163144358.jpg"><img src="assets/IMG_20211022_163144358.jpg" class="thumb"></a>
+    <a class="gallery-item" data-src="assets/IMG_20220325_173741540.jpg"><img src="assets/IMG_20220325_173741540.jpg" class="thumb"></a>
+    <a class="gallery-item" data-src="assets/IMG_20220408_080532356.jpg"><img src="assets/IMG_20220408_080532356.jpg" class="thumb"></a>
+    <a class="gallery-item" data-src="assets/IMG_20220409_131110090_HDR.jpg"><img src="assets/IMG_20220409_131110090_HDR.jpg" class="thumb"></a>
+    <a class="gallery-item" data-src="assets/IMG_20220421_161141009.jpg"><img src="assets/IMG_20220421_161141009.jpg" class="thumb"></a>
+    <a class="gallery-item" data-src="assets/IMG_20240229_160042603.jpg"><img src="assets/IMG_20240229_160042603.jpg" class="thumb"></a>
+    <a class="gallery-item" data-src="assets/PXL_20241030_223105391.jpg"><img src="assets/PXL_20241030_223105391.jpg" class="thumb"></a>
+    <a class="gallery-item" data-src="assets/PXL_20241204_233334527.jpg"><img src="assets/PXL_20241204_233334527.jpg" class="thumb"></a>
+    <a class="gallery-item" data-src="assets/PXL_20251110_231528966.jpg"><img src="assets/PXL_20251110_231528966.jpg" class="thumb"></a>
+    <a class="gallery-item" data-src="assets/PXL_20251115_203635552.jpg"><img src="assets/PXL_20251115_203635552.jpg" class="thumb"></a>
+    <a class="gallery-item" data-src="assets/PXL_20250728_150926739.jpg"><img src="assets/PXL_20250728_150926739.jpg" class="thumb"></a>
+    <a class="gallery-item" data-src="assets/PXL_20251107_220346425.jpg"><img src="assets/PXL_20251107_220346425.jpg" class="thumb"></a>
   </div>
 </main>
+
+<style>
+  .thumb {
+    width: 100%;
+    height: 10rem;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    transition: transform 0.2s;
+    cursor: pointer;
+  }
+  .thumb:hover {
+    transform: scale(1.05);
+  }
+</style>
+
+<!-- Modal -->
+<div id="lightbox" class="fixed inset-0 hidden z-50 bg-[var(--modal-bg)] flex items-center justify-center">
+  <button id="prev" class="absolute left-6 text-4xl text-white select-none">‹</button>
+  <img id="lightbox-img" class="max-w-[95vw] max-h-[90vh] rounded-lg shadow-2xl zoom-in">
+  <button id="next" class="absolute right-6 text-4xl text-white select-none">›</button>
+</div>
 
 <!-- Footer -->
 <footer class="bg-[var(--navy)] py-6 mt-20">
@@ -149,7 +163,7 @@
 
       <!-- Phone -->
       <a
-        href="tel:+18012359000x1223"
+        href="tel:+18012359000,1223"
         class="transform transition duration-300 hover:scale-125"
         aria-label="Phone"
       >
@@ -163,9 +177,60 @@
 </footer>
 
 <script>
-  const toggleBtn = document.getElementById('mobile-nav-toggle');
-  const mobileNav = document.getElementById('mobile-nav');
-  toggleBtn.addEventListener('click', ()=> { mobileNav.classList.toggle('hidden'); });
+  const images = [...document.querySelectorAll('.gallery-item')];
+  const lightbox = document.getElementById('lightbox');
+  const img = document.getElementById('lightbox-img');
+  const prev = document.getElementById('prev');
+  const next = document.getElementById('next');
+  let index = 0;
+  let startX = 0;
+
+  function openBox(i) {
+    index = i;
+    img.src = images[index].dataset.src;
+    img.classList.remove('zoom-in');
+    void img.offsetWidth;
+    img.classList.add('zoom-in');
+    lightbox.classList.remove('hidden');
+  }
+
+  function closeBox() {
+    lightbox.classList.add('hidden');
+  }
+
+  function showNext() {
+    index = (index + 1) % images.length;
+    openBox(index);
+  }
+
+  function showPrev() {
+    index = (index - 1 + images.length) % images.length;
+    openBox(index);
+  }
+
+  images.forEach((el, i) => el.onclick = () => openBox(i));
+  next.onclick = e => { e.stopPropagation(); showNext(); };
+  prev.onclick = e => { e.stopPropagation(); showPrev(); };
+  lightbox.onclick = closeBox;
+
+  document.addEventListener('keydown', e => {
+    if (lightbox.classList.contains('hidden')) return;
+    if (e.key === 'ArrowRight') showNext();
+    if (e.key === 'ArrowLeft') showPrev();
+    if (e.key === 'Escape') closeBox();
+  });
+
+  // Swipe gestures
+  img.addEventListener('touchstart', e => startX = e.touches[0].clientX);
+  img.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - startX;
+    if (dx > 60) showPrev();
+    if (dx < -60) showNext();
+  });
+
+  // Mobile nav
+  document.getElementById('mobile-nav-toggle').onclick = () =>
+    document.getElementById('mobile-nav').classList.toggle('hidden');
 </script>
 
 </body>
