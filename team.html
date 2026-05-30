@@ -5,475 +5,440 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Socratic Schematics — Team</title>
 <link rel="icon" href="assets/socraticschematicslogo.jpg" type="image/jpeg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 
 <style>
   :root {
-    --navy: #0b2545;
-    --navy-dark: #081e38;
-    --navy-mid: #102f55;
+    --navy:       #0b2545;
+    --navy-dark:  #081e38;
+    --navy-mid:   #102f55;
     --navy-light: #163b66;
-    --slate-card: #1e293b;
-    --gold: #d4af37;
-    --cyan-glint: rgba(0,255,255,0.15);
-    --modal-bg: rgba(0,0,0,0.85);
+    --slate-card: #1a2840;
+    --gold:       #d4af37;
+    --gold-dim:   rgba(212,175,55,0.35);
+    --cyan-glint: rgba(0,220,255,0.18);
+    --modal-bg:   rgba(4,10,22,0.92);
   }
 
-  #modal-bio p { margin-bottom: 1rem; }
-/* ── guys look i figured out how to do comments better lmao── */
-  /* ── Bio Modal animation ── */
-  .modal-panel {
-    transform: translateY(30px) scale(0.98);
+  * { box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; }
+  h1,h2,h3,h4 { font-family: 'Outfit', sans-serif; }
+
+  /* ── Scroll reveal ── */
+  .reveal {
     opacity: 0;
-    transition: all 0.35s cubic-bezier(.22,1,.36,1);
+    transform: translateY(28px);
+    transition: opacity 0.65s cubic-bezier(.22,1,.36,1), transform 0.65s cubic-bezier(.22,1,.36,1);
   }
-  .modal-open .modal-panel {
-    transform: translateY(0) scale(1);
-    opacity: 1;
-  }
+  .reveal.visible { opacity: 1; transform: none; }
+  .reveal-delay-1 { transition-delay: 0.08s; }
+  .reveal-delay-2 { transition-delay: 0.16s; }
+  .reveal-delay-3 { transition-delay: 0.24s; }
 
-  /* Mentor bio modal border */
-  .mentor-modal {
-    border: 1px solid rgba(212,175,55,0.35);
-    background: linear-gradient(180deg, #0b2545, #081e38);
+  /* ── Header ── */
+  header { backdrop-filter: blur(12px); background: rgba(11,37,69,0.95); }
+  .nav-link {
+    position: relative;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: rgba(255,255,255,0.85);
+    transition: color 0.2s;
+    padding-bottom: 2px;
   }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; left: 0;
+    width: 0; height: 2px;
+    background: var(--gold);
+    border-radius: 2px;
+    transition: width 0.25s cubic-bezier(.22,1,.36,1);
+  }
+  .nav-link:hover { color: #fff; }
+  .nav-link:hover::after { width: 100%; }
+  .nav-pill {
+    background: var(--gold);
+    color: var(--navy-dark);
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+    border-radius: 6px;
+    padding: 6px 14px;
+    transition: brightness 0.2s, transform 0.2s;
+  }
+  .nav-pill:hover { filter: brightness(1.1); transform: translateY(-1px); }
 
-  @media (max-width: 768px) {
-    #modal-name { font-size: 1.5rem; }
-    #modal-role { font-size: 1rem; }
-    #modal-bio  { font-size: 0.9rem; line-height: 1.6; }
+  /* ── Mobile nav ── */
+  #mobile-nav {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.38s cubic-bezier(.22,1,.36,1);
   }
+  #mobile-nav.open { max-height: 400px; }
+  .mobile-link {
+    display: block;
+    padding: 10px 0;
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.8);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    transition: color 0.2s, padding-left 0.2s;
+  }
+  .mobile-link:hover { color: var(--gold); padding-left: 6px; }
 
   /* ── Team Cards ── */
   .team-card {
     background: var(--slate-card);
-    padding: 1.25rem;
-    border-radius: 0.75rem;
+    padding: 1.4rem 1.25rem;
+    border-radius: 1rem;
     text-align: center;
-    border: 1px solid rgba(255,255,255,0.06);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.35);
-    transition:
-      transform 0.35s cubic-bezier(.22,1,.36,1),
-      box-shadow 0.35s cubic-bezier(.22,1,.36,1);
+    border: 1px solid rgba(255,255,255,0.07);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+    transition: transform 0.38s cubic-bezier(.22,1,.36,1), box-shadow 0.38s cubic-bezier(.22,1,.36,1), border-color 0.3s;
     position: relative;
     overflow: hidden;
     cursor: pointer;
   }
-
-  /* cyan glint — default for most cards */
-  .team-card::after {
-    content: "";
+  .team-card::before {
+    content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-      120deg,
-      transparent 60%,
-      var(--cyan-glint),
-      transparent
-    );
+    background: linear-gradient(135deg, transparent 55%, var(--cyan-glint), transparent);
     opacity: 0;
-    transition: opacity 0.35s ease;
+    transition: opacity 0.4s ease;
   }
-  .team-card:hover::after { opacity: 1; }
-
-  .team-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 18px 35px rgba(0,0,0,0.55);
-  }
+  .team-card:hover { transform: translateY(-8px); box-shadow: 0 24px 50px rgba(0,0,0,0.6); border-color: rgba(212,175,55,0.25); }
+  .team-card:hover::before { opacity: 1; }
 
   .team-card img {
-    width: 8rem;
-    height: 10rem;
-    margin: 0 auto 0.75rem;
-    border-radius: 0.5rem;
+    width: 7.5rem;
+    height: 9.5rem;
+    margin: 0 auto 0.85rem;
+    border-radius: 0.6rem;
     object-fit: cover;
+    border: 2px solid rgba(255,255,255,0.08);
+    transition: border-color 0.3s;
   }
-
-  .team-card h3 { font-weight: 600; color: #f1f5f9; }
-  .team-card p  { font-size: 0.875rem; color: #cbd5f5; }
+  .team-card:hover img { border-color: var(--gold-dim); }
+  .team-card h3 { font-family: 'Outfit', sans-serif; font-weight: 700; color: #f1f5f9; font-size: 1rem; }
+  .team-card p  { font-size: 0.82rem; color: #94a3b8; margin-top: 2px; }
 
   .mentor-tag {
-    font-size: 0.75rem;
-    letter-spacing: 0.08em;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    opacity: 0.7;
-    margin-top: 0.25rem;
+    color: var(--gold);
+    opacity: 0.8;
+    margin-top: 0.3rem;
   }
 
-  /* ── Isaac Mission Banner ── */
-  /* Suppresses the default cyan glint on Isaac's card */
-  .isaac-card::after { display: none !important; }
+  /* ── Section dividers ── */
+  .section-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #f1f5f9;
+  }
+  .gold-bar { width: 3rem; height: 3px; background: var(--gold); border-radius: 2px; margin: 0.7rem auto 0; }
 
+  /* ── Isaac Mission ribbon ── */
+  .isaac-card::before { display: none !important; }
   .mission-ribbon {
     position: absolute;
-    top: 22px;
-    right: -32px;
-    width: 160px;
-    background: linear-gradient(90deg, #b8860b, #d4af37, #b8860b);
+    top: 20px;
+    right: -36px;
+    width: 170px;
+    background: linear-gradient(90deg, #a0740a, #d4af37, #a0740a);
     color: #081e38;
-    font-size: 0.6rem;
-    font-weight: 800;
-    letter-spacing: 0.07em;
+    font-size: 0.58rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     text-align: center;
     padding: 5px 0;
     transform: rotate(38deg);
-    box-shadow: 0 3px 10px rgba(0,0,0,0.5);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.55);
     z-index: 10;
     pointer-events: none;
-    line-height: 1.3;
+    line-height: 1.4;
   }
   .mission-ribbon span { display: block; }
 
-  /* taiwan wish banner inside bio modal */
+  /* ── Taiwan banner in modal ── */
   .taiwan-banner {
     display: flex;
     align-items: center;
     gap: 0.6rem;
     background: linear-gradient(90deg, rgba(212,175,55,0.15), rgba(212,175,55,0.05));
-    border: 1px solid rgba(212,175,55,0.4);
+    border: 1px solid rgba(212,175,55,0.45);
     border-radius: 0.5rem;
-    padding: 0.6rem 0.9rem;
-    margin-bottom: 1rem;
+    padding: 0.65rem 1rem;
+    margin-bottom: 1.1rem;
     font-size: 0.82rem;
     color: #d4af37;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: 0.03em;
   }
 
-  /* ── Team Photo clickable ── */
+  /* ── Photo wrapper ── */
   .team-photo-wrapper {
     cursor: pointer;
     position: relative;
-    transition: opacity 0.2s;
+    overflow: hidden;
+    border-radius: 1rem;
+    transition: box-shadow 0.3s;
   }
-  .team-photo-wrapper:hover { opacity: 0.92; }
-  .team-photo-wrapper .photo-hint {
+  .team-photo-wrapper:hover { box-shadow: 0 0 0 2px var(--gold-dim), 0 24px 60px rgba(0,0,0,0.5); }
+  .team-photo-wrapper img { display: block; width: 100%; object-fit: cover; transition: transform 0.5s cubic-bezier(.22,1,.36,1); }
+  .team-photo-wrapper:hover img { transform: scale(1.02); }
+  .photo-hint {
     position: absolute;
-    bottom: 14px;
+    bottom: 16px;
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(0,0,0,0.65);
-    color: #d4af37;
+    background: rgba(0,0,0,0.7);
+    color: var(--gold);
     font-size: 0.78rem;
     font-weight: 600;
-    letter-spacing: 0.06em;
-    padding: 5px 16px;
-    border-radius: 99px;
-    border: 1px solid rgba(212,175,55,0.4);
+    letter-spacing: 0.07em;
+    padding: 6px 18px;
+    border-radius: 999px;
+    border: 1px solid var(--gold-dim);
     white-space: nowrap;
-    pointer-events: none;
-    backdrop-filter: blur(4px);
+    backdrop-filter: blur(6px);
     opacity: 0;
-    transition: opacity 0.25s;
+    transition: opacity 0.28s;
+    pointer-events: none;
   }
   .team-photo-wrapper:hover .photo-hint { opacity: 1; }
 
+  /* ── Bio Modal ── */
+  .modal-panel {
+    transform: translateY(32px) scale(0.97);
+    opacity: 0;
+    transition: all 0.38s cubic-bezier(.22,1,.36,1);
+  }
+  .modal-open .modal-panel { transform: translateY(0) scale(1); opacity: 1; }
+  .mentor-modal { border: 1px solid var(--gold-dim); background: linear-gradient(180deg,#0d2748,#081e38); }
+  #modal-bio p { margin-bottom: 1rem; line-height: 1.7; }
+
+  @media (max-width: 768px) {
+    #modal-name { font-size: 1.4rem; }
+    #modal-role { font-size: 0.95rem; }
+    #modal-bio  { font-size: 0.88rem; }
+  }
+
   /* ── Photo Gallery Modal ── */
-  #photoModal {
-    position: fixed;
-    inset: 0;
-    z-index: 60;
-    background: rgba(0,0,0,0.92);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem;
-  }
+  #photoModal { position: fixed; inset: 0; z-index: 60; background: rgba(0,0,0,0.94); display: none; align-items: center; justify-content: center; padding: 1.25rem; }
   #photoModal.flex { display: flex; }
-
-  .photo-modal-inner {
-    position: relative;
-    max-width: 900px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  #gallery-img {
-    width: 100%;
-    max-height: 75vh;
-    object-fit: contain;
-    border-radius: 0.75rem;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.7);
-    transition: opacity 0.3s ease;
-  }
+  .photo-modal-inner { position: relative; max-width: 920px; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+  #gallery-img { width: 100%; max-height: 74vh; object-fit: contain; border-radius: 0.85rem; box-shadow: 0 24px 70px rgba(0,0,0,0.75); transition: opacity 0.28s ease; }
   #gallery-img.fading { opacity: 0; }
-
-  .gallery-year-label {
-    font-size: 1.1rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    color: #d4af37;
-    text-transform: uppercase;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.7);
-  }
-
+  .gallery-year-label { font-family: 'Outfit', sans-serif; font-size: 1.05rem; font-weight: 800; letter-spacing: 0.14em; color: var(--gold); text-transform: uppercase; }
   .gallery-arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(11,37,69,0.85);
-    border: 1px solid rgba(212,175,55,0.4);
-    color: #d4af37;
-    border-radius: 50%;
-    width: 46px;
-    height: 46px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    font-size: 1.4rem;
-    transition: background 0.2s, transform 0.2s;
-    z-index: 5;
-    user-select: none;
-  }
-  .gallery-arrow:hover {
-    background: rgba(212,175,55,0.25);
-    transform: translateY(-50%) scale(1.1);
-  }
-  .gallery-arrow.left  { left:  -56px; }
-  .gallery-arrow.right { right: -56px; }
-
-  @media (max-width: 680px) {
-    .gallery-arrow.left  { left:  4px; }
-    .gallery-arrow.right { right: 4px; }
-  }
-
-  /* dots */
-  .gallery-dots {
-    display: flex;
-    gap: 8px;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-  .gallery-dot {
-    width: 9px; height: 9px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.25);
-    cursor: pointer;
-    transition: background 0.2s, transform 0.2s;
-  }
-  .gallery-dot.active {
-    background: #d4af37;
-    transform: scale(1.3);
-  }
-
-  /* close btn */
-  .photo-close-btn {
-    position: absolute;
-    top: -44px;
-    right: 0;
-    background: rgba(0,0,0,0.5);
-    border: 1px solid rgba(255,255,255,0.15);
-    color: white;
-    border-radius: 50%;
-    width: 36px; height: 36px;
+    position: absolute; top: 50%; transform: translateY(-50%);
+    background: rgba(11,37,69,0.88); border: 1px solid var(--gold-dim);
+    color: var(--gold); border-radius: 50%; width: 48px; height: 48px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 1.2rem;
-    cursor: pointer;
-    transition: background 0.2s;
+    cursor: pointer; font-size: 1.5rem; transition: background 0.2s, transform 0.2s;
+    z-index: 5; user-select: none;
+  }
+  .gallery-arrow:hover { background: rgba(212,175,55,0.22); transform: translateY(-50%) scale(1.12); }
+  .gallery-arrow.left  { left: -60px; }
+  .gallery-arrow.right { right: -60px; }
+  @media (max-width: 700px) { .gallery-arrow.left { left: 4px; } .gallery-arrow.right { right: 4px; } }
+  .gallery-dots { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+  .gallery-dot { width: 9px; height: 9px; border-radius: 50%; background: rgba(255,255,255,0.22); cursor: pointer; transition: background 0.2s, transform 0.2s; }
+  .gallery-dot.active { background: var(--gold); transform: scale(1.35); }
+  .photo-close-btn {
+    position: absolute; top: -46px; right: 0;
+    background: rgba(0,0,0,0.55); border: 1px solid rgba(255,255,255,0.18);
+    color: white; border-radius: 50%; width: 38px; height: 38px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.25rem; cursor: pointer; transition: background 0.2s;
   }
   .photo-close-btn:hover { background: rgba(212,175,55,0.3); }
+  .key-hint { font-size: 0.68rem; color: rgba(255,255,255,0.3); letter-spacing: 0.05em; }
 
-  /* keyboard hint */
-  .key-hint {
-    font-size: 0.7rem;
-    color: rgba(255,255,255,0.35);
-    letter-spacing: 0.05em;
-  }
+  /* ── Footer ── */
+  footer { border-top: 1px solid rgba(212,175,55,0.15); }
+  .footer-icon { transition: transform 0.25s, color 0.2s; color: #94a3b8; }
+  .footer-icon:hover { transform: translateY(-3px) scale(1.15); color: #fff; }
 </style>
 </head>
 
-<body class="bg-[#070f1c] text-gray-200 font-sans flex flex-col min-h-screen">
+<body class="bg-[#060d1a] text-gray-200 font-sans flex flex-col min-h-screen">
 
-<!-- Header -->
-<header class="bg-[var(--navy)] text-white sticky top-0 z-40">
-  <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-    <div class="flex items-center gap-3">
-      <div class="w-12 h-12 rounded-full overflow-hidden">
+<!-- ═══════════════════════ HEADER ═══════════════════════ -->
+<header class="text-white sticky top-0 z-40 border-b border-white/5">
+  <div class="max-w-6xl mx-auto px-5 py-4 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-3 group">
+      <div class="w-11 h-11 rounded-full overflow-hidden ring-2 ring-white/10 group-hover:ring-[var(--gold-dim)] transition">
         <img src="assets/socraticschematicslogo.jpg" class="w-full h-full object-cover" alt="Logo">
       </div>
       <div>
-        <div class="font-bold text-lg">Socratic Schematics</div>
-        <div class="text-sm opacity-90">Karl G. Maeser Preparatory Academy — Team 8885</div>
+        <div class="font-bold text-base leading-tight" style="font-family:'Outfit',sans-serif">Socratic Schematics</div>
+        <div class="text-xs opacity-70 leading-tight">Maeser Prep — FRC Team 8885</div>
       </div>
-    </div>
-    <nav class="hidden md:flex gap-6 items-center">
-      <a href="index.html" class="hover:underline">Home</a>
-      <a href="robots.html" class="hover:underline">Robots</a>
-      <a href="team.html" class="hover:underline">Team</a>
-      <a href="sponsors.html" class="hover:underline">Sponsors</a>
-      <a href="donate.html" class="hover:underline">Donate</a>
-      <a href="snacks.html" class="hover:underline">Snack Prices</a>
-      <a href="contact.html" class="hover:underline">Contact</a>
-      <a href="gallery.html" class="bg-white text-[var(--navy)] font-semibold rounded px-3 py-1">Gallery</a>
+    </a>
+
+    <nav class="hidden md:flex gap-7 items-center">
+      <a href="index.html"    class="nav-link">Home</a>
+      <a href="robots.html"  class="nav-link">Robots</a>
+      <a href="team.html"    class="nav-link" style="color:#fff">Team</a>
+      <a href="sponsors.html" class="nav-link">Sponsors</a>
+      <a href="donate.html"  class="nav-link">Donate</a>
+      <a href="snacks.html"  class="nav-link">Snack Prices</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+      <a href="gallery.html" class="nav-pill">Gallery</a>
     </nav>
+
+    <button id="mobile-nav-toggle" class="md:hidden p-2 rounded-lg hover:bg-white/10 transition" aria-label="Menu">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
   </div>
-  <div class="md:hidden bg-[var(--navy-dark)] text-[var(--text-light)] px-4 py-3 hidden" id="mobile-nav">
-    <a href="index.html" class="block py-1">Home</a>
-    <a href="robots.html" class="block py-1">Robots</a>
-    <a href="team.html" class="block py-1">Team</a>
-    <a href="sponsors.html" class="block py-1">Sponsors</a>
-    <a href="donate.html" class="block py-1">Donate</a>
-    <a href="snacks.html" class="block py-1">Snack Prices</a>
-    <a href="contact.html" class="block py-1">Contact</a>
-    <a href="gallery.html" class="block py-1">Gallery</a>
+
+  <div id="mobile-nav" class="md:hidden bg-[var(--navy-dark)] px-5 border-t border-white/5">
+    <a href="index.html"    class="mobile-link">Home</a>
+    <a href="robots.html"  class="mobile-link">Robots</a>
+    <a href="team.html"    class="mobile-link" style="color:var(--gold)">Team</a>
+    <a href="sponsors.html" class="mobile-link">Sponsors</a>
+    <a href="donate.html"  class="mobile-link">Donate</a>
+    <a href="snacks.html"  class="mobile-link">Snack Prices</a>
+    <a href="contact.html" class="mobile-link">Contact</a>
+    <a href="gallery.html" class="mobile-link" style="color:var(--gold)">Gallery</a>
   </div>
 </header>
 
-<!-- Intro -->
-<section class="max-w-6xl mx-auto px-4 py-16 text-center">
-  <h1 class="text-4xl font-bold mb-4 text-white tracking-wide">Our Team</h1>
-  <p class="text-white max-w-2xl mx-auto">
-    The students and mentors behind the builds, code, strategy, and competition days.
-  </p>
+<!-- ═══════════════════════ INTRO ═══════════════════════ -->
+<section class="max-w-6xl mx-auto px-5 pt-16 pb-10 text-center reveal">
+  <h1 class="text-5xl font-extrabold text-white tracking-tight mb-3" style="font-family:'Outfit',sans-serif">Our Team</h1>
+  <p class="text-gray-400 max-w-xl mx-auto text-base">The students and mentors behind the builds, code, strategy, and competition days.</p>
+  <div class="gold-bar"></div>
 </section>
 
-<!-- Team Photo -->
-<section class="max-w-6xl mx-auto px-4 mb-20">
-  <div class="bg-[var(--navy-dark)] rounded-xl border border-white shadow-lg overflow-hidden
-              team-photo-wrapper" onclick="openPhotoGallery()">
-    <img
-      src="assets/2026teamphoto.jpg"
-      alt="Socratic Schematics Team Photo"
-      class="w-full object-cover"
-    >
-    <div class="photo-hint">Check out our previous years!</div>
+<!-- ═══════════════════════ TEAM PHOTO ═══════════════════ -->
+<section class="max-w-6xl mx-auto px-5 mb-20 reveal">
+  <div class="bg-[var(--navy-dark)] border border-white/10 shadow-2xl team-photo-wrapper" onclick="openPhotoGallery()">
+    <img src="assets/2026teamphoto.jpg" alt="Socratic Schematics Team Photo">
+    <div class="photo-hint">📷 Browse All Team Photos</div>
   </div>
 </section>
 
-<!-- LEADERSHIP -->
-<section>
-  <div class="text-center mb-6">
-    <h2 class="text-2xl font-semibold">Leadership</h2>
-    <div class="w-20 h-1 bg-[var(--gold)] mx-auto mt-3 rounded"></div>
+<!-- ═══════════════════════ LEADERSHIP ═══════════════════ -->
+<section class="mb-2">
+  <div class="text-center mb-8 reveal">
+    <h2 class="section-title">Leadership</h2>
+    <div class="gold-bar"></div>
   </div>
 
   <!-- Strip 1 -->
-  <section class="bg-[var(--navy-dark)] py-14 border-t border-[var(--gold)]/40">
-    <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-3 gap-8">
-      <div class="team-card cursor-pointer" onclick="openModal('Abrar Ihtiram', 'Team Captain', 'assets/abrarihtiram.jpg',`
-    <p>Hi! I’m Abrar Ihtiram, a junior and the Team Captain of FRC Team 8885. I’ve been part of the team since 9th grade, and over the past three years I’ve gone from not knowing a single competition rule to… actually knowing them :D</p>
+  <div class="bg-[var(--navy-dark)] py-14 border-t border-[var(--gold-dim)]">
+    <div class="max-w-6xl mx-auto px-5 grid md:grid-cols-3 gap-7">
 
-    <p>I also came into robotics with zero technical experience, and now I get to mentor younger members which is pretty cool, but let’s be honest, mastering the rulebook was the real achievement.</p>
+      <div class="team-card reveal reveal-delay-1" onclick="openModal('Abrar Ihtiram','Team Captain','assets/abrarihtiram.jpg',`
+        <p>Hi! I'm Abrar Ihtiram, a junior and the Team Captain of FRC Team 8885. I've been part of the team since 9th grade, and over the past three years I've gone from not knowing a single competition rule to… actually knowing them :D</p>
+        <p>I also came into robotics with zero technical experience, and now I get to mentor younger members which is pretty cool, but let's be honest, mastering the rulebook was the real achievement.</p>
+        <p>As captain, I work closely with the team to flesh out smart strategies, manage tasks, and keep everyone moving toward our goals while making sure we don't lose the excitement that makes FRC so much fun.</p>
+        <p>When I'm not building in the classroom, you'll probably find me ice skating or chasing thrills at amusement parks and haunted houses with friends.</p>
+        <p>At the end of the day, I love taking on challenges, whether that's leading a team, solving problems under pressure, or willingly signing up to be scared cuz why not.</p>
+      `)">
+        <img src="assets/abrarihtiram.jpg" alt="Abrar Ihtiram">
+        <h3>Abrar Ihtiram</h3>
+        <p>Team Captain</p>
+      </div>
 
-    <p>As captain, I work closely with the team to flesh out smart strategies, manage tasks, and keep everyone moving toward our goals while making sure we don’t lose the excitement that makes FRC so much fun.</p>
-
-    <p>When I’m not building in the classroom, you’ll probably find me ice skating or chasing thrills at amusement parks and haunted houses with friends.</p>
-
-    <p>At the end of the day, I love taking on challenges, whether that’s leading a team, solving problems under pressure, or willingly signing up to be scared cuz why not.</p>
-    `
-    )"
-      >
-      <img src="assets/abrarihtiram.jpg">
-      <h3>Abrar Ihtiram</h3>
-      <p>Team Captain</p>
-  </div>
-
-      <div class="team-card cursor-pointer" onclick="openModal('Millie Lund', 'Business Lead', 'assets/millielund.png',`
-    <p> Hi! I’m Captain Lund, and I focus on business operations, sponsorships, and communication for our team! This is my first year on the Socratic Schematics, and so far it’s sucked me in way more than I thought it would.</p>
-        
-    <p> Though I’m not the most experienced member, my short time on the team has already evolved from being bullied by certain individuals &#40;cough cough mr. summers &#41;* into coming to meetings to becoming robotics paparazzi and suggesting impossible design ideas :&#41; </p>
-        
-    <p> Besides clipping everyone and distracting Abrar and Charlie, I also contact possible business sponsors, run our team instagram (check it out!), help plan events and let everyone know how cool robotics is! </p>    
-        
-    <p> Outside of robotics, I love playing tennis, playing & listening to music, and going on spontaneous side quests with whoever’s up for it. </p>
-    
-    <p> Overall, I’ve loved being part of this amazing team so far, and am excited for more fun in the future. Maybe I’ll even learn some stuff about robotics along the way.  </p>
-
-    <p> *no millie’s were actually bullied in the process of getting her to join robotics :&#41; </P>
-    `
-    )"
-      >
-        <img src="assets/millielund.png">
+      <div class="team-card reveal reveal-delay-2" onclick="openModal('Millie Lund','Business Lead','assets/millielund.png',`
+        <p>Hi! I'm Captain Lund, and I focus on business operations, sponsorships, and communication for our team! This is my first year on the Socratic Schematics, and so far it's sucked me in way more than I thought it would.</p>
+        <p>Though I'm not the most experienced member, my short time on the team has already evolved from being bullied by certain individuals &#40;cough cough mr. summers &#41;* into coming to meetings to becoming robotics paparazzi and suggesting impossible design ideas :&#41;</p>
+        <p>Besides clipping everyone and distracting Abrar and Charlie, I also contact possible business sponsors, run our team instagram (check it out!), help plan events and let everyone know how cool robotics is!</p>
+        <p>Outside of robotics, I love playing tennis, playing &amp; listening to music, and going on spontaneous side quests with whoever's up for it.</p>
+        <p>Overall, I've loved being part of this amazing team so far, and am excited for more fun in the future. Maybe I'll even learn some stuff about robotics along the way.</p>
+        <p>*no millie's were actually bullied in the process of getting her to join robotics :&#41;</p>
+      `)">
+        <img src="assets/millielund.png" alt="Millie Lund">
         <h3>Millie Lund</h3>
         <p>Business Lead</p>
       </div>
-      <div class="team-card cursor-pointer" onclick="openModal('Kate Keeley', 'Fabrication Lead', 'assets/katekeeley.png',`
-        <p>Heyo! My name is Kate. This is my forth year doing robotics. Growing up, I was always interested in building stuff. As I got older I took a liking to engineering and then robotics. This is my second, nonconsecutive, year as fab lead. Last year I was the electrical team lead. I have loved my time on the team. We always have a good time and lots of laughs at each meeting. </p>
 
-        <p>When I'm on task, I help build and wire the robot, and I do my best to teach less experienced members how to do what I'm doing. I have also made the bumpers for the past 3 years, which has earned me the title of bumper lord. I do my best to make sure that meetings end at a reasonable time, but I don't always win that fight. </p>
-
+      <div class="team-card reveal reveal-delay-3" onclick="openModal('Kate Keeley','Fabrication Lead','assets/katekeeley.png',`
+        <p>Heyo! My name is Kate. This is my forth year doing robotics. Growing up, I was always interested in building stuff. As I got older I took a liking to engineering and then robotics. This is my second, nonconsecutive, year as fab lead. Last year I was the electrical team lead. I have loved my time on the team. We always have a good time and lots of laughs at each meeting.</p>
+        <p>When I'm on task, I help build and wire the robot, and I do my best to teach less experienced members how to do what I'm doing. I have also made the bumpers for the past 3 years, which has earned me the title of bumper lord. I do my best to make sure that meetings end at a reasonable time, but I don't always win that fight.</p>
         <p>When I'm not doing robotics you might find me pitching, playing 3rd base, 2nd base, or outfield on the coed baseball team. I like to do jigsaw puzzles in my free time. For my capstone project I am interviewing students from my school. The thing I like to most of all in my free time is to play with my niece and nephew. Might get into basket weaving soon.</p>
-      `
-      )">
-        <img src="assets/katekeeley.png">
+      `)">
+        <img src="assets/katekeeley.png" alt="Kate Keeley">
         <h3>Kate Keeley</h3>
         <p>Fabrication Lead</p>
       </div>
     </div>
-  </section>
+  </div>
 
   <!-- Strip 2 -->
-  <section class="bg-[var(--navy-mid)] py-14 border-t border-[var(--gold)]/30">
-    <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-3 gap-8">
-      <div class="team-card cursor-pointer" onclick="openModal('Darian Bingham', 'Electrical Lead', 'assets/placeholder.jpg', 'Hi! I’m Darian Bingham. I manage electrical systems and wiring for our robots.')">
-        <img src="assets/placeholder.jpg">
+  <div class="bg-[var(--navy-mid)] py-14 border-t border-white/5">
+    <div class="max-w-6xl mx-auto px-5 grid md:grid-cols-3 gap-7">
+
+      <div class="team-card reveal reveal-delay-1" onclick="openModal('Darian Bingham','Electrical Lead','assets/placeholder.jpg','Hi! I\'m Darian Bingham. I manage electrical systems and wiring for our robots.')">
+        <img src="assets/placeholder.jpg" alt="Darian Bingham">
         <h3>Darian Bingham</h3>
         <p>Electrical Lead</p>
       </div>
-      <div class="team-card cursor-pointer" onclick="openModal('Gavin West', 'CAD Lead', 'assets/gavinwest.jpg',`
-    <p>I’m Gavin.</p>
 
-    <p>I'm in 11th grade.</p>
-
-    <p>I do robotics.</p>
-
-    <p>🗣️🔥</p>
-
-    `
-    )"
-      >
-        <img src="assets/gavinwest.jpg">
+      <div class="team-card reveal reveal-delay-2" onclick="openModal('Gavin West','CAD Lead','assets/gavinwest.jpg',`
+        <p>I'm Gavin.</p>
+        <p>I'm in 11th grade.</p>
+        <p>I do robotics.</p>
+        <p>🗣️🔥</p>
+      `)">
+        <img src="assets/gavinwest.jpg" alt="Gavin West">
         <h3>Gavin West</h3>
         <p>CAD Lead</p>
       </div>
-      <div class="team-card cursor-pointer" onclick="openModal('Charlie Cotton', 'Programming Lead', 'assets/charliecotton.jpg', 'I’m Charlie Cotton, and I’ve been programming lead for two seasons now. When I’m not at a robotics meeting, I’m doing a drama production, mock trial, or being a yearbook editor. In my increasingly fleeting free time I like playing piano, doing calculus, and coding, and am currently working very slowly on making a video game in Unity. I know more than six languages including Java, C#, JavaScript, Python, C++, and English.')">
-        <img src="assets/charliecotton.jpg">
+
+      <div class="team-card reveal reveal-delay-3" onclick="openModal('Charlie Cotton','Programming Lead','assets/charliecotton.jpg','I\'m Charlie Cotton, and I\'ve been programming lead for two seasons now. When I\'m not at a robotics meeting, I\'m doing a drama production, mock trial, or being a yearbook editor. In my increasingly fleeting free time I like playing piano, doing calculus, and coding, and am currently working very slowly on making a video game in Unity. I know more than six languages including Java, C#, JavaScript, Python, C++, and English.')">
+        <img src="assets/charliecotton.jpg" alt="Charlie Cotton">
         <h3>Charlie Cotton</h3>
         <p>Programming Lead</p>
       </div>
     </div>
-  </section>
+  </div>
 </section>
 
-<!-- MENTORS -->
-<section class="mt-6">
-  <div class="text-center mb-6">
-    <h2 class="text-2xl font-semibold">Mentors</h2>
-    <div class="w-12 h-1 bg-[var(--gold)] mx-auto mt-3 rounded"></div>
+<!-- ═══════════════════════ MENTORS ═══════════════════════ -->
+<section class="mt-4 mb-20">
+  <div class="text-center mb-8 reveal">
+    <h2 class="section-title">Mentors</h2>
+    <div class="gold-bar"></div>
   </div>
 
-  <section class="bg-[var(--navy-light)] py-14 border-t border-[var(--gold)]/40">
-    <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-3 gap-8">
-      <div class="team-card mentor-card cursor-pointer" onclick="openModal('Mr. Summers', 'Mentor', 'assets/marksummers.png', 'Mark Summers helped mentor the Maeser Robotics team during their very first year, and enjoyed the experience so much he decided to become a teacher, got hired at Maeser, and is now the Lead Mentor. He is grateful on a daily basis that the students know what they are doing, as his expertise doesn’t extend much past reminding them to put on safety goggles and use hearing protection. He’s constantly amazed at how much the students learn and grow while designing and building each season. ')">
-        <img src="assets/marksummers.png">
+  <div class="bg-[var(--navy-light)] py-14 border-t border-[var(--gold-dim)]">
+    <div class="max-w-6xl mx-auto px-5 grid md:grid-cols-3 gap-7">
+
+      <div class="team-card reveal reveal-delay-1" onclick="openModal('Mr. Summers','Mentor','assets/marksummers.png','Mark Summers helped mentor the Maeser Robotics team during their very first year, and enjoyed the experience so much he decided to become a teacher, got hired at Maeser, and is now the Lead Mentor. He is grateful on a daily basis that the students know what they are doing, as his expertise doesn\'t extend much past reminding them to put on safety goggles and use hearing protection. He\'s constantly amazed at how much the students learn and grow while designing and building each season.')">
+        <img src="assets/marksummers.png" alt="Mr. Summers">
         <h3>Mr. Summers</h3>
-        <p class="mentor-tag">Mentor</p>
+        <p class="mentor-tag">Lead Mentor</p>
       </div>
 
-      <div class="team-card mentor-card cursor-pointer" onclick="openModal('Papa Keeley', 'Mentor', 'assets/papakeeley.png', 'Paul Keeley also known as Papa Keeley is the father of 8 children, including one on the robotics team. He has provided for his family working as a computer programmer and and spent countless hours coaching sports, scouting, volunteering at school, and now serving on the robotics team. He graduated a year before FRC was started so he was not involved as a youth but he enjoys it now. He enjoys backpacking, gardening, and bike riding when he has a spare minute.')">
-        <img src="assets/papakeeley.png">
+      <div class="team-card reveal reveal-delay-2" onclick="openModal('Papa Keeley','Mentor','assets/papakeeley.png','Paul Keeley also known as Papa Keeley is the father of 8 children, including one on the robotics team. He has provided for his family working as a computer programmer and spent countless hours coaching sports, scouting, volunteering at school, and now serving on the robotics team. He graduated a year before FRC was started so he was not involved as a youth but he enjoys it now. He enjoys backpacking, gardening, and bike riding when he has a spare minute.')">
+        <img src="assets/papakeeley.png" alt="Papa Keeley">
         <h3>Papa Keeley</h3>
         <p class="mentor-tag">Mentor</p>
       </div>
 
-      <!-- ★ ISAAC — special mission card ★ -->
-      <div class="team-card mentor-card isaac-card" onclick="openModal('Isaac Felt','Mentor','assets/isaacfeltcard.jpg',`
-        <div class='taiwan-banner'>
-          🇹🇼 Serving an LDS Mission in Taiwan — Wish him well!
-        </div>
+      <!-- ★ ISAAC ★ -->
+      <div class="team-card isaac-card reveal reveal-delay-3" onclick="openModal('Isaac Felt','Mentor','assets/isaacfeltcard.jpg',`
+        <div class='taiwan-banner'>🌏 Serving an LDS Mission in Taiwan — Best wishes, Isaac!</div>
         <p>Hi! I'm Isaac Felt. I'm a former team member turned mentor. I was the Team captain for the 2025 FRC season, and now I help out wherever I can. I am versed in FRC electrical, fabrication, basic CADing, basic programming, and whatever I don't know, I'm willing to learn.</p>
         <p>I joined the team in 9th grade, and consider that one of the best choices I ever made. My first year on the team was the year it was created, so I've had the honor to watch it grow and change these past 5 years. Over my 4 years as a team member, I learned so much. Now, as a mentor, I still learn while teaching others what I've learned.</p>
         <p>Outside of robotics, I love tinkering with computers and practicing my Chinese (often with Millie). I'm also going to be serving an LDS Mission in Taiwan later this year, and am super excited for that. Unfortunately, I won't be able to mentor the team for a couple years, but when I return, I'll be getting involved again.</p>
         <p>I wish everyone could have as amazing an experience with something in their life as I've had with robotics. If it weren't for this team, I likely wouldn't have discovered my love for engineering and STEM. I love robotics.</p>
       `)">
-        <!-- Gold slanted mission ribbon -->
         <div class="mission-ribbon">
-          <span>🇹🇼 On His</span>
+          <span>🌏 On His</span>
           <span>Mission!</span>
         </div>
         <img src="assets/isaacfelt.jpg" alt="Isaac Felt">
@@ -482,88 +447,70 @@
       </div>
 
     </div>
-  </section>
+  </div>
 </section>
 
-<!-- Footer -->
-<footer class="bg-[var(--navy)] py-6 mt-20">
-  <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4 text-gray-300">
+<!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+<footer class="bg-[var(--navy-dark)] py-8 mt-auto">
+  <div class="max-w-6xl mx-auto px-5 flex flex-col md:flex-row items-center justify-between gap-5">
     <div>
-      <div class="font-semibold text-white">Socratic Schematics — Team 8885</div>
-      <div class="text-sm opacity-80">Karl G. Maeser Preparatory Academy</div>
+      <div class="font-bold text-white" style="font-family:'Outfit',sans-serif">Socratic Schematics — Team 8885</div>
+      <div class="text-xs text-gray-500 mt-1">Karl G. Maeser Preparatory Academy</div>
     </div>
-    <div class="flex gap-6">
-      <a href="https://instagram.com/socraticschematics" target="_blank" rel="noopener noreferrer"
-         class="transform transition duration-300 hover:scale-125" aria-label="Instagram">
-        <svg class="w-6 h-6 text-gray-300 hover:text-white" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5a4.25 4.25 0 0 0 4.25-4.25v-8.5A4.25 4.25 0 0 0 16.25 3.5h-8.5z"/>
-          <path d="M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 1.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z"/>
-          <circle cx="17.5" cy="6.5" r="1"/>
-        </svg>
+    <div class="flex gap-7 items-center">
+      <a href="https://instagram.com/socraticschematics" target="_blank" rel="noopener" class="footer-icon" aria-label="Instagram">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5a4.25 4.25 0 0 0 4.25-4.25v-8.5A4.25 4.25 0 0 0 16.25 3.5h-8.5z"/><path d="M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 1.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z"/><circle cx="17.5" cy="6.5" r="1"/></svg>
       </a>
-      <a href="https://mail.google.com/mail/?view=cm&fs=1&to=maeserrobotics@gmail.com" target="_blank"
-         rel="noopener noreferrer" class="transform transition duration-300 hover:scale-125" aria-label="Email">
-        <svg class="w-6 h-6 text-gray-300 hover:text-white" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm0 3.2v10.8h16V7.2l-8 5-8-5zm8 3.3 8-5H4l8 5z"/>
-        </svg>
+      <a href="https://mail.google.com/mail/?view=cm&fs=1&to=maeserrobotics@gmail.com" target="_blank" rel="noopener" class="footer-icon" aria-label="Email">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm0 3.2v10.8h16V7.2l-8 5-8-5zm8 3.3 8-5H4l8 5z"/></svg>
       </a>
-      <a href="tel:+18012359000,1223" class="transform transition duration-300 hover:scale-125" aria-label="Phone">
-        <svg class="w-6 h-6 text-gray-300 hover:text-white" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25c1.1.37 2.3.57 3.6.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.3 21 3 13.7 3 4a1 1 0 0 1 1-1h3.4a1 1 0 0 1 1 1c0 1.3.2 2.5.57 3.6a1 1 0 0 1-.25 1L6.6 10.8z"/>
-        </svg>
+      <a href="tel:+18012359000,1223" class="footer-icon" aria-label="Phone">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25c1.1.37 2.3.57 3.6.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.3 21 3 13.7 3 4a1 1 0 0 1 1-1h3.4a1 1 0 0 1 1 1c0 1.3.2 2.5.57 3.6a1 1 0 0 1-.25 1L6.6 10.8z"/></svg>
       </a>
     </div>
   </div>
 </footer>
 
-<!-- Bio modal -->
-<div id="teamModal"
-     class="fixed inset-0 hidden items-center justify-center z-50 bg-[var(--modal-bg)]">
-  <div id="modalPanel"
-       class="modal-panel bg-[var(--navy-dark)] rounded-xl max-w-4xl w-full
-              mx-3 md:mx-0 p-4 md:p-6 flex flex-col md:flex-row
-              gap-4 md:gap-6 relative max-h-[90vh] overflow-hidden">
-    <button onclick="closeModal()"
-      class="absolute top-3 right-3 md:top-4 md:right-4
-             text-white text-2xl font-bold bg-black/40
-             rounded-full w-9 h-9 flex items-center justify-center">
-      &times;
-    </button>
-    <img id="modal-img" class="w-full md:w-1/2 h-48 md:h-auto rounded-lg object-cover flex-shrink-0">
-    <div class="text-white md:w-1/2 overflow-y-auto pr-1">
-      <h2 id="modal-name" class="text-3xl font-bold mb-2"></h2>
-      <h3 id="modal-role" class="text-xl font-semibold mb-4 opacity-80"></h3>
-      <div id="modal-bio" class="text-white/80 leading-relaxed"></div>
+<!-- ════════════════ BIO MODAL ════════════════ -->
+<div id="teamModal" class="fixed inset-0 hidden items-center justify-center z-50" style="background:var(--modal-bg)">
+  <div id="modalPanel" class="modal-panel bg-[var(--navy-dark)] rounded-2xl max-w-4xl w-full mx-3 md:mx-0 p-5 md:p-7 flex flex-col md:flex-row gap-5 md:gap-7 relative max-h-[90vh] overflow-hidden shadow-2xl">
+    <button onclick="closeModal()" class="absolute top-4 right-4 text-white/70 hover:text-white text-xl font-bold bg-white/10 hover:bg-white/20 rounded-full w-9 h-9 flex items-center justify-center transition">&times;</button>
+    <img id="modal-img" class="w-full md:w-2/5 h-52 md:h-auto rounded-xl object-cover flex-shrink-0 shadow-lg">
+    <div class="text-white md:w-3/5 overflow-y-auto pr-1">
+      <h2 id="modal-name" class="text-3xl font-extrabold mb-1" style="font-family:'Outfit',sans-serif"></h2>
+      <h3 id="modal-role" class="text-sm font-semibold mb-5 opacity-60 uppercase tracking-widest text-[var(--gold)]"></h3>
+      <div id="modal-bio" class="text-white/75 leading-relaxed text-sm"></div>
     </div>
   </div>
 </div>
 
-<!-- photo gallery modal-->
-<div id="photoModal" class="fixed inset-0 z-60 bg-black/92 hidden items-center justify-center p-4">
+<!-- ════════════════ PHOTO GALLERY MODAL ════════════════ -->
+<div id="photoModal" class="fixed inset-0 z-60 hidden items-center justify-center p-5" style="background:rgba(0,0,0,0.94)">
   <div class="photo-modal-inner">
-
-    <button class="photo-close-btn" onclick="closePhotoModal()" aria-label="Close">&times;</button>
-
-    <!-- arrows -->
-    <button class="gallery-arrow left" onclick="galleryStep(-1)" aria-label="Previous">&#8592;</button>
-    <button class="gallery-arrow right" onclick="galleryStep(1)" aria-label="Next">&#8594;</button>
-
-    <!-- image -->
+    <button class="photo-close-btn" onclick="closePhotoModal()">&times;</button>
+    <button class="gallery-arrow left" onclick="galleryStep(-1)">&#8592;</button>
+    <button class="gallery-arrow right" onclick="galleryStep(1)">&#8594;</button>
     <img id="gallery-img" src="" alt="Team photo">
-
-    <!-- year label -->
     <div class="gallery-year-label" id="gallery-year-label"></div>
-
-    <!-- dots -->
     <div class="gallery-dots" id="gallery-dots"></div>
-
-    <div class="key-hint">Use arrow keys or swipe to navigate</div>
+    <div class="key-hint">Arrow keys or swipe to navigate · Esc to close</div>
   </div>
 </div>
 
-<!-- scripts -->
 <script>
-/* ─── BIO MODAL ─── */
+/* ─── Scroll reveal ─── */
+const ro = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); ro.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+/* ─── Mobile nav ─── */
+const mobileNav = document.getElementById('mobile-nav');
+document.getElementById('mobile-nav-toggle').addEventListener('click', () => {
+  mobileNav.classList.toggle('open');
+});
+
+/* ─── Bio modal ─── */
 let startY = null;
 
 function openModal(name, role, img, bio) {
@@ -576,43 +523,28 @@ function openModal(name, role, img, bio) {
   panel.classList.toggle('mentor-modal', role.toLowerCase().includes('mentor'));
   modal.classList.remove('hidden');
   modal.classList.add('flex', 'modal-open');
+  document.body.style.overflow = 'hidden';
 }
-
 function closeModal() {
   const modal = document.getElementById('teamModal');
   modal.classList.remove('modal-open');
-  setTimeout(() => { modal.classList.add('hidden'); modal.classList.remove('flex'); }, 200);
+  setTimeout(() => { modal.classList.add('hidden'); modal.classList.remove('flex'); }, 220);
+  document.body.style.overflow = '';
 }
+document.getElementById('teamModal').addEventListener('click', e => { if (e.target.id === 'teamModal') closeModal(); });
+document.getElementById('modalPanel').addEventListener('touchstart', e => { startY = e.touches[0].clientY; });
+document.getElementById('modalPanel').addEventListener('touchmove', e => { if (startY && e.touches[0].clientY - startY > 90) closeModal(); });
+document.getElementById('modalPanel').addEventListener('touchend', () => startY = null);
 
-document.getElementById('teamModal').addEventListener('click', e => {
-  if (e.target.id === 'teamModal') closeModal();
-});
-
-const bioPanel = document.getElementById('modalPanel');
-bioPanel.addEventListener('touchstart', e => { startY = e.touches[0].clientY; });
-bioPanel.addEventListener('touchmove', e => {
-  if (!startY) return;
-  if (e.touches[0].clientY - startY > 90) closeModal();
-});
-bioPanel.addEventListener('touchend', () => startY = null);
-
-
-/* photo gallery */
-
-// add the team photos here
-// Each entry: { src: 'path/to/image.jpg', year: '2026 Season' }
+/* ─── Photo gallery ─── */
 const teamPhotos = [
-  { src: 'assets/2026teamphoto.jpg', year: '2026 Season' },
+  { src: 'assets/2026teamphoto.jpg',           year: '2026 Season' },
   { src: 'assets/reguniformteamphoto2026.jpg', year: '2026 Season' },
-  { src: 'assets/fulldressteamphoto2026.jpg', year: '2026 Season' },
-  { src: 'assets/teamphoto2025.jpg', year: '2025 Season' },
-  // Add previous years below — just uncomment and fill in the real filenames:
-  // { src: 'assets/2025teamphoto.jpg', year: '2025 Season' },
+  { src: 'assets/fulldressteamphoto2026.jpg',  year: '2026 Season' },
+  { src: 'assets/teamphoto2025.jpg',           year: '2025 Season' },
   // { src: 'assets/2024teamphoto.jpg', year: '2024 Season' },
   // { src: 'assets/2023teamphoto.jpg', year: '2023 Season' },
-  // { src: 'assets/2022teamphoto.jpg', year: '2022 Season' },
 ];
-
 let currentPhotoIndex = 0;
 let galleryTouchStartX = null;
 
@@ -622,76 +554,53 @@ function openPhotoGallery(index = 0) {
   const modal = document.getElementById('photoModal');
   modal.classList.remove('hidden');
   modal.classList.add('flex');
+  document.body.style.overflow = 'hidden';
 }
-
 function closePhotoModal() {
   const modal = document.getElementById('photoModal');
   modal.classList.add('hidden');
   modal.classList.remove('flex');
+  document.body.style.overflow = '';
 }
-
 function renderGallery() {
   const photo = teamPhotos[currentPhotoIndex];
-  const img   = document.getElementById('gallery-img');
-  const label = document.getElementById('gallery-year-label');
-  const dots  = document.getElementById('gallery-dots');
-
-  // fade transition
+  const img = document.getElementById('gallery-img');
   img.classList.add('fading');
-  setTimeout(() => {
-    img.src = photo.src;
-    img.classList.remove('fading');
-  }, 200);
-
-  label.textContent = photo.year;
-
-  // rebuild dots
+  const tmp = new Image();
+  tmp.onload = () => { img.src = tmp.src; requestAnimationFrame(() => img.classList.remove('fading')); };
+  tmp.src = photo.src;
+  document.getElementById('gallery-year-label').textContent = photo.year;
+  const dots = document.getElementById('gallery-dots');
   dots.innerHTML = '';
   teamPhotos.forEach((_, i) => {
-    const dot = document.createElement('div');
-    dot.className = 'gallery-dot' + (i === currentPhotoIndex ? ' active' : '');
-    dot.onclick = () => { currentPhotoIndex = i; renderGallery(); };
-    dots.appendChild(dot);
+    const d = document.createElement('div');
+    d.className = 'gallery-dot' + (i === currentPhotoIndex ? ' active' : '');
+    d.onclick = () => { currentPhotoIndex = i; renderGallery(); };
+    dots.appendChild(d);
   });
-
-  // hide arrows if only one photo
-  document.querySelector('.gallery-arrow.left').style.display  = teamPhotos.length > 1 ? '' : 'none';
-  document.querySelector('.gallery-arrow.right').style.display = teamPhotos.length > 1 ? '' : 'none';
+  const show = teamPhotos.length > 1 ? '' : 'none';
+  document.querySelector('.gallery-arrow.left').style.display  = show;
+  document.querySelector('.gallery-arrow.right').style.display = show;
 }
-
 function galleryStep(dir) {
   currentPhotoIndex = (currentPhotoIndex + dir + teamPhotos.length) % teamPhotos.length;
   renderGallery();
 }
-
-// close on backdrop click
-document.getElementById('photoModal').addEventListener('click', e => {
-  if (e.target.id === 'photoModal') closePhotoModal();
-});
-
-// keyboard navigation
+document.getElementById('photoModal').addEventListener('click', e => { if (e.target.id === 'photoModal') closePhotoModal(); });
 document.addEventListener('keydown', e => {
-  const photoOpen = !document.getElementById('photoModal').classList.contains('hidden');
-  const bioOpen   = !document.getElementById('teamModal').classList.contains('hidden');
-
-  if (photoOpen) {
-    if (e.key === 'ArrowLeft')  galleryStep(-1);
-    if (e.key === 'ArrowRight') galleryStep(1);
-    if (e.key === 'Escape')     closePhotoModal();
-  }
+  const photoOpen = document.getElementById('photoModal').classList.contains('flex');
+  const bioOpen   = document.getElementById('teamModal').classList.contains('flex');
+  if (photoOpen) { if (e.key === 'ArrowLeft') galleryStep(-1); if (e.key === 'ArrowRight') galleryStep(1); if (e.key === 'Escape') closePhotoModal(); }
   if (bioOpen && e.key === 'Escape') closeModal();
 });
-
-// swipe support for gallery
-const photoModal = document.getElementById('photoModal');
-photoModal.addEventListener('touchstart', e => { galleryTouchStartX = e.touches[0].clientX; }, { passive: true });
-photoModal.addEventListener('touchend', e => {
+const pm = document.getElementById('photoModal');
+pm.addEventListener('touchstart', e => { galleryTouchStartX = e.touches[0].clientX; }, { passive: true });
+pm.addEventListener('touchend', e => {
   if (galleryTouchStartX === null) return;
   const dx = e.changedTouches[0].clientX - galleryTouchStartX;
   if (Math.abs(dx) > 50) galleryStep(dx < 0 ? 1 : -1);
   galleryTouchStartX = null;
 });
 </script>
-
 </body>
 </html>
