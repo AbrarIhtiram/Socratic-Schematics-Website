@@ -5,178 +5,190 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Socratic Schematics — Snack Prices</title>
 <link rel="icon" href="assets/socraticschematicslogo.jpg" type="image/jpeg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
-  :root {
-    --navy: #0b2545;
-    --navy-dark: #081d36;
-    --navy-mid: #102f55;
-    --navy-light: #163b66;
-    --slate-card: #1e293b;
-    --text-light: #f1f5f9;
-    --gold: #d4af37;
-  }
+  :root{--navy:#0b2545;--navy-dark:#081d36;--navy-mid:#102f55;--navy-light:#163b66;--slate-card:#1a2840;--gold:#d4af37;--gold-dim:rgba(212,175,55,0.35);}
+  *{box-sizing:border-box;} body{font-family:'Inter',sans-serif;} h1,h2,h3{font-family:'Outfit',sans-serif;}
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .55s cubic-bezier(.22,1,.36,1),transform .55s cubic-bezier(.22,1,.36,1);}
+  .reveal.visible{opacity:1;transform:none;}
+  header{backdrop-filter:blur(12px);background:rgba(11,37,69,0.95);}
+  .nav-link{position:relative;font-size:.875rem;font-weight:500;color:rgba(255,255,255,.85);transition:color .2s;padding-bottom:2px;}
+  .nav-link::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:2px;background:var(--gold);border-radius:2px;transition:width .25s cubic-bezier(.22,1,.36,1);}
+  .nav-link:hover{color:#fff;} .nav-link:hover::after{width:100%;}
+  .nav-pill{background:var(--gold);color:var(--navy-dark);font-weight:700;font-size:.8rem;letter-spacing:.04em;border-radius:6px;padding:6px 14px;transition:filter .2s,transform .2s;}
+  .nav-pill:hover{filter:brightness(1.1);transform:translateY(-1px);}
+  #mobile-nav{max-height:0;overflow:hidden;transition:max-height .38s cubic-bezier(.22,1,.36,1);}
+  #mobile-nav.open{max-height:400px;}
+  .mobile-link{display:block;padding:10px 0;font-size:.95rem;color:rgba(255,255,255,.8);border-bottom:1px solid rgba(255,255,255,.06);transition:color .2s,padding-left .2s;}
+  .mobile-link:hover{color:var(--gold);padding-left:6px;}
 
-  /* Hover effect for table rows */
-  tbody tr {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    cursor: pointer;
+  /* search */
+  .search-input{
+    width:100%;background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:.75rem;padding:.75rem 1.2rem .75rem 3rem;
+    color:#f1f5f9;font-size:.95rem;outline:none;
+    transition:border-color .2s,box-shadow .2s;
   }
+  .search-input:focus{border-color:var(--gold-dim);box-shadow:0 0 0 3px rgba(212,175,55,.1);}
+  .search-input::placeholder{color:#475569;}
 
-  tbody tr:hover {
-    transform: scale(1.03);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    background-color: var(--navy-mid);
+  /* table */
+  .snack-table{width:100%;border-collapse:collapse;border-radius:.85rem;overflow:hidden;background:var(--slate-card);}
+  .snack-table thead th{background:var(--navy-mid);color:#94a3b8;font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.85rem 1.4rem;text-align:left;}
+  .snack-table tbody tr{border-bottom:1px solid rgba(255,255,255,.05);transition:background .18s;}
+  .snack-table tbody tr:last-child{border-bottom:none;}
+  .snack-table tbody tr:hover{background:rgba(212,175,55,.06);}
+  .snack-table tbody tr.hidden-row{display:none;}
+  .snack-table td{padding:.8rem 1.4rem;font-size:.9rem;color:#cbd5e1;}
+  .price-badge{
+    display:inline-block;
+    background:rgba(212,175,55,.12);
+    color:var(--gold);
+    font-weight:700;font-size:.82rem;
+    padding:.18rem .6rem;border-radius:.4rem;
+    border:1px solid var(--gold-dim);
+    white-space:nowrap;
   }
+  footer{border-top:1px solid rgba(212,175,55,.15);}
+  .footer-icon{transition:transform .25s,color .2s;color:#94a3b8;}
+  .footer-icon:hover{transform:translateY(-3px) scale(1.15);color:#fff;}
 </style>
 </head>
-<body class="bg-[var(--navy-dark)] text-[var(--text-light)] font-sans">
+<body class="bg-[#060d1a] text-gray-200 font-sans flex flex-col min-h-screen">
 
-<!-- Header -->
-<header class="bg-[var(--navy)] text-[var(--text-light)] sticky top-0 z-40">
-  <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-    <div class="flex items-center gap-3">
-      <div class="w-12 h-12 rounded-full overflow-hidden flex items-center justify-center">
-        <img src="assets/socraticschematicslogo.jpg" alt="Socratic Schematics Logo" class="w-full h-full object-cover">
+<header class="text-white sticky top-0 z-40 border-b border-white/5">
+  <div class="max-w-6xl mx-auto px-5 py-4 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-3 group">
+      <div class="w-11 h-11 rounded-full overflow-hidden ring-2 ring-white/10 group-hover:ring-[var(--gold-dim)] transition">
+        <img src="assets/socraticschematicslogo.jpg" class="w-full h-full object-cover" alt="Logo">
       </div>
       <div>
-        <div class="font-bold text-lg">Socratic Schematics</div>
-        <div class="text-sm opacity-90">Karl G. Maeser Preparatory Academy — Team 8885</div>
+        <div class="font-bold text-base leading-tight" style="font-family:'Outfit',sans-serif">Socratic Schematics</div>
+        <div class="text-xs opacity-70 leading-tight">Maeser Prep — FRC Team 8885</div>
       </div>
-    </div>
-    <nav class="hidden md:flex gap-6 items-center">
-      <a href="index.html" class="hover:underline">Home</a>
-      <a href="robots.html" class="hover:underline">Robots</a>
-      <a href="team.html" class="hover:underline">Team</a>
-      <a href="sponsors.html" class="hover:underline">Sponsors</a>
-      <a href="donate.html" class="hover:underline">Donate</a>
-      <a href="snacks.html" class="hover:underline">Snack Prices</a>
-      <a href="contact.html" class="hover:underline">Contact</a>
-      <a href="gallery.html" class="bg-white text-[var(--navy)] font-semibold rounded px-3 py-1">Gallery</a>
+    </a>
+    <nav class="hidden md:flex gap-7 items-center">
+      <a href="index.html"   class="nav-link">Home</a>
+      <a href="robots.html"  class="nav-link">Robots</a>
+      <a href="team.html"    class="nav-link">Team</a>
+      <a href="sponsors.html" class="nav-link">Sponsors</a>
+      <a href="donate.html"  class="nav-link">Donate</a>
+      <a href="snacks.html"  class="nav-link" style="color:#fff">Snack Prices</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+      <a href="gallery.html" class="nav-pill">Gallery</a>
     </nav>
-    <button class="md:hidden" id="mobile-nav-toggle" aria-label="Toggle navigation">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-      </svg>
+    <button id="mobile-nav-toggle" class="md:hidden p-2 rounded-lg hover:bg-white/10 transition" aria-label="Menu">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
     </button>
   </div>
-  <div class="md:hidden bg-[var(--navy-dark)] text-[var(--text-light)] px-4 py-3 hidden" id="mobile-nav">
-    <a href="index.html" class="block py-1">Home</a>
-    <a href="robots.html" class="block py-1">Robots</a>
-    <a href="team.html" class="block py-1">Team</a>
-    <a href="sponsors.html" class="block py-1">Sponsors</a>
-    <a href="donate.html" class="block py-1">Donate</a>
-    <a href="snacks.html" class="block py-1">Snack Prices</a>
-    <a href="contact.html" class="block py-1">Contact</a>
-    <a href="gallery.html" class="block py-1">Gallery</a>
+  <div id="mobile-nav" class="md:hidden bg-[var(--navy-dark)] px-5 border-t border-white/5">
+    <a href="index.html"    class="mobile-link">Home</a>
+    <a href="robots.html"   class="mobile-link">Robots</a>
+    <a href="team.html"     class="mobile-link">Team</a>
+    <a href="sponsors.html" class="mobile-link">Sponsors</a>
+    <a href="donate.html"   class="mobile-link">Donate</a>
+    <a href="snacks.html"   class="mobile-link" style="color:var(--gold)">Snack Prices</a>
+    <a href="contact.html"  class="mobile-link">Contact</a>
+    <a href="gallery.html"  class="mobile-link" style="color:var(--gold)">Gallery</a>
   </div>
 </header>
 
-<!-- Main Content -->
-<main class="max-w-4xl mx-auto px-4 py-10">
-  <h1 class="text-3xl font-bold mb-6 text-center text-white">Snack Prices</h1>
-  <p class="mb-8 text-center text-[var(--text-light)]">Here are the snacks and drinks available from Team 8885. They can be bought before and after school, as well as during lunch in room 223.</p>
+<main class="max-w-4xl mx-auto px-5 py-16 flex-grow">
+  <div class="text-center mb-10 reveal">
+    <h1 class="text-5xl font-extrabold text-white mb-3" style="font-family:'Outfit',sans-serif">Snack Prices</h1>
+    <p class="text-gray-400 text-base max-w-lg mx-auto">Available before &amp; after school, and during lunch in room 223.</p>
+    <div class="w-12 h-0.5 bg-[var(--gold)] mx-auto mt-4 rounded"></div>
+  </div>
 
-  <div class="overflow-x-auto">
-    <table class="min-w-full bg-[var(--slate-card)] rounded shadow overflow-hidden text-[var(--text-light)]">
-      <thead class="bg-[var(--navy-mid)] text-white">
+  <!-- Search -->
+  <div class="relative mb-6 reveal">
+    <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/></svg>
+    <input type="text" id="snack-search" class="search-input" placeholder="Search snacks…">
+  </div>
+
+  <!-- Table -->
+  <div class="overflow-hidden rounded-xl border border-white/8 shadow-2xl reveal">
+    <table class="snack-table">
+      <thead>
         <tr>
-          <th class="py-3 px-6 text-left">Item</th>
-          <th class="py-3 px-6 text-left">Price</th>
+          <th>Item</th>
+          <th>Price</th>
         </tr>
       </thead>
-      <tbody class="divide-y divide-gray-700">
-        <tr><td class="py-3 px-6">Cup of Noodles</td><td class="py-3 px-6">$1.00</td></tr>
-        <tr><td class="py-3 px-6">Soda (Dr. Pepper, Cactus Cooler, Coca Cola, Shasta varieties)</td><td class="py-3 px-6">$1.00</td></tr>
-        <tr><td class="py-3 px-6">Craisins</td><td class="py-3 px-6">$0.25</td></tr>
-        <tr><td class="py-3 px-6">Fig Bars (Apple, Apple Cinnamon, Peach Apricot, Blueberry)</td><td class="py-3 px-6">$0.25</td></tr>
-        <tr><td class="py-3 px-6">Oatmeal Crumble (Strawberry, Apple)</td><td class="py-3 px-6">$0.25</td></tr>
-        <tr><td class="py-3 px-6">Sahale Nut variety</td><td class="py-3 px-6">$0.25</td></tr>
-        <tr><td class="py-3 px-6">Planters Peanuts</td><td class="py-3 px-6">$0.25</td></tr>
-        <tr><td class="py-3 px-6">Cow Tails</td><td class="py-3 px-6">$0.25</td></tr>
-        <tr><td class="py-3 px-6">Pop Tarts</td><td class="py-3 px-6">$1.00</td></tr>
-        <tr><td class="py-3 px-6">Cheezits</td><td class="py-3 px-6">$0.50</td></tr>
-        <tr><td class="py-3 px-6">Chips</td><td class="py-3 px-6">$1.00</td></tr>
-        <tr><td class="py-3 px-6">Cookies (nutter butter, mini oreo, etc)</td><td class="py-3 px-6">$0.50</td></tr>
-        <tr><td class="py-3 px-6">Sleeve of Oreos</td><td class="py-3 px-6">$2.00</td></tr>
-        <tr><td class="py-3 px-6">Regular Twix</td><td class="py-3 px-6">$1.50</td></tr>
-        <tr><td class="py-3 px-6">KitKat</td><td class="py-3 px-6">$1.50</td></tr>
-        <tr><td class="py-3 px-6">Mentos</td><td class="py-3 px-6">$1.00</td></tr>
-        <tr><td class="py-3 px-6">Gum (Trident Layers, Trident Orange, Trident Mint, Dentyne Cinnamon)</td><td class="py-3 px-6">$1.00</td></tr>
-        <tr><td class="py-3 px-6">Fruit Snacks</td><td class="py-3 px-6">$0.25</td></tr>
-        <tr><td class="py-3 px-6">Granola Bar</td><td class="py-3 px-6">$0.25</td></tr>
-        <tr><td class="py-3 px-6">Cereal Bar</td><td class="py-3 px-6">$0.25</td></tr>
-        <tr><td class="py-3 px-6">Twinkies</td><td class="py-3 px-6">$0.50</td></tr>
-        <tr><td class="py-3 px-6">Bugles</td><td class="py-3 px-6">$1.00</td></tr>
-        <tr><td class="py-3 px-6">Caprisuns</td><td class="py-3 px-6">$0.50</td></tr>
-        <tr><td class="py-3 px-6">Dot’s Homestyle Pretzels (Honey Mustard, Original, Parmesan Garlic)</td><td class="py-3 px-6">$0.50</td></tr>
-        <tr><td class="py-3 px-6">Sour Patch Kids (Strawberry)</td><td class="py-3 px-6">$2.00</td></tr>
-        <tr><td class="py-3 px-6">Jack Links (Flamin Hot Original) Meat Stick</td><td class="py-3 px-6">$0.75</td></tr>
+      <tbody id="snack-body">
+        <tr><td>Cup of Noodles</td><td><span class="price-badge">$1.00</span></td></tr>
+        <tr><td>Soda (Dr. Pepper, Cactus Cooler, Coca Cola, Shasta varieties)</td><td><span class="price-badge">$1.00</span></td></tr>
+        <tr><td>Craisins</td><td><span class="price-badge">$0.25</span></td></tr>
+        <tr><td>Fig Bars (Apple, Apple Cinnamon, Peach Apricot, Blueberry)</td><td><span class="price-badge">$0.25</span></td></tr>
+        <tr><td>Oatmeal Crumble (Strawberry, Apple)</td><td><span class="price-badge">$0.25</span></td></tr>
+        <tr><td>Sahale Nut variety</td><td><span class="price-badge">$0.25</span></td></tr>
+        <tr><td>Planters Peanuts</td><td><span class="price-badge">$0.25</span></td></tr>
+        <tr><td>Cow Tails</td><td><span class="price-badge">$0.25</span></td></tr>
+        <tr><td>Pop Tarts</td><td><span class="price-badge">$1.00</span></td></tr>
+        <tr><td>Cheezits</td><td><span class="price-badge">$0.50</span></td></tr>
+        <tr><td>Chips</td><td><span class="price-badge">$1.00</span></td></tr>
+        <tr><td>Cookies (nutter butter, mini oreo, etc)</td><td><span class="price-badge">$0.50</span></td></tr>
+        <tr><td>Sleeve of Oreos</td><td><span class="price-badge">$2.00</span></td></tr>
+        <tr><td>Regular Twix</td><td><span class="price-badge">$1.50</span></td></tr>
+        <tr><td>KitKat</td><td><span class="price-badge">$1.50</span></td></tr>
+        <tr><td>Mentos</td><td><span class="price-badge">$1.00</span></td></tr>
+        <tr><td>Gum (Trident Layers, Trident Orange, Trident Mint, Dentyne Cinnamon)</td><td><span class="price-badge">$1.00</span></td></tr>
+        <tr><td>Fruit Snacks</td><td><span class="price-badge">$0.25</span></td></tr>
+        <tr><td>Granola Bar</td><td><span class="price-badge">$0.25</span></td></tr>
+        <tr><td>Cereal Bar</td><td><span class="price-badge">$0.25</span></td></tr>
+        <tr><td>Twinkies</td><td><span class="price-badge">$0.50</span></td></tr>
+        <tr><td>Bugles</td><td><span class="price-badge">$1.00</span></td></tr>
+        <tr><td>Caprisuns</td><td><span class="price-badge">$0.50</span></td></tr>
+        <tr><td>Dot's Homestyle Pretzels (Honey Mustard, Original, Parmesan Garlic)</td><td><span class="price-badge">$0.50</span></td></tr>
+        <tr><td>Sour Patch Kids (Strawberry)</td><td><span class="price-badge">$2.00</span></td></tr>
+        <tr><td>Jack Links (Flamin Hot Original) Meat Stick</td><td><span class="price-badge">$0.75</span></td></tr>
       </tbody>
     </table>
   </div>
+  <p id="no-results" class="text-center text-gray-500 mt-6 hidden">No items match your search.</p>
 </main>
 
-<!-- Footer -->
-<footer class="bg-[var(--navy)] py-6 mt-20">
-  <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4 text-gray-300">
-    
-    <!-- Left text -->
+<footer class="bg-[var(--navy-dark)] py-8 mt-auto">
+  <div class="max-w-6xl mx-auto px-5 flex flex-col md:flex-row items-center justify-between gap-5">
     <div>
-      <div class="font-semibold text-white">Socratic Schematics — Team 8885</div>
-      <div class="text-sm opacity-80">Karl G. Maeser Preparatory Academy</div>
+      <div class="font-bold text-white" style="font-family:'Outfit',sans-serif">Socratic Schematics — Team 8885</div>
+      <div class="text-xs text-gray-500 mt-1">Karl G. Maeser Preparatory Academy</div>
     </div>
-
-    <!-- Icon links -->
-    <div class="flex gap-6">
-      
-      <!-- Instagram -->
-      <a
-        href="https://instagram.com/socraticschematics"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="transform transition duration-300 hover:scale-125"
-        aria-label="Instagram"
-      >
-        <svg class="w-6 h-6 text-gray-300 hover:text-white" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5a4.25 4.25 0 0 0 4.25-4.25v-8.5A4.25 4.25 0 0 0 16.25 3.5h-8.5z"/>
-          <path d="M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 1.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z"/>
-          <circle cx="17.5" cy="6.5" r="1"/>
-        </svg>
+    <div class="flex gap-7 items-center">
+      <a href="https://instagram.com/socraticschematics" target="_blank" rel="noopener" class="footer-icon" aria-label="Instagram">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5a4.25 4.25 0 0 0 4.25-4.25v-8.5A4.25 4.25 0 0 0 16.25 3.5h-8.5z"/><path d="M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 1.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z"/><circle cx="17.5" cy="6.5" r="1"/></svg>
       </a>
-
-      <!-- Email -->
-      <a
-        href="https://mail.google.com/mail/?view=cm&fs=1&to=maeserrobotics@gmail.com"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="transform transition duration-300 hover:scale-125"
-        aria-label="Email"
-      >
-        <svg class="w-6 h-6 text-gray-300 hover:text-white" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm0 3.2v10.8h16V7.2l-8 5-8-5zm8 3.3 8-5H4l8 5z"/>
-        </svg>
+      <a href="https://mail.google.com/mail/?view=cm&fs=1&to=maeserrobotics@gmail.com" target="_blank" rel="noopener" class="footer-icon" aria-label="Email">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm0 3.2v10.8h16V7.2l-8 5-8-5zm8 3.3 8-5H4l8 5z"/></svg>
       </a>
-
-      <!-- Phone -->
-      <a
-        href="tel:+18012359000,1223"
-        class="transform transition duration-300 hover:scale-125"
-        aria-label="Phone"
-      >
-        <svg class="w-6 h-6 text-gray-300 hover:text-white" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25c1.1.37 2.3.57 3.6.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.3 21 3 13.7 3 4a1 1 0 0 1 1-1h3.4a1 1 0 0 1 1 1c0 1.3.2 2.5.57 3.6a1 1 0 0 1-.25 1L6.6 10.8z"/>
-        </svg>
+      <a href="tel:+18012359000,1223" class="footer-icon" aria-label="Phone">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25c1.1.37 2.3.57 3.6.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.3 21 3 13.7 3 4a1 1 0 0 1 1-1h3.4a1 1 0 0 1 1 1c0 1.3.2 2.5.57 3.6a1 1 0 0 1-.25 1L6.6 10.8z"/></svg>
       </a>
-
     </div>
   </div>
 </footer>
 
 <script>
-  const toggleBtn = document.getElementById('mobile-nav-toggle');
-  const mobileNav = document.getElementById('mobile-nav');
-  toggleBtn.addEventListener('click', ()=> { mobileNav.classList.toggle('hidden'); });
+const ro=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');ro.unobserve(e.target);}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+document.getElementById('mobile-nav-toggle').addEventListener('click',()=>document.getElementById('mobile-nav').classList.toggle('open'));
+
+// Live search
+document.getElementById('snack-search').addEventListener('input',function(){
+  const q=this.value.toLowerCase().trim();
+  const rows=document.querySelectorAll('#snack-body tr');
+  let visible=0;
+  rows.forEach(row=>{
+    const text=row.cells[0].textContent.toLowerCase();
+    const show=!q||text.includes(q);
+    row.classList.toggle('hidden-row',!show);
+    if(show)visible++;
+  });
+  document.getElementById('no-results').classList.toggle('hidden',visible>0);
+});
 </script>
 </body>
 </html>
