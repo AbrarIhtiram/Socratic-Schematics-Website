@@ -3,223 +3,266 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Euclid’s Engineers — FTC Team 31683</title>
+<title>Euclid's Engineers — FTC Team 31683</title>
 <link rel="icon" href="assets/euclidsengineers.jpg" type="image/jpeg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
-
 <style>
-  :root {
-    --navy: #0b2545;
-    --navy-dark: #081e38;
-    --navy-mid: #102f55;
-    --navy-light: #163b66;
-    --gold: #d4af37;
-  }
+  :root{--navy:#0b2545;--navy-dark:#081e38;--navy-mid:#102f55;--navy-light:#163b66;--gold:#d4af37;--gold-dim:rgba(212,175,55,0.35);--slate-card:#1a2840;}
+  *{box-sizing:border-box;} body{font-family:'Inter',sans-serif;} h1,h2,h3,h4{font-family:'Outfit',sans-serif;}
 
-  /* Logo hover */
-  .logo-hover {
-    transition: transform 0.3s ease;
-  }
-  .logo-hover:hover {
-    transform: scale(1.1);
-  }
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .65s cubic-bezier(.22,1,.36,1),transform .65s cubic-bezier(.22,1,.36,1);}
+  .reveal.visible{opacity:1;transform:none;}
+  .rd1{transition-delay:.08s}.rd2{transition-delay:.16s}.rd3{transition-delay:.24s}
 
-  /* Glint card system (ported from Donate page) */
-  .glint-card {
-    position: relative;
-    overflow: hidden;
-  }
+  /* Header */
+  header{backdrop-filter:blur(12px);background:rgba(11,37,69,0.95);}
+  .back-btn{background:var(--gold);color:var(--navy-dark);font-family:'Outfit',sans-serif;font-weight:700;padding:.5rem 1.2rem;border-radius:6px;font-size:.85rem;transition:filter .2s,transform .2s;}
+  .back-btn:hover{filter:brightness(1.08);transform:translateY(-1px);}
 
-  .glint-card::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -150%;
-    width: 50%;
-    height: 100%;
-    background: linear-gradient(
-      120deg,
-      rgba(255,255,255,0.15),
-      rgba(255,255,255,0)
-    );
-    transform: skewX(-25deg);
-    animation: continuous-glint 3.5s linear infinite;
+  /* Hero — full-bleed photo with overlay */
+  .hero-section{
+    position:relative;min-height:560px;
+    display:flex;align-items:center;justify-content:center;
+    overflow:hidden;
   }
-
-  @keyframes continuous-glint {
-    0% { left: -150%; }
-    100% { left: 150%; }
+  .hero-section img.hero-bg-img{
+    position:absolute;inset:0;width:100%;height:100%;
+    object-fit:cover;object-position:center;
+    filter:brightness(.35);
   }
-
-  /* Hover polish */
-  .glint-card:hover {
-    transform: translateY(-6px) scale(1.03);
-    background-color: var(--navy-light);
+  .hero-section::after{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(to bottom,rgba(6,13,26,.2) 0%,rgba(6,13,26,.75) 100%);
+    pointer-events:none;
   }
+  .hero-content{position:relative;z-index:10;text-align:center;padding:4rem 2rem;}
 
-  /* Soft fade-in animation */
-  .fade-in {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 0.9s ease forwards;
+  /* What is FTC — image + text split */
+  .split-section{
+    display:grid;grid-template-columns:1fr 1fr;
+    gap:0;min-height:420px;
   }
+  @media(max-width:768px){.split-section{grid-template-columns:1fr;}}
+  .split-img{width:100%;height:100%;min-height:300px;object-fit:cover;}
+  .split-body{padding:3.5rem 3rem;display:flex;flex-direction:column;justify-content:center;background:var(--navy);}
+  @media(max-width:768px){.split-body{padding:2.5rem 1.75rem;}}
 
-  .delay-1 { animation-delay: 0.1s; }
-  .delay-2 { animation-delay: 0.25s; }
-  .delay-3 { animation-delay: 0.4s; }
-
-  @keyframes fadeInUp {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  /* Skill cards */
+  .skill-card{
+    background:var(--slate-card);
+    border:1px solid rgba(255,255,255,.07);
+    border-radius:1rem;padding:2rem 1.75rem;
+    position:relative;overflow:hidden;
+    transition:transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s,border-color .3s;
   }
+  .skill-card::after{
+    content:'';position:absolute;top:0;left:-140%;width:50%;height:100%;
+    background:linear-gradient(120deg,rgba(255,255,255,.1),rgba(255,255,255,0));
+    transform:skewX(-25deg);animation:sweep 4s linear infinite;
+  }
+  @keyframes sweep{0%{left:-140%}100%{left:160%}}
+  .skill-card:hover{transform:translateY(-6px);box-shadow:0 24px 55px rgba(0,0,0,.55);border-color:var(--gold-dim);}
+
+  /* Pipeline */
+  .pipe-step{display:flex;gap:1.25rem;align-items:flex-start;}
+  .pipe-dot{
+    width:2.75rem;height:2.75rem;border-radius:50%;
+    background:var(--gold);color:var(--navy-dark);
+    font-weight:800;font-size:.95rem;
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+    box-shadow:0 4px 18px rgba(212,175,55,.4);
+  }
+  .pipe-connector{width:2px;height:2.5rem;background:linear-gradient(to bottom,var(--gold-dim),transparent);margin:0 auto;}
+
+  /* CTA */
+  .cta-btn{
+    display:inline-block;background:var(--gold);color:var(--navy-dark);
+    font-family:'Outfit',sans-serif;font-weight:800;font-size:1rem;
+    padding:.85rem 2.5rem;border-radius:.7rem;
+    position:relative;overflow:hidden;
+    transition:transform .25s,box-shadow .25s;
+    box-shadow:0 8px 25px rgba(212,175,55,.4);
+  }
+  .cta-btn::after{content:'';position:absolute;top:0;left:-70%;width:45%;height:100%;background:linear-gradient(120deg,rgba(255,255,255,.35),rgba(255,255,255,0));transform:skewX(-25deg);}
+  .cta-btn:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(212,175,55,.55);}
+  .cta-btn:hover::after{animation:glint .7s forwards;}
+  @keyframes glint{0%{left:-70%}100%{left:130%}}
+
+  footer{border-top:1px solid rgba(255,255,255,.06);}
 </style>
 </head>
+<body class="bg-[#060d1a] text-white font-sans flex flex-col min-h-screen">
 
-<body class="bg-[var(--navy-mid)] text-white font-sans">
-
-<!-- Header -->
-<header class="bg-[var(--navy)] sticky top-0 z-40">
-  <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+<!-- HEADER -->
+<header class="text-white sticky top-0 z-40 border-b border-white/5">
+  <div class="max-w-6xl mx-auto px-5 py-4 flex items-center justify-between">
     <div class="flex items-center gap-3">
-      <img src="assets/euclidsengineers.jpg" alt="Euclid’s Engineers Logo" class="w-12 h-12 rounded-full object-cover">
+      <div class="w-11 h-11 rounded-full overflow-hidden ring-2 ring-white/10">
+        <img src="assets/euclidsengineers.jpg" alt="Euclid's Engineers" class="w-full h-full object-cover">
+      </div>
       <div>
-        <div class="font-bold text-lg">Euclid’s Engineers</div>
-        <div class="text-sm opacity-80">FTC Team 31683</div>
+        <div class="font-bold text-base leading-tight" style="font-family:'Outfit',sans-serif">Euclid's Engineers</div>
+        <div class="text-xs opacity-60 leading-tight">FTC Team 31683</div>
       </div>
     </div>
-    <a href="index.html"
-       class="bg-white text-[var(--navy)] font-semibold px-4 py-2 rounded hover:scale-105 transition">
-      Back to FRC
-    </a>
+    <a href="index.html" class="back-btn">Back to FRC</a>
   </div>
 </header>
 
-<!-- Hero -->
-<section class="relative py-24 bg-[var(--navy-dark)] text-center">
-  <div class="max-w-4xl mx-auto px-6 fade-in">
-    <h1 class="text-4xl md:text-6xl font-extrabold mb-4">Euclid’s Engineers</h1>
-    <p class="text-lg md:text-xl opacity-90 mb-8">
-      FTC Team 31683 • Grades 7–8 • Building the next generation of engineers
+<!-- HERO — full bleed photo -->
+<section class="hero-section">
+  <img src="assets/ftchero.jpg" alt="Euclid's Engineers team" class="hero-bg-img"
+       onerror="this.style.display='none'">
+  <!-- fallback gradient when no image -->
+  <div class="absolute inset-0 -z-10" style="background:linear-gradient(145deg,#081e38 0%,#0d3060 60%,#102f55 100%)"></div>
+  <div class="hero-content reveal">
+    <div class="text-xs font-bold tracking-widest text-[var(--gold)] uppercase mb-4">Karl G. Maeser Preparatory Academy</div>
+    <h1 class="text-5xl md:text-7xl font-extrabold mb-5 tracking-tight">Euclid's Engineers</h1>
+    <p class="text-gray-300 text-lg md:text-xl mb-10 max-w-xl mx-auto">FTC Team 31683 &nbsp;&middot;&nbsp; Grades 7–8 &nbsp;&middot;&nbsp; Building the next generation of engineers</p>
+    <a href="#about" class="cta-btn">Learn More</a>
+  </div>
+</section>
+
+<!-- WHAT IS FTC — photo split -->
+<section id="about" class="split-section">
+  <img src="assets/ftccomp.jpg" alt="Students building an FTC robot" class="split-img"
+       onerror="this.style.background='var(--navy-mid)';this.removeAttribute('src')">
+  <div class="split-body reveal">
+    <div class="text-xs font-bold tracking-widest text-[var(--gold)] uppercase mb-3">The Program</div>
+    <h2 class="text-3xl font-bold mb-5">What is FIRST Tech Challenge?</h2>
+    <p class="text-gray-300 leading-relaxed text-sm">
+      FIRST Tech Challenge (FTC) is a competitive robotics program where middle school students
+      design, build, and program robots to complete field challenges each season.
+      Teams develop engineering principles, coding skills, teamwork, and problem-solving
+      in a hands-on environment — preparing them for the challenges of high school, college, and beyond.
     </p>
-    <a href="#about"
-       class="inline-block bg-yellow-500 text-white font-semibold px-8 py-4 rounded-lg hover:scale-105 transition">
-      Learn More
+    <a href="https://www.firstinspires.org/" target="_blank" rel="noopener"
+       class="mt-8 flex items-center gap-4 w-fit group
+              bg-white/5 hover:bg-white/10
+              border border-white/10 hover:border-[var(--gold-dim)]
+              rounded-2xl px-5 py-4
+              transition-all duration-300
+              hover:shadow-[0_8px_30px_rgba(212,175,55,0.15)]
+              hover:-translate-y-1">
+      <div class="w-14 h-14 rounded-xl bg-white flex items-center justify-center flex-shrink-0 shadow-md">
+        <img src="assets/firstlogo.png" alt="FIRST Logo" class="w-11 h-11 object-contain">
+      </div>
+      <div>
+        <div class="text-sm font-bold text-white group-hover:text-[var(--gold)] transition-colors leading-tight">FIRST Inspires</div>
+        <div class="text-xs text-gray-400 mt-0.5 leading-tight">firstinspires.org</div>
+      </div>
+      <svg class="w-4 h-4 text-gray-500 group-hover:text-[var(--gold)] transition-colors ml-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+      </svg>
     </a>
   </div>
 </section>
 
-<!-- About FTC -->
-<section id="about" class="bg-[var(--navy)] py-16">
-  <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-10 items-center">
-    <div class="fade-in delay-1">
-      <h2 class="text-3xl font-bold mb-4">What is FIRST Tech Challenge?</h2>
-      <p class="text-sm leading-relaxed opacity-90">
-        FIRST Tech Challenge (FTC) is a competitive robotics program where middle school students
-        design, build, and program robots to complete challenges on a playing field.
-        Teams learn engineering principles, coding, teamwork, and problem solving in a
-        hands-on, exciting environment.
-      </p>
-    </div>
-    <div class="text-center fade-in delay-2">
-      <img src="assets/firstlogo.png" alt="FIRST Logo" class="h-32 mx-auto logo-hover">
-    </div>
-  </div>
-</section>
-
-<!-- Team Overview -->
-<section class="bg-[var(--navy-light)] py-16">
-  <div class="max-w-6xl mx-auto px-6 fade-in delay-1">
-    <h2 class="text-3xl font-bold mb-6 text-center">About Our Team</h2>
-    <p class="max-w-4xl mx-auto text-center text-sm opacity-90 leading-relaxed">
-      Euclid’s Engineers is the middle school robotics team at Karl G. Maeser Preparatory Academy.
+<!-- ABOUT THE TEAM — photo split reversed -->
+<section class="split-section">
+  <div class="split-body reveal" style="background:var(--navy-mid)">
+    <div class="text-xs font-bold tracking-widest text-[var(--gold)] uppercase mb-3">Our Team</div>
+    <h2 class="text-3xl font-bold mb-5">About Euclid's Engineers</h2>
+    <p class="text-gray-300 leading-relaxed text-sm">
+      Euclid's Engineers is the middle school robotics team at Karl G. Maeser Preparatory Academy.
       As FTC Team 31683, our students collaborate to design robots, write code, and compete in
       FIRST Tech Challenge competitions. We emphasize learning, creativity, leadership, and
-      confidence while preparing students for future STEM opportunities.
+      confidence while preparing students for future STEM opportunities — and eventually, the FRC team.
     </p>
   </div>
+  <img src="assets/ftcteam.jpg" alt="The Euclid's Engineers team" class="split-img"
+       onerror="this.style.background='var(--navy-light)';this.removeAttribute('src')">
 </section>
 
-<!-- Skills (GLINT CARDS) -->
-<section class="bg-[var(--navy)] py-16">
+<!-- SKILLS -->
+<section class="bg-[var(--navy-dark)] py-20">
   <div class="max-w-6xl mx-auto px-6">
-    <h2 class="text-3xl font-bold mb-10 text-center fade-in">What Students Learn</h2>
-
-    <div class="grid md:grid-cols-3 gap-8 text-center">
-      
-      <div class="glint-card fade-in delay-1 bg-[var(--navy-mid)] p-6 rounded-xl shadow transition-all">
-        <h3 class="font-semibold text-xl mb-2">Engineering</h3>
-        <p class="text-sm opacity-90">
-          Mechanical design, prototyping, CAD concepts, and iterative problem solving.
-        </p>
+    <div class="text-center mb-12 reveal">
+      <div class="text-xs font-bold tracking-widest text-[var(--gold)] uppercase mb-3">Skills</div>
+      <h2 class="text-3xl font-bold">What Students Learn</h2>
+      <div class="w-12 h-0.5 bg-[var(--gold)] mx-auto mt-3 rounded"></div>
+    </div>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="skill-card reveal rd1">
+        <h3 class="text-lg font-bold text-white mb-2">Engineering</h3>
+        <p class="text-gray-400 text-sm leading-relaxed">Mechanical design, prototyping, CAD concepts, and iterative problem solving.</p>
       </div>
-
-      <div class="glint-card fade-in delay-2 bg-[var(--navy-mid)] p-6 rounded-xl shadow transition-all">
-        <h3 class="font-semibold text-xl mb-2">Programming</h3>
-        <p class="text-sm opacity-90">
-          Java-based robot code, sensors, autonomous routines, and debugging skills.
-        </p>
+      <div class="skill-card reveal rd2">
+        <h3 class="text-lg font-bold text-white mb-2">Programming</h3>
+        <p class="text-gray-400 text-sm leading-relaxed">Java-based robot code, sensors, autonomous routines, and debugging skills.</p>
       </div>
-
-      <div class="glint-card fade-in delay-3 bg-[var(--navy-mid)] p-6 rounded-xl shadow transition-all">
-        <h3 class="font-semibold text-xl mb-2">Teamwork & Leadership</h3>
-        <p class="text-sm opacity-90">
-          Collaboration, communication, time management, and competition strategy.
-        </p>
+      <div class="skill-card reveal rd3">
+        <h3 class="text-lg font-bold text-white mb-2">Teamwork &amp; Leadership</h3>
+        <p class="text-gray-400 text-sm leading-relaxed">Collaboration, communication, time management, and competition strategy.</p>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- FTC to FRC Pipeline -->
-<section class="bg-[var(--navy-light)] py-16">
-  <div class="max-w-6xl mx-auto px-6 text-center fade-in delay-1">
-    <h2 class="text-3xl font-bold mb-4">FTC → FRC Pathway</h2>
-    <p class="text-sm max-w-4xl mx-auto opacity-90 leading-relaxed">
-      Euclid’s Engineers serves as the foundation for students who later join
-      Socratic Schematics (FRC Team 8885). FTC builds the technical skills,
-      confidence, and mindset needed to succeed at the high school level.
+<!-- FTC TO FRC PIPELINE -->
+<section class="bg-[var(--navy-mid)] py-20">
+  <div class="max-w-4xl mx-auto px-6">
+    <div class="text-center mb-12 reveal">
+      <div class="text-xs font-bold tracking-widest text-[var(--gold)] uppercase mb-3">The Path Forward</div>
+      <h2 class="text-3xl font-bold">FTC to FRC Pathway</h2>
+      <div class="w-12 h-0.5 bg-[var(--gold)] mx-auto mt-3 rounded"></div>
+    </div>
+    <div class="max-w-xl mx-auto space-y-1">
+      <div class="pipe-step reveal rd1">
+        <div class="flex flex-col items-center"><div class="pipe-dot">1</div><div class="pipe-connector"></div></div>
+        <div class="pb-6 pt-1">
+          <h4 class="font-bold text-white text-base">Join FTC — Grades 7 &amp; 8</h4>
+          <p class="text-gray-400 text-sm mt-1 leading-relaxed">Start with Euclid's Engineers. Learn the fundamentals of design, programming, and competition through hands-on robot building.</p>
+        </div>
+      </div>
+      <div class="pipe-step reveal rd2">
+        <div class="flex flex-col items-center"><div class="pipe-dot">2</div><div class="pipe-connector"></div></div>
+        <div class="pb-6 pt-1">
+          <h4 class="font-bold text-white text-base">Build Real Skills</h4>
+          <p class="text-gray-400 text-sm mt-1 leading-relaxed">Develop technical expertise and confidence through seasons of building, competing, and iterating.</p>
+        </div>
+      </div>
+      <div class="pipe-step reveal rd3">
+        <div class="flex flex-col items-center"><div class="pipe-dot">3</div></div>
+        <div class="pt-1">
+          <h4 class="font-bold text-white text-base">Join Socratic Schematics — FRC Team 8885</h4>
+          <p class="text-gray-400 text-sm mt-1 leading-relaxed">Graduate to high school FRC ready to tackle one of the world's biggest student robotics competitions.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GET INVOLVED -->
+<section class="py-24 text-center" style="background:var(--navy)">
+  <div class="max-w-2xl mx-auto px-6 reveal">
+    <div class="text-xs font-bold tracking-widest text-[var(--gold)] uppercase mb-4">Get Involved</div>
+    <h2 class="text-4xl font-extrabold mb-5">Interested in FTC?</h2>
+    <p class="text-gray-300 leading-relaxed mb-10">
+      FTC is where curiosity turns into capability. Students don't just learn engineering —
+      they become engineers. Reach out and we'll get you started.
     </p>
+    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=maeserroboticsftc@gmail.com"
+       target="_blank" rel="noopener" class="cta-btn">Send Us an Email</a>
   </div>
 </section>
 
-<!-- Call to Action -->
-<section class="bg-[var(--navy)] py-20 text-center">
-    <div class="fade-in delay-1">
-        <h2 class="text-3xl font-bold mb-6">Interested in FTC?</h2>
-        <p class="text-sm opacity-90 mb-8 max-w-2xl mx-auto">
-        FTC is where curiosity turns into capability. Students don’t just learn engineering,
-        they become engineers.
-        </p>        
-   </div>   
-
-</section>
-<!---Get Involved -->
-<section class="bg-[var(--navy-light)] py-20 text-center">
-    <div class="max-w-6xl mx-auto px-6 text-center fade-in delay-1">
-        <h2 class="text-3xl font-bold mb-4">Get Involved</h2>
-            <div class="mt-4 space-y-4 text-center text-gray-300 flex justify-center">
-                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=maeserroboticsftc@gmail.com" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    class="transform transition duration-300 hover:scale-125"
-                    aria-label="Email">
-                        <svg class="w-6 h-6 text-gray-300 hover:text-white" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm0 3.2v10.8h16V7.2l-8 5-8-5zm8 3.3 8-5H4l8 5z"/>
-                        </svg>
-                </a>
-            </div>
+<!-- FOOTER -->
+<footer class="bg-[var(--navy-dark)] py-7">
+  <div class="max-w-6xl mx-auto px-5 text-center">
+    <div class="font-bold text-white" style="font-family:'Outfit',sans-serif">Euclid's Engineers — FTC Team 31683</div>
+    <div class="text-xs text-gray-500 mt-1">Karl G. Maeser Preparatory Academy</div>
+    <div class="mt-4">
+      <a href="index.html" class="text-[var(--gold)] text-sm hover:underline">Back to Socratic Schematics (FRC)</a>
     </div>
-</section>
-<!-- Footer -->
-<footer class="bg-[var(--navy-dark)] py-6 border-t border-white/10">
-  <div class="max-w-6xl mx-auto px-4 text-center text-gray-300">
-    <div class="font-semibold text-white">Euclid’s Engineers — FTC Team 31683</div>
-    <div class="text-sm opacity-80">Karl G. Maeser Preparatory Academy</div>
   </div>
 </footer>
 
+<script>
+const ro=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');ro.unobserve(e.target);}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+</script>
 </body>
 </html>

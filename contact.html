@@ -46,9 +46,9 @@
     border:1px solid rgba(255,255,255,.07);
     border-radius:1rem;
     padding:2rem;
-    transition:border-color .3s;
+    transition:border-color .3s,transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s;
   }
-  .form-card:hover{border-color:var(--gold-dim);}
+  .form-card:hover{border-color:var(--gold-dim);transform:translateY(-4px);box-shadow:0 20px 50px rgba(0,0,0,.5);}
   .form-input{
     width:100%;background:rgba(255,255,255,.05);
     border:1px solid rgba(255,255,255,.12);
