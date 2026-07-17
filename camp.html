@@ -109,6 +109,74 @@
   @media(max-width:560px){.flyer-card{flex-direction:column;text-align:center;}}
   .flyer-thumb{width:110px;flex-shrink:0;border-radius:.6rem;box-shadow:0 10px 30px rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.1);}
 
+  /* Full schedule modal */
+  #schedule-modal{
+    position:fixed;inset:0;z-index:60;background:rgba(3,8,20,.88);
+    display:none;align-items:flex-start;justify-content:center;
+    padding:3vh 1rem;overflow-y:auto;
+  }
+  #schedule-modal.open{display:flex;}
+  .modal-panel{
+    background:var(--navy);border:1px solid var(--gold-dim);border-radius:1rem;
+    width:100%;max-width:880px;box-shadow:0 40px 100px rgba(0,0,0,.7);
+    animation:modalIn .25s cubic-bezier(.22,1,.36,1);
+  }
+  @keyframes modalIn{from{transform:translateY(16px);opacity:0}to{transform:translateY(0);opacity:1}}
+  .modal-head{
+    position:sticky;top:0;z-index:2;
+    background:rgba(11,37,69,.97);backdrop-filter:blur(8px);
+    border-bottom:1px solid rgba(255,255,255,.08);
+    border-radius:1rem 1rem 0 0;
+    padding:1.25rem 1.5rem;display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;
+  }
+  .modal-head h3{font-size:1.35rem;color:#fff;margin-bottom:.2rem;}
+  .modal-head p{font-size:.8rem;color:#94a3b8;margin:0;}
+  .modal-close{
+    background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);color:#fff;
+    width:2.1rem;height:2.1rem;border-radius:.6rem;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;cursor:pointer;
+    font-size:1.1rem;line-height:1;transition:background .2s,border-color .2s;
+  }
+  .modal-close:hover{background:rgba(212,175,55,.15);border-color:var(--gold-dim);}
+  .modal-body{padding:1.25rem 1.5rem 1.75rem;}
+
+  .setup-list-box{background:var(--slate-card);border:1px solid rgba(255,255,255,.07);border-left:3px solid var(--gold);border-radius:.6rem;padding:1rem 1.25rem;margin-bottom:1.25rem;}
+  .setup-list-box div.lbl{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem;}
+  .setup-list-box ul{margin:0;padding-left:1.1rem;color:#cbd5e1;font-size:.82rem;line-height:1.6;}
+
+  .sched-day{background:var(--slate-card);border:1px solid rgba(255,255,255,.07);border-radius:.75rem;margin-bottom:.65rem;overflow:hidden;}
+  .sched-day-head{display:flex;align-items:center;gap:.85rem;padding:.85rem 1rem;cursor:pointer;user-select:none;}
+  .sched-day-head:hover{background:rgba(255,255,255,.03);}
+  .sched-day-badge{
+    width:2.1rem;height:2.1rem;border-radius:50%;background:var(--gold);color:var(--navy-dark);
+    font-family:'Outfit',sans-serif;font-weight:800;font-size:.78rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .sched-day-titles{flex:1;min-width:0;}
+  .sched-day-titles .t{color:#fff;font-weight:700;font-size:.9rem;}
+  .sched-day-titles .s{color:#94a3b8;font-size:.76rem;font-style:italic;}
+  .sched-chevron{flex-shrink:0;transition:transform .25s;color:#94a3b8;}
+  .sched-day.open .sched-chevron{transform:rotate(180deg);}
+  .sched-day-body{max-height:0;overflow:hidden;transition:max-height .35s ease;}
+  .sched-day-inner{padding:0 1rem 1.1rem;}
+
+  .sched-materials{background:rgba(212,175,55,.07);border:1px solid var(--gold-dim);border-radius:.5rem;padding:.75rem 1rem;margin-bottom:.85rem;}
+  .sched-materials .lbl{font-size:.65rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--gold);margin-bottom:.4rem;}
+  .sched-materials ul{margin:0;padding-left:1.1rem;color:#cbd5e1;font-size:.78rem;line-height:1.55;}
+
+  .sched-note{background:rgba(255,255,255,.04);border-left:3px solid var(--navy-light);border-radius:.4rem;padding:.6rem .9rem;margin-bottom:.85rem;font-size:.78rem;color:#94a3b8;}
+  .sched-note strong{color:#cbd5e1;}
+
+  table.sched-table{width:100%;border-collapse:collapse;font-size:.76rem;}
+  table.sched-table th{background:rgba(255,255,255,.05);color:#94a3b8;text-align:left;padding:.4rem .6rem;font-size:.65rem;letter-spacing:.06em;text-transform:uppercase;}
+  table.sched-table td{padding:.45rem .6rem;border-bottom:1px solid rgba(255,255,255,.05);vertical-align:top;color:#cbd5e1;}
+  table.sched-table td.tm{white-space:nowrap;font-weight:700;color:var(--gold);width:15%;}
+  table.sched-table td.sg{font-weight:700;color:#e2e8f0;width:22%;}
+  table.sched-table tr.brk td{background:rgba(212,175,55,.06);font-style:italic;color:#94a3b8;}
+
+  .modal-footer-links{border-top:1px solid rgba(255,255,255,.08);padding-top:1rem;margin-top:.5rem;text-align:center;}
+  .modal-footer-links a{color:var(--gold);font-size:.82rem;text-decoration:none;}
+  .modal-footer-links a:hover{text-decoration:underline;}
+
   footer{border-top:1px solid rgba(212,175,55,.15);}
   .footer-icon{transition:transform .25s,color .2s;color:#94a3b8;}
   .footer-icon:hover{transform:translateY(-3px) scale(1.15);color:#fff;}
@@ -262,7 +330,7 @@
           <h3 class="text-lg font-bold text-white mb-2">Design &amp; Build</h3>
           <p class="text-gray-400 text-sm leading-relaxed">
             Plan, build, and iterate on a real chassis using LEGO-based parts and motors — as a
-            team, with a builder, wirer, and coder role for every kid.
+            team, with the hands-on role rotating day to day so every kid gets every lesson.
           </p>
         </div>
       </div>
@@ -288,8 +356,8 @@
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-14">
       <div class="day-card reveal rd1">
         <div class="day-num">1</div>
-        <h4 class="font-bold text-white text-sm mb-1.5">Circuits &amp; Components</h4>
-        <p class="text-gray-400 text-xs leading-relaxed">Meet in age-balanced teams and learn how batteries, resistors, LEDs, buttons, potentiometers, and DC motors work — by wiring each one up themselves.</p>
+        <h4 class="font-bold text-white text-sm mb-1.5">Electronics Fundamentals</h4>
+        <p class="text-gray-400 text-xs leading-relaxed">Learn how batteries, resistors, LEDs, buttons, potentiometers, and DC motors work — by wiring each one up themselves, then troubleshoot a broken circuit.</p>
       </div>
       <div class="day-card reveal rd2">
         <div class="day-num">2</div>
@@ -298,13 +366,13 @@
       </div>
       <div class="day-card reveal rd3">
         <div class="day-num">3</div>
-        <h4 class="font-bold text-white text-sm mb-1.5">Inputs &amp; Logic</h4>
+        <h4 class="font-bold text-white text-sm mb-1.5">Reading the World</h4>
         <p class="text-gray-400 text-xs leading-relaxed">Read buttons and potentiometers into the Arduino Uno, print values to a serial monitor, and write if/then logic to react to them.</p>
       </div>
       <div class="day-card reveal rd4">
         <div class="day-num">4</div>
-        <h4 class="font-bold text-white text-sm mb-1.5">Build the Car</h4>
-        <p class="text-gray-400 text-xs leading-relaxed">Teams split into builder, wirer, and coder roles to assemble their own robot car's chassis, wiring, and starter code.</p>
+        <h4 class="font-bold text-white text-sm mb-1.5">Build Day</h4>
+        <p class="text-gray-400 text-xs leading-relaxed">Teams form and build the mechanical car — chassis, motors, and a pre-wired Arduino Uno all come together for the first drive.</p>
       </div>
     </div>
 
@@ -315,34 +383,42 @@
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
       <div class="day-card reveal rd1">
         <div class="day-num">5</div>
-        <h4 class="font-bold text-white text-sm mb-1.5">Sumo Challenge</h4>
-        <p class="text-gray-400 text-xs leading-relaxed">Teams put their car to the test in a friendly sumo-style head-to-head.</p>
+        <h4 class="font-bold text-white text-sm mb-1.5">Maze &amp; Distance Sensor</h4>
+        <p class="text-gray-400 text-xs leading-relaxed">Give the car "eyes" with an ultrasonic distance sensor and navigate a maze in real time — after feeling the pain of a blind, pre-programmed run first.</p>
       </div>
       <div class="day-card reveal rd2">
         <div class="day-num">6</div>
-        <h4 class="font-bold text-white text-sm mb-1.5">Maze &amp; Distance Sensing</h4>
-        <p class="text-gray-400 text-xs leading-relaxed">Add a distance sensor and navigate a maze course.</p>
+        <h4 class="font-bold text-white text-sm mb-1.5">Remote Control</h4>
+        <p class="text-gray-400 text-xs leading-relaxed">Learn how an IR remote talks to the car, decode real button signals on the Serial Monitor, then redo the maze by hand.</p>
       </div>
       <div class="day-card reveal rd3">
         <div class="day-num">7</div>
-        <h4 class="font-bold text-white text-sm mb-1.5">Plow &amp; Push Challenge</h4>
-        <p class="text-gray-400 text-xs leading-relaxed">Bolt a plow attachment onto the car and learn torque vs. speed by gearing up to push objects out of a ring.</p>
+        <h4 class="font-bold text-white text-sm mb-1.5">Sumo</h4>
+        <p class="text-gray-400 text-xs leading-relaxed">Teams modify their car, then battle head-to-head in a taped sumo ring — push your opponent out to win.</p>
       </div>
       <div class="day-card reveal rd4">
         <div class="day-num">8</div>
-        <h4 class="font-bold text-white text-sm mb-1.5">Robot World Cup</h4>
-        <p class="text-gray-400 text-xs leading-relaxed">Combine this week's distance sensing and gearing with a servo-powered kicker for a robot soccer tournament, plus a bonus goalkeeper challenge.</p>
+        <h4 class="font-bold text-white text-sm mb-1.5">Soccer</h4>
+        <p class="text-gray-400 text-xs leading-relaxed">Combine the distance sensor with a servo-powered kicker so the car finds the ball and kicks it toward the goal.</p>
       </div>
       <div class="day-card reveal rd5">
         <div class="day-num">9</div>
-        <h4 class="font-bold text-white text-sm mb-1.5">Customize &amp; Scrimmage</h4>
-        <p class="text-gray-400 text-xs leading-relaxed">Morning: teams add a personal touch to their robot. Afternoon: a round-robin scrimmage across every event as a dress rehearsal for showcase day.</p>
+        <h4 class="font-bold text-white text-sm mb-1.5">Finale Prep</h4>
+        <p class="text-gray-400 text-xs leading-relaxed">Teams rotate through the maze, sumo, and soccer stations to practice and squash bugs, then set roles for showcase day.</p>
       </div>
       <div class="day-card reveal" style="border-color:var(--gold-dim)">
         <div class="day-num">10</div>
         <h4 class="font-bold text-white text-sm mb-1.5">Final Showcase</h4>
         <p class="text-gray-400 text-xs leading-relaxed">Parents and family are invited to watch every team demo the robot they built, wired, and coded themselves.</p>
       </div>
+    </div>
+
+    <div class="text-center mt-10 reveal">
+      <button id="open-schedule-btn" type="button" class="ghost-btn inline-flex items-center gap-2">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+        View the Full Day-by-Day Schedule
+      </button>
+      <p class="text-gray-500 text-xs mt-3">The complete minute-by-minute plan for every day, including materials lists — for parents who want the full picture.</p>
     </div>
   </section>
 
@@ -435,6 +511,29 @@
   </section>
 </main>
 
+<!-- FULL SCHEDULE MODAL -->
+<div id="schedule-modal" aria-hidden="true">
+  <div class="modal-panel">
+    <div class="modal-head">
+      <div>
+        <h3>Complete Camp Schedule</h3>
+        <p>10 days · 3 hours/day · click any day to expand</p>
+      </div>
+      <button id="close-schedule-btn" class="modal-close" aria-label="Close">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="setup-list-box">
+        <div class="lbl">Camp-Wide Setup</div>
+        <ul id="setup-list"></ul>
+      </div>
+      <div id="sched-days"></div>
+      <div class="modal-footer-links">
+        <a href="assets/robotics-camp-full-schedule.pdf" target="_blank" rel="noopener">Prefer a PDF? Download the printable version →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
 <footer class="bg-[var(--navy-dark)] py-8">
   <div class="max-w-6xl mx-auto px-5 flex flex-col md:flex-row items-center justify-between gap-5">
     <div>
@@ -460,6 +559,238 @@ const ro=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecti
 document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
 const mn=document.getElementById('mobile-nav');
 document.getElementById('mobile-nav-toggle').addEventListener('click',()=>mn.classList.toggle('open'));
+
+/* ---------- Full Schedule Modal ---------- */
+const CAMP_SETUP = [
+  "Platform: Arduino Uno + LEGO-compatible chassis kits, coded with PictoBlox block coding",
+  "Days 1–3: individual builds — every kid works their own circuit/board",
+  "Days 4–10: team-based (6 teams) — one shared car per team; the hands-on role rotates day to day so every kid gets each day's lesson",
+  "Motor driver + base wiring pre-done by instructors before each relevant day",
+  "Batteries: 6 AA per car × 6 teams = 36 batteries needed, plus spares (holders already owned)",
+  "Every day includes a 10–15 minute snack/break roughly halfway through the 3-hour session",
+  "No dedicated cleanup buffer most days — extra transition time is only built in on Day 4 (build day) and before the Day 10 showcase",
+];
+
+const SCHEDULE_DAYS = [
+{num:1,title:"Electronics Fundamentals",subtitle:"LEDs, resistors, buttons, potentiometers, and DC motors",
+ materials:["Presentation slides/photos of real-world robots, then simple robots","1 working demo robot car to show at the start","Breadboards, LEDs, resistors, push buttons, potentiometers, cheap basic DC motors, AA batteries + holders (1 set per kid)","Pre-built \u201cbroken circuits\u201d — one per kid, rotating through 4–5 fault types: reversed LED, wrong/missing resistor, loose wire, dead battery, wrong breadboard row"],
+ note:null,
+ rows:[
+  ["0:00–0:15","Welcome & Intro","Short presentation on what robotics is. Start with real-world robots (Boston Dynamics, Mars rovers, factory arms), then shift to simpler robots that connect directly to what they'll build this camp."],
+  ["0:15–0:20","The Reveal","Show a working robot car doing something. Tell them: \u201cThis is what you're going to build.\u201d"],
+  ["0:20–0:25","Grouping","Arrange kids into their working groups for today."],
+  ["0:25–0:40","Teach: Electricity Basics","Explain how electricity and a battery work, and the basics of a resistor and an LED — keep it visual (water-through-a-pipe analogy)."],
+  ["0:40–0:55","Activity 1","Wire up an LED with a resistor and a battery. Every kid builds their own."],
+  ["0:55–1:05","Teach: Buttons","Demonstrate how a button works (completes/breaks a circuit)."],
+  ["1:05–1:20","Activity 2","Wire an LED with a button."],
+  ["1:20–1:35","SNACK / BREAK","10–15 minute break, roughly halfway through the session."],
+  ["1:35–1:45","Teach: Potentiometers","Show how a potentiometer works (variable resistance)."],
+  ["1:45–2:00","Activity 3","Wire an LED to a potentiometer."],
+  ["2:00–2:10","Teach: DC Motors","Show how a cheap basic DC motor works."],
+  ["2:10–2:25","Activity 4","Wire a DC motor with a potentiometer."],
+  ["2:25–2:45","Ending Activity: Troubleshooting","Give each kid a pre-built broken circuit to diagnose and fix — faults differ kid to kid, so no copying a neighbor's answer."],
+  ["2:45–3:00","Conclusion","Recap the day. Give each kid one clear thing to tell their parents (\u201cI built a circuit that lights up when I turn a knob!\u201d)."],
+ ]},
+{num:2,title:"Meet the Microcontroller",subtitle:"Arduino Uno basics, HIGH/LOW pins, blinking LEDs, servo angles",
+ materials:["1 Arduino Uno per kid","1 buck converter per kid (with accessible trim pot) + screwdrivers","Multiple LEDs per kid (for the pattern activity)","1 servo motor per kid (or per pair)","Laptops/stations with PictoBlox installed"],
+ note:null,
+ rows:[
+  ["0:00–0:10","Recap","Quick recap of Day 1: \u201cWho can tell me what this and this do?\u201d Keep it short."],
+  ["0:10–0:20","Bridge to Today","Explain: \u201cThe circuits yesterday were fixed — with a microcontroller, you change them with code.\u201d"],
+  ["0:20–0:35","Setup: Power","Give each kid an Arduino Uno and a buck converter. Adjust it down to 5V with a screwdriver, then wire the Arduino Uno to power."],
+  ["0:35–0:50","Teach: HIGH/LOW","Teach how to set pins to HIGH/LOW using PictoBlox block coding."],
+  ["0:50–1:00","Activity 1","Connect the Arduino Uno to an LED and make it light up."],
+  ["1:00–1:15","Activity 2","Make the LED blink. Have kids experiment with changing how fast it blinks."],
+  ["1:15–1:30","SNACK / BREAK","10–15 minute break."],
+  ["1:30–1:50","Activity 3","Give kids multiple LEDs and have them program a blinking pattern."],
+  ["1:50–2:05","Teach: Inputs → Outputs","Teach how to read inputs and translate them into outputs."],
+  ["2:05–2:30","Activity 4","Teach kids to set a servo motor to a specific angle using the Arduino Uno's PWM output."],
+  ["2:30–2:45","Free Practice","Extra time to troubleshoot and solidify blink patterns / servo control."],
+  ["2:45–3:00","Conclusion","Longer recap since more concepts were covered. Give kids something concrete to tell their parents."],
+ ]},
+{num:3,title:"Reading the World",subtitle:"Inputs, the Serial Monitor, and conditional logic",
+ materials:["Arduino Uno + LED + button + potentiometer setups (reused from Days 1–2)","Laptops/stations with PictoBlox + Serial Monitor access"],
+ note:null,
+ rows:[
+  ["0:00–0:10","Recap","Recap Days 1–2. Connect yesterday's servo/input work to today's focus: turning real-world readings into robot behavior."],
+  ["0:10–0:25","Teach: Toggling","Teach how to toggle a light on/off with a button — show and explain the code."],
+  ["0:25–0:45","Activity 1","Toggle an LED with a button using the Arduino Uno."],
+  ["0:45–1:00","Teach: Serial Monitor & Analog Input","Teach how to print values to the Serial Monitor and how to read analog inputs."],
+  ["1:00–1:15","SNACK / BREAK","10–15 minute break."],
+  ["1:15–1:40","Activity 2","Read the analog input from a potentiometer and watch the values live on the Serial Monitor."],
+  ["1:40–2:00","Teach: If/Then Logic","Teach if/then statements and conditions."],
+  ["2:00–2:25","Activity 3","Program: if the potentiometer reading is less than half, the LED turns off; if more, it turns on."],
+  ["2:25–2:40","Reintroduce the Car","Reintroduce the robot car and explain what teams will do with it starting tomorrow."],
+  ["2:40–3:00","Conclusion","Recap the day's logic concepts. Last individual-build day — tomorrow, teams."],
+ ]},
+{num:4,title:"Build Day",subtitle:"Teams form and build the mechanical car",
+ materials:["LEGO-compatible chassis kits — 1 per team (6 total)","Pre-wired Arduino Uno + motor driver units — 1 per team, prepared in advance by instructors","Basic working chassis code, ready to load","Extra transition/cleanup buffer built into today's schedule"],
+ note:"Day 4 is almost entirely mechanical build time. Team planning is a brief ~5 minute talk, not a separate extended activity. This is one of only two days with a dedicated cleanup buffer.",
+ rows:[
+  ["0:00–0:10","Recap & Bridge","Recap the last 3 days: \u201cEverything you've learned — circuits, code, sensors — goes into this car.\u201d"],
+  ["0:10–0:15","Show the Chassis","Show the kids the pre-made car kit(s) they'll be building from."],
+  ["0:15–0:20","Team Talk","Brief ~5 minute discussion of teams. The hands-on role rotates day-to-day."],
+  ["0:20–0:40","Activity 1: Design Planning","Teams briefly discuss and plan their car's build approach."],
+  ["0:40–1:30","Activity 2: Mechanical Build","Teams build the mechanical part of the car with motors attached."],
+  ["1:30–1:45","SNACK / BREAK","10–15 minute break."],
+  ["1:45–2:30","Activity 3: Wire the Electronics","Give teams the already-wired-up Arduino Uno and motor driver unit to attach to the chassis."],
+  ["2:30–2:50","Activity 4: Load the Code","Give teams the basic working chassis code and get their car driving for the first time."],
+  ["2:50–3:00","Cleanup Buffer + Closing","Dedicated cleanup time for loose parts. If time allows, let teams drive their cars around."],
+ ]},
+{num:5,title:"Maze + Distance Sensor",subtitle:"Giving the car \u201ceyes\u201d",
+ materials:["Cardboard-wall maze, built in advance","1 ultrasonic distance sensor per team","Stopwatch for timed runs","Team cars from Day 4, charged/battery-ready (6 AA per car)"],
+ note:null,
+ rows:[
+  ["0:00–0:10","Recap","Recap yesterday's build. Show the cardboard maze and explain the day's goal."],
+  ["0:10–0:25","Teach: Pre-programmed Movement","Teach how to pre-move the car with code (drive forward, then turn, etc.)."],
+  ["0:25–0:50","Activity 1: Blind Maze Run","Teams navigate the maze using only pre-given instructions (no sensors) — they feel the pain of not reacting in real time."],
+  ["0:50–1:00","Debrief & Teach: Distance Sensor","Teach how the ultrasonic distance sensor works (ping, measure time to bounce back)."],
+  ["1:00–1:15","SNACK / BREAK","10–15 minute break."],
+  ["1:15–1:35","Activity 2","Wire up the distance sensor and read the distance live on the Serial Monitor."],
+  ["1:35–1:55","Activity 3","Program the car to stop at a certain distance from the wall."],
+  ["1:55–2:15","Teach: Reading → Turning","Teach how to turn the distance reading into an output — turning the car instead of just stopping."],
+  ["2:15–2:45","Activity 4: Full Maze Navigation","Teams navigate the maze using the distance sensor to react in real time."],
+  ["2:45–3:00","Closing: Timed Runs","Timed runs through the maze between groups — fastest time wins."],
+ ]},
+{num:6,title:"Remote Control",subtitle:"IR receiver, NEC protocol, and redoing the maze by hand",
+ materials:["HX1838 IR receivers (6-pack) + NEC-protocol remotes — 1 per team","Same cardboard maze from Day 5","Serial Monitor access for code discovery activity"],
+ note:null,
+ rows:[
+  ["0:00–0:10","Recap & Finish Day 5","Finish up any unfinished Day 5 activities. Recap the distance sensor work."],
+  ["0:10–0:20","Bridge to Today","Pre-coded cars only work when you know exactly what will happen — a remote lets you control the car in real time."],
+  ["0:20–0:35","Teach: IR Communication","Teach how the remote and IR receiver communicate."],
+  ["0:35–0:50","Teach: Unique Button Codes","Teach that each button on the remote sends a unique code."],
+  ["0:50–1:05","Activity 1","Print the incoming codes to the Serial Monitor as they press buttons."],
+  ["1:05–1:20","SNACK / BREAK","10–15 minute break."],
+  ["1:20–1:35","Teach: Repeat Codes (live demo)","Holding a button sends a repeat code instead of resending the unique one — demonstrate live and let kids notice it themselves."],
+  ["1:35–1:55","Activity 2","Print and write down the codes for forward / left / right / back, including repeat codes."],
+  ["1:55–2:15","Teach: Codes → Motor Actions","Teach how to turn the codes into corresponding motor actions."],
+  ["2:15–2:45","Activity 3","Teams program their car to turn received remote codes into motor actions."],
+  ["2:45–3:00","Closing: Redo the Maze","Teams redo the maze using the remote control instead of sensors or pre-programming."],
+ ]},
+{num:7,title:"Sumo",subtitle:"Mostly fun — light on new teaching",
+ materials:["Painter's tape for the sumo ring (~4 ft diameter circle, no raised edge)","Spare LEGO/electronics parts in case teams want to modify their car"],
+ note:null,
+ rows:[
+  ["0:00–0:15","Recap","Recap yesterday's remote control work."],
+  ["0:15–0:30","Explain Sumo","Explain rules. Loss condition: getting pushed out of the taped ring. Losing twice = out of the bracket."],
+  ["0:30–1:15","Activity 1: Modify","Let teams make changes to their car before Sumo starts (e.g., a pushing attachment, weight redistribution)."],
+  ["1:15–1:30","SNACK / BREAK","10–15 minute break."],
+  ["1:30–2:50","Activity 2: The Sumo Matches","Run the actual Sumo bracket. Losing twice eliminates a team."],
+  ["2:50–3:00","Closing","Wrap up the bracket, announce the Sumo results."],
+ ]},
+{num:8,title:"Soccer",subtitle:"Distance sensor + servo motor working together",
+ materials:["1 servo motor per team (kicking mechanism)","Small foam ball — 1 per team","Cardboard box goal (on its side) — 1 per team or shared stations"],
+ note:null,
+ rows:[
+  ["0:00–0:10","Recap","Recap Sumo day."],
+  ["0:10–0:20","Explain the Challenge","The car drives forward, and when it finds the ball, it stops and kicks it."],
+  ["0:20–0:30","Teach: Servo Review","Review how a servo motor works and how it differs from the DC drive motors."],
+  ["0:30–0:50","Activity 1","Attach and wire the servo motor to the car."],
+  ["0:50–1:15","Activity 2","Program the servo motor to perform a \u201ckicking\u201d motion."],
+  ["1:15–1:30","SNACK / BREAK","10–15 minute break."],
+  ["1:30–1:45","Teach: Combine Sensor + Servo","Drive forward, stop when the ball is detected, then kick."],
+  ["1:45–2:30","Activity 3: The Real Challenge","Teams program their car to drive forward, stop at the ball, and kick it toward the goal."],
+  ["2:30–2:50","Bonus Activity (if time allows)","Trigger the kick on command from the remote, then try remote-controlled soccer."],
+  ["2:50–3:00","Closing","Recap combining a sensor input with a mechanical output."],
+ ]},
+{num:9,title:"Finale Prep",subtitle:"Practice stations + showcase planning",
+ materials:["All three stations set up: maze (new layout), sumo ring, soccer setup","Notes/checklist per team for bug fixes"],
+ note:null,
+ rows:[
+  ["0:00–0:15","Recap the Week","Recap the whole week's journey — circuits, code, sensors, remote control, sumo, soccer."],
+  ["0:15–0:25","Explain Day 10","Explain the showcase format: sequential, one event at a time, parents watching."],
+  ["0:25–1:15","Activity 1: Station Rotation","Teams rotate through maze, sumo, and soccer stations to practice and fix bugs."],
+  ["1:15–1:30","SNACK / BREAK","10–15 minute break."],
+  ["1:30–2:20","Activity 1 (continued)","Continue station rotation and bug fixing."],
+  ["2:20–2:45","Activity 2: Showcase Roles","Teams decide who talks, who drives, who explains the code tomorrow."],
+  ["2:45–3:00","Closing (Important)","Remind every kid to tell their parents to show up for Day 10."],
+ ]},
+{num:10,title:"Finale Showcase",subtitle:"Parents attend — sequential maze, sumo, then soccer",
+ materials:["New maze layout (cardboard walls rearranged)","Sumo ring (taped circle)","Soccer ball + cardboard goal","Awards: real trophies for Maze / Sumo / Soccer champions, plus a unique award for every other team","Extra transition buffer built in before the showcase begins"],
+ note:"This is a sequential showcase, not simultaneous stations — all maze runs happen first, then all sumo matches, then all soccer, so every parent can clearly see their kid's moment.",
+ rows:[
+  ["0:00–0:15","Setup Buffer","Get the maze rearranged into its new layout and all three stations ready before parents arrive."],
+  ["0:15–0:25","Welcome Parents","Explain the format: sequential events, kids will explain their robots before each one."],
+  ["0:25–1:00","Event 1: Maze","Kids explain how their robot navigates the maze. Each team runs the new layout, timed."],
+  ["1:00–1:15","SNACK / BREAK","10–15 minute break for kids and parents."],
+  ["1:15–1:50","Event 2: Sumo","Kids explain how their robot drives. Teams compete in the Sumo bracket."],
+  ["1:50–2:30","Event 3: Soccer","Kids explain how their robot works, drives, and kicks. Each team attempts the ball-to-goal challenge."],
+  ["2:30–2:50","Awards","Real trophies for the Maze, Sumo, and Soccer champions, plus a unique, instructor-picked award for every other team."],
+  ["2:50–3:00","Closing","Photos, and thanks to parents for coming and supporting the camp."],
+ ]},
+];
+
+function buildScheduleModal(){
+  const setupList = document.getElementById('setup-list');
+  setupList.innerHTML = CAMP_SETUP.map(s=>`<li>${s}</li>`).join('');
+
+  const wrap = document.getElementById('sched-days');
+  wrap.innerHTML = SCHEDULE_DAYS.map(d=>{
+    const materials = d.materials.map(m=>`<li>${m}</li>`).join('');
+    const note = d.note ? `<div class="sched-note"><strong>Note:</strong> ${d.note}</div>` : '';
+    const rows = d.rows.map(r=>{
+      const brk = r[1].toUpperCase().includes('SNACK') ? ' class="brk"' : '';
+      return `<tr${brk}><td class="tm">${r[0]}</td><td class="sg">${r[1]}</td><td>${r[2]}</td></tr>`;
+    }).join('');
+    return `
+      <div class="sched-day" data-day="${d.num}">
+        <div class="sched-day-head">
+          <div class="sched-day-badge">${d.num}</div>
+          <div class="sched-day-titles">
+            <div class="t">${d.title}</div>
+            <div class="s">${d.subtitle}</div>
+          </div>
+          <svg class="sched-chevron" width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </div>
+        <div class="sched-day-body">
+          <div class="sched-day-inner">
+            <div class="sched-materials">
+              <div class="lbl">Materials Needed</div>
+              <ul>${materials}</ul>
+            </div>
+            ${note}
+            <table class="sched-table">
+              <thead><tr><th>Time</th><th>Segment</th><th>What Happens</th></tr></thead>
+              <tbody>${rows}</tbody>
+            </table>
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+
+  wrap.querySelectorAll('.sched-day-head').forEach(head=>{
+    head.addEventListener('click', ()=>{
+      const day = head.parentElement;
+      const body = head.nextElementSibling;
+      const isOpen = day.classList.contains('open');
+      if(isOpen){
+        body.style.maxHeight = '0px';
+        day.classList.remove('open');
+      } else {
+        day.classList.add('open');
+        body.style.maxHeight = body.scrollHeight + 'px';
+      }
+    });
+  });
+}
+
+let scheduleBuilt = false;
+const scheduleModal = document.getElementById('schedule-modal');
+document.getElementById('open-schedule-btn').addEventListener('click', ()=>{
+  if(!scheduleBuilt){ buildScheduleModal(); scheduleBuilt = true; }
+  scheduleModal.classList.add('open');
+  scheduleModal.setAttribute('aria-hidden','false');
+  document.body.style.overflow = 'hidden';
+});
+function closeScheduleModal(){
+  scheduleModal.classList.remove('open');
+  scheduleModal.setAttribute('aria-hidden','true');
+  document.body.style.overflow = '';
+}
+document.getElementById('close-schedule-btn').addEventListener('click', closeScheduleModal);
+scheduleModal.addEventListener('click', e=>{ if(e.target===scheduleModal) closeScheduleModal(); });
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeScheduleModal(); });
 </script>
 </body>
 </html>
