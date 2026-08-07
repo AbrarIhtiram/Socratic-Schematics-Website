@@ -9,13 +9,19 @@
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
-  :root{--navy:#0b2545;--navy-dark:#081e38;--navy-mid:#102f55;--navy-light:#163b66;--slate-card:#1a2840;--gold:#d4af37;--gold-dim:rgba(212,175,55,0.35);}
-  *{box-sizing:border-box;} body{font-family:'Inter',sans-serif;} h1,h2,h3{font-family:'Outfit',sans-serif;}
+  :root { --navy:#0b2545; --navy-dark:#081e38; --navy-mid:#102f55; --navy-light:#163b66; --slate-card:#1a2840; --gold:#d4af37; --gold-dim:rgba(212,175,55,0.35); }
+  *{box-sizing:border-box;} body{font-family:'Inter',sans-serif;} h1,h2,h3,h4{font-family:'Outfit',sans-serif;}
 
+  /* particles */
+  @keyframes floatUp { 0%{transform:translateY(0) translateX(0);opacity:0} 50%{opacity:.12} 100%{transform:translateY(-110vh) translateX(180px);opacity:0} }
+  .particle { position:fixed; border-radius:50%; background:rgba(212,175,55,0.2); animation:floatUp 22s linear infinite; pointer-events:none; z-index:0; }
+
+  /* reveal */
   .reveal{opacity:0;transform:translateY(26px);transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1);}
   .reveal.visible{opacity:1;transform:none;}
-  .rd1{transition-delay:.08s}.rd2{transition-delay:.16s}.rd3{transition-delay:.24s}.rd4{transition-delay:.32s}
+  .rd1{transition-delay:.08s} .rd2{transition-delay:.16s} .rd3{transition-delay:.24s} .rd4{transition-delay:.32s}
 
+  /* nav */
   header{backdrop-filter:blur(12px);background:rgba(11,37,69,0.95);}
   .nav-link{position:relative;font-size:.875rem;font-weight:500;color:rgba(255,255,255,.85);transition:color .2s;padding-bottom:2px;}
   .nav-link::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:2px;background:var(--gold);border-radius:2px;transition:width .25s cubic-bezier(.22,1,.36,1);}
@@ -27,72 +33,78 @@
   .mobile-link{display:block;padding:10px 0;font-size:.95rem;color:rgba(255,255,255,.8);border-bottom:1px solid rgba(255,255,255,.06);transition:color .2s,padding-left .2s;}
   .mobile-link:hover{color:var(--gold);padding-left:6px;}
 
-  /* Hero donate card */
-  .donate-hero{
+  /* donate card */
+  .donate-card{
     position:relative;overflow:hidden;
-    background:linear-gradient(135deg,var(--navy-mid) 0%,var(--navy) 100%);
+    background:linear-gradient(135deg,var(--navy-mid),var(--navy));
     border:1px solid var(--gold-dim);
     border-radius:1.25rem;
-    padding:3.5rem 2.5rem;
+    padding:3rem 2.5rem;
     text-align:center;
-    box-shadow:0 30px 80px rgba(0,0,0,.5),0 0 0 1px rgba(212,175,55,.08);
+    box-shadow:0 30px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(212,175,55,0.1);
   }
-  .donate-hero::before{
-    content:'';position:absolute;
-    top:-100px;right:-100px;
-    width:320px;height:320px;border-radius:50%;
-    background:radial-gradient(circle,rgba(212,175,55,.1),transparent 70%);
+  .donate-card::before{
+    content:'';position:absolute;top:-80px;left:-80px;
+    width:260px;height:260px;border-radius:50%;
+    background:radial-gradient(circle,rgba(212,175,55,0.12),transparent 70%);
     pointer-events:none;
   }
-  .donate-hero::after{
-    content:'';position:absolute;
-    bottom:-80px;left:-80px;
-    width:240px;height:240px;border-radius:50%;
-    background:radial-gradient(circle,rgba(0,100,255,.06),transparent 70%);
-    pointer-events:none;
-  }
-
-  /* Donate button */
   .donate-btn{
     display:inline-block;
-    background:var(--gold);color:var(--navy-dark);
-    font-family:'Outfit',sans-serif;font-weight:800;font-size:1.05rem;
-    letter-spacing:.03em;padding:.9rem 2.75rem;
-    border-radius:.7rem;position:relative;overflow:hidden;
-    transition:transform .25s,box-shadow .25s;
-    box-shadow:0 8px 28px rgba(212,175,55,.45);
+    background:var(--gold);
+    color:var(--navy-dark);
+    font-family:'Outfit',sans-serif;
+    font-weight:800;
+    font-size:1rem;
+    letter-spacing:.04em;
+    padding:.85rem 2.5rem;
+    border-radius:.65rem;
+    position:relative;overflow:hidden;
+    transition:transform .25s,box-shadow .25s,filter .2s;
+    box-shadow:0 8px 24px rgba(212,175,55,0.4);
   }
-  .donate-btn::after{content:'';position:absolute;top:0;left:-70%;width:45%;height:100%;background:linear-gradient(120deg,rgba(255,255,255,.35),rgba(255,255,255,0));transform:skewX(-25deg);}
-  .donate-btn:hover{transform:translateY(-3px);box-shadow:0 16px 44px rgba(212,175,55,.6);}
+  .donate-btn::after{
+    content:'';position:absolute;top:0;left:-70%;width:45%;height:100%;
+    background:linear-gradient(120deg,rgba(255,255,255,0.35),rgba(255,255,255,0));
+    transform:skewX(-25deg);
+  }
+  .donate-btn:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(212,175,55,0.55);filter:brightness(1.05);}
   .donate-btn:hover::after{animation:glint .7s forwards;}
   @keyframes glint{0%{left:-70%}100%{left:130%}}
 
-  /* Use cards — image + text side by side on desktop */
+  /* use cards */
   .use-card{
+    position:relative;overflow:hidden;
     background:var(--slate-card);
     border:1px solid rgba(255,255,255,.07);
     border-radius:1rem;
-    overflow:hidden;
-    display:grid;
-    grid-template-columns:1fr 1fr;
+    padding:1.75rem;
     transition:transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s,border-color .3s;
   }
-  @media(max-width:640px){.use-card{grid-template-columns:1fr;}}
-  .use-card:hover{transform:translateY(-5px);box-shadow:0 22px 55px rgba(0,0,0,.55);border-color:var(--gold-dim);}
-  .use-card.reverse{direction:rtl;}
-  .use-card.reverse>*{direction:ltr;}
-  .use-card-img{width:100%;height:100%;min-height:220px;object-fit:cover;}
-  .use-card-body{padding:2rem 1.75rem;display:flex;flex-direction:column;justify-content:center;}
-  .use-card-label{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem;}
-  .use-card-title{font-family:'Outfit',sans-serif;font-size:1.25rem;font-weight:700;color:#f1f5f9;margin-bottom:.6rem;}
-  .use-card-desc{font-size:.88rem;color:#94a3b8;line-height:1.7;}
+  .use-card::before{
+    content:'';position:absolute;top:0;left:-140%;width:50%;height:100%;
+    background:linear-gradient(120deg,rgba(255,255,255,.12),rgba(255,255,255,0));
+    transform:skewX(-25deg);
+    animation:sweep 3.8s linear infinite;
+  }
+  @keyframes sweep{0%{left:-140%}100%{left:160%}}
+  .use-card:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(0,0,0,.55);border-color:var(--gold-dim);}
+  .use-card .icon{font-size:2rem;margin-bottom:.75rem;}
 
   footer{border-top:1px solid rgba(212,175,55,.15);}
   .footer-icon{transition:transform .25s,color .2s;color:#94a3b8;}
   .footer-icon:hover{transform:translateY(-3px) scale(1.15);color:#fff;}
 </style>
 </head>
-<body class="bg-[#060d1a] text-gray-200 font-sans flex flex-col min-h-screen">
+
+<body class="bg-[#060d1a] text-gray-200 font-sans flex flex-col min-h-screen relative">
+
+<!-- particles -->
+<div class="particle w-2 h-2" style="top:15%;left:8%;animation-delay:0s;width:6px;height:6px"></div>
+<div class="particle w-2 h-2" style="top:55%;left:72%;animation-delay:6s;width:4px;height:4px"></div>
+<div class="particle w-2 h-2" style="top:80%;left:38%;animation-delay:3s;width:8px;height:8px"></div>
+<div class="particle w-2 h-2" style="top:30%;left:88%;animation-delay:9s;width:5px;height:5px"></div>
+<div class="particle w-2 h-2" style="top:65%;left:20%;animation-delay:4s;width:7px;height:7px"></div>
 
 <!-- HEADER -->
 <header class="text-white sticky top-0 z-40 border-b border-white/5">
@@ -107,15 +119,14 @@
       </div>
     </a>
     <nav class="hidden md:flex gap-7 items-center">
-      <a href="index.html"    class="nav-link">Home</a>
-      <a href="robots.html"   class="nav-link">Robots</a>
-      <a href="team.html"     class="nav-link">Team</a>
+      <a href="index.html"   class="nav-link">Home</a>
+      <a href="robots.html"  class="nav-link">Robots</a>
+      <a href="team.html"    class="nav-link">Team</a>
       <a href="sponsors.html" class="nav-link">Sponsors</a>
-      <a href="donate.html"   class="nav-link" style="color:#fff">Donate</a>
-      <a href="snacks.html"   class="nav-link">Snack Prices</a>
-      <a href="camp.html"    class="nav-link" style="color:#fff">Summer Camp</a>
-      <a href="contact.html"  class="nav-link">Contact</a>
-      <a href="gallery.html"  class="nav-pill">Gallery</a>
+      <a href="donate.html"  class="nav-link" style="color:#fff">Donate</a>
+      <a href="snacks.html"  class="nav-link">Snack Prices</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+      <a href="gallery.html" class="nav-pill">Gallery</a>
     </nav>
     <button id="mobile-nav-toggle" class="md:hidden p-2 rounded-lg hover:bg-white/10 transition" aria-label="Menu">
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
@@ -128,84 +139,54 @@
     <a href="sponsors.html" class="mobile-link">Sponsors</a>
     <a href="donate.html"   class="mobile-link" style="color:var(--gold)">Donate</a>
     <a href="snacks.html"   class="mobile-link">Snack Prices</a>
-    <a href="camp.html"    class="mobile-link" style="color:#fff">Summer Camp</a>
     <a href="contact.html"  class="mobile-link">Contact</a>
     <a href="gallery.html"  class="mobile-link" style="color:var(--gold)">Gallery</a>
   </div>
 </header>
 
-<main class="flex-grow">
-
-  <!-- HERO -->
+<!-- HERO DONATE -->
+<main class="relative z-10 flex-grow">
   <section class="max-w-3xl mx-auto px-5 pt-20 pb-14">
-    <div class="donate-hero reveal">
-      <div class="relative z-10">
-        <div class="text-xs font-bold tracking-widest text-[var(--gold)] uppercase mb-3">Team 8885 — FRC Robotics</div>
-        <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-5 tracking-tight">Support Socratic Schematics</h1>
-        <p class="text-gray-300 text-base leading-relaxed mb-8 max-w-xl mx-auto">
-          Help Team 8885 continue building amazing robots and providing learning opportunities for our students.
-          Your contribution goes directly to supplies, competition fees, travel, and other essential team needs.
-        </p>
-        <a href="https://www.donorschoose.org/project/robotics-team/10098112/?rf=directlink-dc-2026-02-ifproject-teacher_10435547&challengeid=22611336&utm_source=dc&utm_medium=directlink&utm_campaign=project&utm_term=unknown"
-           class="donate-btn">Donate Now</a>
-        <p class="mt-7 text-xs text-gray-500">Thank you for supporting our team and helping us achieve our goals.</p>
-      </div>
+    <div class="donate-card reveal">
+      <div class="text-xs font-bold tracking-widest text-[var(--gold)] uppercase mb-3">Team 8885 · FRC Robotics</div>
+      <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-5" style="font-family:'Outfit',sans-serif">Support Socratic Schematics</h1>
+      <p class="text-gray-300 text-base leading-relaxed mb-8 max-w-xl mx-auto">
+        Help Team 8885 continue building amazing robots and providing learning opportunities for our students.
+        Your contribution goes directly to supplies, competition fees, travel, and other essential team needs.
+      </p>
+      <a href="https://karlgmaeserpreparatoryacademy-bloom.kindful.com/?campaign=1365341"
+         class="donate-btn">Donate Now →</a>
+      <p class="mt-7 text-xs text-gray-500">Thank you for supporting our robotics team and helping us achieve our goals!</p>
     </div>
   </section>
 
   <!-- WHERE YOUR MONEY GOES -->
-  <section class="max-w-4xl mx-auto px-5 pb-24">
+  <section class="max-w-6xl mx-auto px-5 pb-20">
     <div class="text-center mb-10 reveal">
-      <h2 class="text-3xl font-bold text-white">Where Your Money Goes</h2>
+      <h2 class="text-3xl font-bold text-white" style="font-family:'Outfit',sans-serif">Where Your Money Goes</h2>
       <div class="w-12 h-0.5 bg-[var(--gold)] mx-auto mt-3 rounded"></div>
     </div>
-
-    <div class="flex flex-col gap-6">
-
-      <!-- Supplies -->
+    <div class="grid md:grid-cols-2 gap-6">
       <div class="use-card reveal rd1">
-        <img src="assets/buildingshed.jpg" alt="Team working with parts and supplies" class="use-card-img"
-             onerror="this.style.background='var(--navy-mid)';this.removeAttribute('src')">
-        <div class="use-card-body">
-          <div class="use-card-label">Materials</div>
-          <div class="use-card-title">Supplies &amp; Parts</div>
-          <p class="use-card-desc">Motors, metal stock, wiring, pneumatics, sensors — every component that goes into building a competition-ready robot.</p>
-        </div>
+        <div class="icon">⚙️</div>
+        <h3 class="text-lg font-bold text-white mb-2">Supplies &amp; Materials</h3>
+        <p class="text-gray-400 text-sm leading-relaxed">Everything from motors, metal, wiring, and all mechanical parts essential to building our robots.</p>
       </div>
-
-      <!-- Competition -->
-      <div class="use-card reverse reveal rd2">
-        <img src="assets/2026comp.jpg" alt="Team competing at an FRC event" class="use-card-img"
-             onerror="this.style.background='var(--navy-mid)';this.removeAttribute('src')">
-        <div class="use-card-body">
-          <div class="use-card-label">Events</div>
-          <div class="use-card-title">Competition Fees</div>
-          <p class="use-card-desc">Registration costs for local, regional, and national FRC events where our students put months of work to the test.</p>
-        </div>
+      <div class="use-card reveal rd2">
+        <div class="icon">🏆</div>
+        <h3 class="text-lg font-bold text-white mb-2">Competition Fees</h3>
+        <p class="text-gray-400 text-sm leading-relaxed">Covering registration fees to compete in local, regional, and national robotics competitions.</p>
       </div>
-
-      <!-- Travel -->
       <div class="use-card reveal rd3">
-        <img src="assets/2023teamtravel.jpg" alt="Team travelling to a competition" class="use-card-img"
-             onerror="this.style.background='var(--navy-mid)';this.removeAttribute('src')">
-        <div class="use-card-body">
-          <div class="use-card-label">Logistics</div>
-          <div class="use-card-title">Travel &amp; Lodging</div>
-          <p class="use-card-desc">Transportation, hotels, and meals so that every team member can attend competitions regardless of personal circumstances.</p>
-        </div>
+        <div class="icon">✈️</div>
+        <h3 class="text-lg font-bold text-white mb-2">Travel &amp; Lodging</h3>
+        <p class="text-gray-400 text-sm leading-relaxed">Transportation, housing, and meals for team members to attend competitions and events.</p>
       </div>
-
-      <!-- Workshops -->
-      <div class="use-card reverse reveal rd4">
-        <img src="assets/stemfair2026.jpg" alt="Team workshop and learning session" class="use-card-img"
-             onerror="this.style.background='var(--navy-mid)';this.removeAttribute('src')">
-        <div class="use-card-body">
-          <div class="use-card-label">Community</div>
-          <div class="use-card-title">Workshops &amp; Team Events</div>
-          <p class="use-card-desc">Educational workshops, team-building activities, and outreach programs that extend our impact beyond the competition floor.</p>
-        </div>
+      <div class="use-card reveal rd4">
+        <div class="icon">🎓</div>
+        <h3 class="text-lg font-bold text-white mb-2">Workshops &amp; Team Events</h3>
+        <p class="text-gray-400 text-sm leading-relaxed">Educational workshops, team-building activities, and community outreach for students.</p>
       </div>
-
     </div>
   </section>
 </main>
@@ -232,9 +213,10 @@
 </footer>
 
 <script>
-const ro=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');ro.unobserve(e.target);}}),{threshold:.1});
+const ro=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');ro.unobserve(e.target);}}),{threshold:.12});
 document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
-document.getElementById('mobile-nav-toggle').addEventListener('click',()=>document.getElementById('mobile-nav').classList.toggle('open'));
+const mn=document.getElementById('mobile-nav');
+document.getElementById('mobile-nav-toggle').addEventListener('click',()=>mn.classList.toggle('open'));
 </script>
 </body>
 </html>
