@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Socratic Schematics — New Members</title>
+<link rel="icon" href="assets/socraticschematicslogo.jpg" type="image/jpeg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --navy:#0b2545;--navy-dark:#081e38;--navy-mid:#102f55;--navy-light:#163b66;--slate-card:#1a2840;
+    --gold:#d4af37;--gold-dim:rgba(212,175,55,0.35);--cyan-glint:rgba(0,220,255,0.18);
+    --accent:#d4af37;
+  }
+  *{box-sizing:border-box;} body{font-family:'Inter',sans-serif;} h1,h2,h3,h4{font-family:'Outfit',sans-serif;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+
+  /* Reveal */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .65s cubic-bezier(.22,1,.36,1),transform .65s cubic-bezier(.22,1,.36,1);}
+  .reveal.visible{opacity:1;transform:none;}
+  .rd1{transition-delay:.08s}.rd2{transition-delay:.16s}.rd3{transition-delay:.24s}.rd4{transition-delay:.32s}
+
+  /* Header (shared with rest of site) */
+  header{backdrop-filter:blur(12px);background:rgba(11,37,69,0.95);}
+  .nav-link{position:relative;font-size:.875rem;font-weight:500;color:rgba(255,255,255,.85);transition:color .2s;padding-bottom:2px;}
+  .nav-link::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:2px;background:var(--gold);border-radius:2px;transition:width .25s cubic-bezier(.22,1,.36,1);}
+  .nav-link:hover{color:#fff;} .nav-link:hover::after{width:100%;}
+  .nav-pill{background:var(--gold);color:var(--navy-dark);font-weight:700;font-size:.8rem;letter-spacing:.04em;border-radius:6px;padding:6px 14px;transition:filter .2s,transform .2s;}
+  .nav-pill:hover{filter:brightness(1.1);transform:translateY(-1px);}
+  #mobile-nav{max-height:0;overflow:hidden;transition:max-height .38s cubic-bezier(.22,1,.36,1);}
+  #mobile-nav.open{max-height:460px;}
+  .mobile-link{display:block;padding:10px 0;font-size:.95rem;color:rgba(255,255,255,.8);border-bottom:1px solid rgba(255,255,255,.06);transition:color .2s,padding-left .2s;}
+  .mobile-link:hover{color:var(--gold);padding-left:6px;}
+
+  /* Buttons (shared) */
+  .btn-gold{display:inline-block;background:var(--gold);color:var(--navy-dark);font-family:'Outfit',sans-serif;font-weight:800;font-size:.95rem;padding:.8rem 2rem;border-radius:.65rem;position:relative;overflow:hidden;transition:transform .25s,box-shadow .25s;box-shadow:0 6px 24px rgba(212,175,55,.45);}
+  .btn-gold::after{content:'';position:absolute;top:0;left:-70%;width:45%;height:100%;background:linear-gradient(120deg,rgba(255,255,255,.35),rgba(255,255,255,0));transform:skewX(-25deg);}
+  .btn-gold:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(212,175,55,.6);}
+  .btn-gold:hover::after{animation:glint .7s forwards;}
+  @keyframes glint{0%{left:-70%}100%{left:130%}}
+  .btn-outline{display:inline-block;border:1.5px solid rgba(255,255,255,.5);color:#fff;font-family:'Outfit',sans-serif;font-weight:600;font-size:.95rem;padding:.8rem 2rem;border-radius:.65rem;transition:background .2s,border-color .2s,transform .2s;backdrop-filter:blur(4px);}
+  .btn-outline:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.8);transform:translateY(-2px);}
+  .eyebrow{font-size:.75rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);}
+  .gold-bar{width:3rem;height:2px;background:var(--gold);border-radius:2px;margin:.9rem auto 0;}
+
+  /* ── HERO ── */
+  .hero{position:relative;min-height:88vh;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+  .hero-bg{position:absolute;inset:-40px;background:url('assets/fulldressteamphoto2026.jpg') center/cover;transform:scale(1.05);filter:saturate(.8);}
+  .blueprint{position:absolute;inset:0;
+    background-image:
+      linear-gradient(rgba(120,180,255,.09) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(120,180,255,.09) 1px,transparent 1px),
+      linear-gradient(rgba(120,180,255,.045) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(120,180,255,.045) 1px,transparent 1px);
+    background-size:100px 100px,100px 100px,20px 20px,20px 20px;
+    animation:gridDrift 40s linear infinite;}
+  @keyframes gridDrift{to{background-position:100px 100px,100px 100px,20px 20px,20px 20px;}}
+  .gear{position:absolute;color:rgba(212,175,55,.16);pointer-events:none;}
+  .gear svg{width:100%;height:100%;}
+  .spin{animation:spin 28s linear infinite;} .spin-rev{animation:spin 18s linear infinite reverse;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+  .typed{color:var(--gold);border-right:3px solid var(--gold);padding-right:4px;animation:caret 1s step-end infinite;white-space:nowrap;}
+  @keyframes caret{50%{border-color:transparent;}}
+  .scroll-cue{width:26px;height:42px;border:2px solid rgba(255,255,255,.4);border-radius:14px;position:relative;}
+  .scroll-cue::after{content:'';position:absolute;left:50%;top:8px;width:4px;height:8px;margin-left:-2px;background:var(--gold);border-radius:2px;animation:cue 1.8s ease-in-out infinite;}
+  @keyframes cue{0%{opacity:0;transform:translateY(0)}40%{opacity:1}100%{opacity:0;transform:translateY(14px)}}
+
+  /* ── Stats ── */
+  .stat-badge{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:.85rem;padding:1.25rem 1.5rem;text-align:center;transition:border-color .3s,background .3s,transform .3s;}
+  .stat-badge:hover{background:rgba(255,255,255,.1);border-color:var(--gold-dim);transform:translateY(-3px);}
+  .stat-number{font-family:'Outfit',sans-serif;font-size:2rem;font-weight:800;color:var(--gold);line-height:1;}
+  .stat-label{font-size:.72rem;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.08em;margin-top:.35rem;}
+
+  /* ── Timeline ── */
+  .timeline{position:relative;display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;}
+  .timeline-track{position:absolute;top:22px;left:10%;right:10%;height:2px;background:rgba(255,255,255,.1);}
+  .timeline-fill{height:100%;width:0;background:linear-gradient(90deg,var(--gold),#f5d97a);transition:width 1.8s cubic-bezier(.22,1,.36,1);box-shadow:0 0 12px rgba(212,175,55,.6);}
+  .timeline.visible .timeline-fill{width:100%;}
+  .t-step{position:relative;text-align:center;z-index:1;}
+  .t-dot{width:46px;height:46px;margin:0 auto .9rem;border-radius:50%;background:var(--navy-dark);border:2px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:1.2rem;transition:border-color .4s,box-shadow .4s,transform .4s;}
+  .timeline.visible .t-dot{border-color:var(--gold);box-shadow:0 0 0 6px rgba(212,175,55,.08);}
+  .t-step:hover .t-dot{transform:scale(1.12) rotate(-6deg);}
+  @media(max-width:768px){
+    .timeline{grid-template-columns:1fr;gap:1.4rem;}
+    .timeline-track{top:0;bottom:0;left:22px;right:auto;width:2px;height:auto;}
+    .timeline-fill{width:100%;height:0;transition:height 1.8s cubic-bezier(.22,1,.36,1);}
+    .timeline.visible .timeline-fill{width:100%;height:100%;}
+    .t-step{display:grid;grid-template-columns:46px 1fr;gap:1rem;text-align:left;align-items:start;}
+    .t-dot{margin:0;}
+  }
+
+  /* ── Department tabs ── */
+  .dept-tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:.75rem;}
+  @media(max-width:768px){.dept-tabs{grid-template-columns:repeat(5,minmax(96px,1fr));overflow-x:auto;padding-bottom:6px;scroll-snap-type:x mandatory;}}
+  .dept-tab{--c:var(--gold);scroll-snap-align:start;position:relative;background:var(--slate-card);border:1px solid rgba(255,255,255,.07);border-radius:1rem;padding:1.1rem .75rem;text-align:center;cursor:pointer;overflow:hidden;transition:transform .35s cubic-bezier(.22,1,.36,1),border-color .3s,box-shadow .35s,background .3s;}
+  .dept-tab::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,color-mix(in srgb,var(--c) 28%,transparent),transparent 70%);opacity:0;transition:opacity .35s;}
+  .dept-tab:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--c) 40%,transparent);}
+  .dept-tab:hover::before{opacity:.6;}
+  .dept-tab.active{border-color:var(--c);box-shadow:0 14px 34px rgba(0,0,0,.45),0 0 0 1px var(--c) inset;transform:translateY(-4px);}
+  .dept-tab.active::before{opacity:1;}
+  .dept-tab .ico{position:relative;width:44px;height:44px;margin:0 auto .55rem;color:var(--c);transition:transform .45s cubic-bezier(.34,1.56,.64,1);}
+  .dept-tab:hover .ico,.dept-tab.active .ico{transform:scale(1.15) rotate(-8deg);}
+  .dept-tab .nm{position:relative;font-family:'Outfit',sans-serif;font-weight:700;font-size:.95rem;}
+  .dept-tab .pct{position:relative;font-size:.68rem;color:#94a3b8;margin-top:2px;}
+
+  .panel{background:linear-gradient(160deg,var(--navy-mid),var(--navy-dark));border:1px solid rgba(255,255,255,.07);border-radius:1.25rem;position:relative;overflow:hidden;}
+  .panel::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--accent),transparent);}
+  .panel-glow{position:absolute;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--accent) 22%,transparent),transparent 65%);top:-160px;right:-120px;pointer-events:none;transition:background .5s;}
+  .panel-body{transition:opacity .28s ease,transform .28s ease;}
+  .panel-body.out{opacity:0;transform:translateY(12px);}
+  .panel-ico{width:64px;height:64px;color:var(--accent);animation:bob 4s ease-in-out infinite;}
+  @keyframes bob{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-6px) rotate(4deg)}}
+  .accent{color:var(--accent);}
+  .do-item{display:flex;gap:.6rem;align-items:flex-start;font-size:.9rem;color:#cbd5e1;}
+  .do-item::before{content:'▸';color:var(--accent);flex-shrink:0;}
+  .lead-chip{display:inline-flex;align-items:center;gap:.7rem;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:999px;padding:.35rem 1rem .35rem .35rem;}
+  .lead-chip img{width:38px;height:38px;border-radius:50%;object-fit:cover;border:2px solid var(--accent);}
+
+  /* Resource cards with cursor spotlight */
+  .res-card{--mx:50%;--my:50%;position:relative;display:block;background:var(--slate-card);border:1px solid rgba(255,255,255,.07);border-radius:.9rem;padding:1rem 1.1rem;overflow:hidden;transition:transform .3s cubic-bezier(.22,1,.36,1),border-color .3s,box-shadow .3s;opacity:0;transform:translateY(14px);}
+  .res-card.in{opacity:1;transform:none;transition:opacity .45s ease,transform .45s cubic-bezier(.22,1,.36,1),border-color .3s,box-shadow .3s;}
+  .res-card::before{content:'';position:absolute;inset:0;background:radial-gradient(220px circle at var(--mx) var(--my),color-mix(in srgb,var(--accent) 20%,transparent),transparent 70%);opacity:0;transition:opacity .3s;}
+  .res-card:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--accent) 45%,transparent);box-shadow:0 14px 30px rgba(0,0,0,.4);}
+  .res-card:hover::before{opacity:1;}
+  .res-card .arrow{transition:transform .25s;}
+  .res-card:hover .arrow{transform:translate(3px,-3px);}
+  .tag{font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:999px;background:rgba(255,255,255,.07);color:#cbd5e1;}
+  .tag.start{background:color-mix(in srgb,var(--accent) 22%,transparent);color:var(--accent);}
+
+  /* Checklist */
+  .check-row{display:flex;align-items:flex-start;gap:.75rem;padding:.6rem .75rem;border-radius:.6rem;cursor:pointer;transition:background .2s;user-select:none;}
+  .check-row:hover{background:rgba(255,255,255,.04);}
+  .check-box{width:22px;height:22px;flex-shrink:0;border-radius:6px;border:2px solid rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;transition:background .25s,border-color .25s,transform .25s;}
+  .check-box svg{width:14px;height:14px;stroke:var(--navy-dark);stroke-width:3.5;fill:none;stroke-dasharray:20;stroke-dashoffset:20;transition:stroke-dashoffset .3s ease .05s;}
+  .check-row.done .check-box{background:var(--accent);border-color:var(--accent);transform:scale(1.08);}
+  .check-row.done .check-box svg{stroke-dashoffset:0;}
+  .check-row .lbl{font-size:.9rem;color:#e2e8f0;transition:color .25s;}
+  .check-row.done .lbl{color:#64748b;text-decoration:line-through;}
+  .ring{transform:rotate(-90deg);}
+  .ring circle{fill:none;stroke-width:6;}
+  .ring .bg{stroke:rgba(255,255,255,.08);}
+  .ring .fg{stroke:var(--accent);stroke-linecap:round;transition:stroke-dashoffset .6s cubic-bezier(.22,1,.36,1),stroke .4s;}
+
+  /* ── Quiz ── */
+  .quiz-card{background:var(--slate-card);border:1px solid rgba(255,255,255,.08);border-radius:1.25rem;}
+  .quiz-opt{width:100%;text-align:left;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:.75rem;padding:.85rem 1rem;font-size:.92rem;color:#e2e8f0;transition:background .2s,border-color .2s,transform .2s;}
+  .quiz-opt:hover{background:rgba(212,175,55,.1);border-color:var(--gold-dim);transform:translateX(4px);}
+  .quiz-opt .k{display:inline-flex;width:24px;height:24px;border-radius:6px;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;background:rgba(255,255,255,.08);margin-right:.65rem;color:var(--gold);}
+  .quiz-progress{height:4px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden;}
+  .quiz-progress div{height:100%;background:var(--gold);transition:width .45s cubic-bezier(.22,1,.36,1);}
+  .quiz-stage{transition:opacity .25s,transform .25s;}
+  .quiz-stage.out{opacity:0;transform:translateX(-18px);}
+  .result-pop{animation:pop .6s cubic-bezier(.34,1.56,.64,1);}
+  @keyframes pop{0%{transform:scale(.6);opacity:0}100%{transform:scale(1);opacity:1}}
+
+  /* ── Flip cards ── */
+  .flip{perspective:1000px;cursor:pointer;height:150px;}
+  .flip-inner{position:relative;width:100%;height:100%;transition:transform .65s cubic-bezier(.22,1,.36,1);transform-style:preserve-3d;}
+  .flip.flipped .flip-inner{transform:rotateY(180deg);}
+  .flip-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:.9rem;padding:1rem;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;border:1px solid rgba(255,255,255,.08);}
+  .flip-front{background:var(--slate-card);transition:border-color .3s;}
+  .flip:hover .flip-front{border-color:var(--gold-dim);}
+  .flip-back{background:linear-gradient(150deg,var(--navy-light),var(--navy-dark));border-color:var(--gold-dim);transform:rotateY(180deg);font-size:.82rem;color:#cbd5e1;line-height:1.45;}
+
+  #confetti{position:fixed;inset:0;pointer-events:none;z-index:60;}
+  .toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,120px);background:var(--gold);color:var(--navy-dark);font-family:'Outfit',sans-serif;font-weight:700;padding:.75rem 1.4rem;border-radius:.75rem;box-shadow:0 10px 30px rgba(0,0,0,.45);z-index:61;transition:transform .45s cubic-bezier(.34,1.56,.64,1);max-width:calc(100% - 32px);text-align:center;}
+  .toast.show{transform:translate(-50%,0);}
+
+  footer{border-top:1px solid rgba(212,175,55,.15);}
+  .footer-icon{transition:transform .25s,color .2s;color:#94a3b8;}
+  .footer-icon:hover{transform:translateY(-3px) scale(1.15);color:#fff;}
+
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none!important;transition-duration:.01ms!important;}
+    .reveal,.res-card{opacity:1;transform:none;}
+  }
+</style>
+</head>
+<body class="bg-[#060d1a] text-white font-sans">
+
+<!-- HEADER -->
+<header class="sticky top-0 z-40 border-b border-white/5">
+  <div class="max-w-6xl mx-auto px-5 py-4 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-3 group">
+      <div class="w-11 h-11 rounded-full overflow-hidden ring-2 ring-white/10 group-hover:ring-[var(--gold-dim)] transition">
+        <img src="assets/socraticschematicslogo.jpg" class="w-full h-full object-cover" alt="Logo">
+      </div>
+      <div>
+        <div class="font-bold text-base leading-tight" style="font-family:'Outfit',sans-serif">Socratic Schematics</div>
+        <div class="text-xs opacity-70 leading-tight">Maeser Prep — FRC Team 8885</div>
+      </div>
+    </a>
+    <nav class="hidden md:flex gap-7 items-center">
+      <a href="index.html"    class="nav-link">Home</a>
+      <a href="robots.html"   class="nav-link">Robots</a>
+      <a href="team.html"     class="nav-link">Team</a>
+      <a href="sponsors.html" class="nav-link">Sponsors</a>
+      <a href="donate.html"   class="nav-link">Donate</a>
+      <a href="snacks.html"   class="nav-link">Snack Prices</a>
+      <a href="camp.html"     class="nav-link">Summer Camp</a>
+      <a href="contact.html"  class="nav-link">Contact</a>
+      <a href="newmembers.html" class="nav-link" style="color:#fff">New Members</a>
+      <a href="gallery.html"  class="nav-pill">Gallery</a>
+    </nav>
+    <button id="mobile-nav-toggle" class="md:hidden p-2 rounded-lg hover:bg-white/10 transition" aria-label="Menu">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+  </div>
+  <div id="mobile-nav" class="md:hidden bg-[var(--navy-dark)] px-5 border-t border-white/5">
+    <a href="index.html"      class="mobile-link">Home</a>
+    <a href="robots.html"     class="mobile-link">Robots</a>
+    <a href="team.html"       class="mobile-link">Team</a>
+    <a href="sponsors.html"   class="mobile-link">Sponsors</a>
+    <a href="donate.html"     class="mobile-link">Donate</a>
+    <a href="snacks.html"     class="mobile-link">Snack Prices</a>
+    <a href="camp.html"       class="mobile-link">Summer Camp</a>
+    <a href="contact.html"    class="mobile-link">Contact</a>
+    <a href="newmembers.html" class="mobile-link" style="color:var(--gold)">New Members</a>
+    <a href="gallery.html"    class="mobile-link" style="color:var(--gold)">Gallery</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg" id="hero-bg"></div>
+  <div class="absolute inset-0" style="background:linear-gradient(to bottom,rgba(6,13,26,.72),rgba(8,30,56,.82) 55%,#060d1a)"></div>
+  <div class="blueprint"></div>
+  <div class="gear spin" style="width:340px;height:340px;top:-90px;right:-90px"><svg viewBox="-100 -100 200 200" data-gear="16"></svg></div>
+  <div class="gear spin-rev" style="width:190px;height:190px;top:190px;right:170px"><svg viewBox="-100 -100 200 200" data-gear="10"></svg></div>
+  <div class="gear spin-rev" style="width:260px;height:260px;bottom:-80px;left:-70px"><svg viewBox="-100 -100 200 200" data-gear="12"></svg></div>
+
+  <div class="relative z-10 text-center px-5 max-w-4xl py-24">
+    <div class="eyebrow mb-5 reveal">Incoming Member Guide · FRC Team 8885</div>
+    <h1 class="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight leading-tight mb-4 reveal rd1">
+      Welcome aboard,<br><span class="typed" id="typed">engineer</span>
+    </h1>
+    <p class="text-gray-300 text-base md:text-xl mb-10 max-w-2xl mx-auto leading-relaxed reveal rd2">
+      You don't need any experience to join, just curiosity. This page will get you oriented: who we are,
+      how a season works, and where to start learning in each department.
+    </p>
+    <div class="flex flex-wrap gap-4 justify-center reveal rd3">
+      <a href="#departments" class="btn-gold">Explore Departments</a>
+      <a href="#quiz" class="btn-outline">Find Your Fit</a>
+    </div>
+  </div>
+  <a href="#intro" class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 scroll-cue" aria-label="Scroll down"></a>
+</section>
+
+<!-- INTRO -->
+<section id="intro" class="bg-[var(--navy)] py-20">
+  <div class="max-w-6xl mx-auto px-5">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div class="reveal">
+        <div class="eyebrow mb-2">Who We Are</div>
+        <h2 class="text-3xl md:text-4xl font-bold mb-5">We're Socratic Schematics</h2>
+        <p class="text-gray-300 leading-relaxed mb-4">
+          We're Maeser Prep's FIRST Robotics Competition team. Every January FIRST reveals a brand-new game, and in a
+          few short weeks we design, build, wire, and program a robot from scratch to play it against teams from all over.
+        </p>
+        <p class="text-gray-300 leading-relaxed mb-6">
+          Plenty of us walked in on day one without knowing what a drivetrain was. We teach each other,
+          try ideas, break things, fix them, and somehow end up laughing through most of it.
+        </p>
+        <div class="flex flex-wrap gap-3">
+          <a href="team.html" class="btn-outline" style="padding:.6rem 1.4rem;font-size:.88rem">Meet the Team</a>
+          <a href="robots.html" class="btn-outline" style="padding:.6rem 1.4rem;font-size:.88rem">See Our Robots</a>
+        </div>
+      </div>
+      <div class="reveal rd2">
+        <div class="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl group">
+          <img src="assets/2026comp.jpg" alt="Socratic Schematics at competition" class="w-full h-80 object-cover transition duration-700 group-hover:scale-105">
+          <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(6,13,26,.85),transparent 55%)"></div>
+          <div class="absolute bottom-4 left-5 right-5">
+            <div class="text-xs font-bold tracking-widest text-[var(--gold)] uppercase">Gracious Professionalism</div>
+            <div class="text-sm text-gray-200 mt-1">Compete like crazy, and help the team next to you while you do it.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-14">
+      <div class="stat-badge reveal rd1"><div class="stat-number" data-count="2021" data-plain>0</div><div class="stat-label">Founded</div></div>
+      <div class="stat-badge reveal rd2"><div class="stat-number" data-count="10" data-suffix="+">0</div><div class="stat-label">Robots Built</div></div>
+      <div class="stat-badge reveal rd3"><div class="stat-number" data-count="5">0</div><div class="stat-label">Departments</div></div>
+      <div class="stat-badge reveal rd4"><div class="stat-number" data-count="0" data-final="∞">0</div><div class="stat-label">Snacks Consumed</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SEASON TIMELINE -->
+<section class="bg-[#060d1a] py-20">
+  <div class="max-w-6xl mx-auto px-5">
+    <div class="text-center mb-14 reveal">
+      <div class="eyebrow mb-2">The Year at a Glance</div>
+      <h2 class="text-3xl font-bold">How a Season Works</h2>
+      <div class="gold-bar"></div>
+    </div>
+    <div class="timeline" id="timeline">
+      <div class="timeline-track"><div class="timeline-fill"></div></div>
+      <div class="t-step"><div class="t-dot">🍂</div><div><div class="text-xs mono text-[var(--gold)] mb-1">FALL</div><h3 class="font-bold mb-1">Preseason</h3><p class="text-sm text-gray-400">Training, practice builds, and learning the tools of your department.</p></div></div>
+      <div class="t-step"><div class="t-dot">🚀</div><div><div class="text-xs mono text-[var(--gold)] mb-1">EARLY JAN</div><h3 class="font-bold mb-1">Kickoff</h3><p class="text-sm text-gray-400">The new game is revealed. We read the manual and start brainstorming.</p></div></div>
+      <div class="t-step"><div class="t-dot">🔧</div><div><div class="text-xs mono text-[var(--gold)] mb-1">JAN – FEB</div><h3 class="font-bold mb-1">Build Season</h3><p class="text-sm text-gray-400">CAD, prototype, fabricate, wire, code, test, repeat. This is the busiest stretch.</p></div></div>
+      <div class="t-step"><div class="t-dot">🏆</div><div><div class="text-xs mono text-[var(--gold)] mb-1">MAR – APR</div><h3 class="font-bold mb-1">Competition</h3><p class="text-sm text-gray-400">Regional events: matches, pit repairs, scouting, and lots of cheering.</p></div></div>
+      <div class="t-step"><div class="t-dot">☀️</div><div><div class="text-xs mono text-[var(--gold)] mb-1">SUMMER</div><h3 class="font-bold mb-1">Offseason</h3><p class="text-sm text-gray-400">Outreach, our <a href="camp.html" class="text-[var(--gold)] hover:underline">summer camp</a>, and new projects.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- DEPARTMENTS -->
+<section id="departments" class="bg-[var(--navy)] py-20">
+  <div class="max-w-6xl mx-auto px-5">
+    <div class="text-center mb-10 reveal">
+      <div class="eyebrow mb-2">Pick a Department</div>
+      <h2 class="text-3xl md:text-4xl font-bold">Resources to Get You Started</h2>
+      <p class="text-gray-400 mt-3 max-w-xl mx-auto text-sm">Click a department to see what it does, where to learn, and a starter checklist. Your checklist progress is saved in this browser.</p>
+      <div class="gold-bar"></div>
+    </div>
+
+    <div class="dept-tabs mb-6 reveal" id="dept-tabs" role="tablist"></div>
+
+    <div class="panel reveal" id="panel">
+      <div class="panel-glow"></div>
+      <div class="panel-body relative p-6 md:p-10" id="panel-body"></div>
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section id="quiz" class="bg-[#060d1a] py-20">
+  <div class="max-w-3xl mx-auto px-5">
+    <div class="text-center mb-10 reveal">
+      <div class="eyebrow mb-2">Not Sure Where You Fit?</div>
+      <h2 class="text-3xl font-bold">Department Matchmaker</h2>
+      <p class="text-gray-400 mt-3 text-sm">Four quick questions. No wrong answers, and you can always try more than one department.</p>
+      <div class="gold-bar"></div>
+    </div>
+    <div class="quiz-card p-6 md:p-8 reveal" id="quiz-card"></div>
+  </div>
+</section>
+
+<!-- GLOSSARY -->
+<section class="bg-[var(--navy)] py-20">
+  <div class="max-w-6xl mx-auto px-5">
+    <div class="text-center mb-10 reveal">
+      <div class="eyebrow mb-2">Speak the Language</div>
+      <h2 class="text-3xl font-bold">FRC Lingo, Decoded</h2>
+      <p class="text-gray-400 mt-3 text-sm">Tap a card to flip it.</p>
+      <div class="gold-bar"></div>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="glossary"></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="relative overflow-hidden py-20" style="background:linear-gradient(135deg,var(--navy-light),var(--navy-mid))">
+  <div class="blueprint" style="opacity:.6"></div>
+  <div class="relative max-w-3xl mx-auto px-5 text-center reveal">
+    <h2 class="text-3xl md:text-4xl font-bold mb-4">Ready to build something?</h2>
+    <p class="text-gray-300 mb-8">Questions about joining, meeting times, or anything else? Reach out. We're happy to help you get started.</p>
+    <div class="flex flex-wrap gap-4 justify-center">
+      <a href="contact.html" class="btn-gold">Contact Us</a>
+      <a href="https://instagram.com/socraticschematics" target="_blank" rel="noopener" class="btn-outline">Follow on Instagram</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-[var(--navy-dark)] py-8">
+  <div class="max-w-6xl mx-auto px-5 flex flex-col md:flex-row items-center justify-between gap-5">
+    <div>
+      <div class="font-bold text-white" style="font-family:'Outfit',sans-serif">Socratic Schematics — Team 8885</div>
+      <div class="text-xs text-gray-500 mt-1">Karl G. Maeser Preparatory Academy</div>
+    </div>
+    <div class="flex gap-7 items-center">
+      <a href="https://instagram.com/socraticschematics" target="_blank" rel="noopener" class="footer-icon" aria-label="Instagram">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5a4.25 4.25 0 0 0 4.25-4.25v-8.5A4.25 4.25 0 0 0 16.25 3.5h-8.5z"/><path d="M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 1.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+      </a>
+      <a href="https://mail.google.com/mail/?view=cm&fs=1&to=maeserrobotics@gmail.com" target="_blank" rel="noopener" class="footer-icon" aria-label="Email">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm0 3.2v10.8h16V7.2l-8 5-8-5zm8 3.3 8-5H4l8 5z"/></svg>
+      </a>
+      <a href="tel:+18012359000,1223" class="footer-icon" aria-label="Phone">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25c1.1.37 2.3.57 3.6.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.3 21 3 13.7 3 4a1 1 0 0 1 1-1h3.4a1 1 0 0 1 1 1c0 1.3.2 2.5.57 3.6a1 1 0 0 1-.25 1L6.6 10.8z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<canvas id="confetti"></canvas>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ═════════════════ DATA ═════════════════ */
+const ICONS = {
+  cad:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 2 3 7v10l9 5 9-5V7l-9-5z"/><path d="M3 7l9 5 9-5M12 12v10"/></svg>`,
+  programming:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4" width="19" height="16" rx="2.5"/><path d="m7 10 3 2.5L7 15M12.5 15H17"/></svg>`,
+  electrical:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M13 2 4.5 13.5H11L10 22l8.5-11.5H12L13 2z"/></svg>`,
+  business:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M6 16v-4M10.5 16V8M15 16v-6M19.5 16V5"/></svg>`,
+  design:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 0 18c1.1 0 1.8-.9 1.8-1.9 0-.5-.2-.9-.5-1.3-.3-.3-.5-.8-.5-1.3 0-1 .8-1.8 1.8-1.8H17a4 4 0 0 0 4-4C21 6.5 17 3 12 3z"/><circle cx="7.5" cy="11" r="1.2" fill="currentColor"/><circle cx="10.5" cy="7" r="1.2" fill="currentColor"/><circle cx="15" cy="7.5" r="1.2" fill="currentColor"/></svg>`
+};
+
+const DEPTS = {
+  cad:{
+    name:'CAD', color:'#38bdf8',
+    tagline:'Design the robot before it exists.',
+    about:'The CAD team turns ideas into precise 3D models. Every part, gear, and bolt gets designed on the computer first, so we know it fits before we cut any metal.',
+    does:['Model robot mechanisms and full assemblies','Turn sketches and prototypes into real designs','Make drawings and cut files for fabrication','Work with fab to check that parts fit and move correctly'],
+    lead:{name:'Gavin West', role:'CAD Lead', img:'assets/gavinwest.jpg'},
+    resources:[
+      {t:'Onshape Learning Center', u:'https://learn.onshape.com/', d:'Free self-paced courses for the CAD tool most FRC teams use.', type:'Course', start:true},
+      {t:'FRCDesign.org', u:'https://frcdesign.org/', d:'An FRC-specific CAD curriculum, from first sketch to full robot.', type:'Course', start:true},
+      {t:'Onshape', u:'https://www.onshape.com/', d:'Browser-based CAD. Make a free education account to get started.', type:'Tool'},
+      {t:'ReCalc', u:'https://www.reca.lc/', d:'Calculators for gear ratios, belts, arms, and flywheels.', type:'Tool'},
+      {t:'The Open Alliance', u:'https://www.theopenalliance.com/', d:'Top teams share their full CAD and build threads publicly.', type:'Inspiration'},
+      {t:'Chief Delphi', u:'https://www.chiefdelphi.com/', d:'The FRC community forum. Search it before asking; someone has probably built it already.', type:'Community'}
+    ],
+    checklist:['Create an Onshape education account','Finish the Onshape "Introduction to CAD" course','Model a simple part (a spacer or a bracket)','Build a small assembly with mates','Open last season\'s robot CAD and explore it','Shadow a CAD lead during a design session']
+  },
+  programming:{
+    name:'Programming', color:'#a78bfa',
+    tagline:'Bring the robot to life.',
+    about:'Programmers write the code that drives the robot: reading sensors, controlling motors, running autonomous routines, and making the driver\'s controls feel great.',
+    does:['Write robot code with WPILib','Build and tune autonomous paths','Set up sensors, vision, and motor controllers','Debug with logs and live data during testing'],
+    lead:{name:'Charlie Cotton', role:'Programming Lead', img:'assets/charliecotton.jpg'},
+    resources:[
+      {t:'WPILib Docs', u:'https://docs.wpilib.org/', d:'The official FRC programming documentation. You will use this all the time.', type:'Docs', start:true},
+      {t:'Zero to Robot', u:'https://docs.wpilib.org/en/stable/docs/zero-to-robot/introduction.html', d:'Step-by-step: install the tools and get a robot driving.', type:'Guide', start:true},
+      {t:'Learn Java', u:'https://dev.java/learn/', d:'Official Java tutorials, the language most FRC teams code in.', type:'Course'},
+      {t:'Pro Git Book', u:'https://git-scm.com/book/en/v2', d:'Learn version control so the team can code together without chaos.', type:'Book'},
+      {t:'PathPlanner', u:'https://pathplanner.dev/', d:'Draw autonomous paths visually and run them on the robot.', type:'Tool'},
+      {t:'REV Docs', u:'https://docs.revrobotics.com/', d:'Docs for REV motor controllers and sensors.', type:'Docs'},
+      {t:'CTRE Phoenix 6 Docs', u:'https://v6.docs.ctr-electronics.com/', d:'Docs for Kraken/Falcon motors, CANcoders, and the Pigeon gyro.', type:'Docs'},
+      {t:'AdvantageScope', u:'https://github.com/Mechanical-Advantage/AdvantageScope', d:'Visualize robot logs and data. Very useful for debugging.', type:'Tool'}
+    ],
+    checklist:['Install WPILib and VS Code','Complete a Java basics tutorial','Make a GitHub account and learn clone, commit, and push','Read the "Zero to Robot" guide','Write code that spins a single motor','Pair with a programmer while they test on the robot']
+  },
+  electrical:{
+    name:'Electrical', color:'#fb923c',
+    tagline:'The robot\'s nervous system.',
+    about:'Electrical wires everything together: battery, breakers, motor controllers, the roboRIO, and the radio. Clean, reliable wiring is often what decides whether a robot works in a match.',
+    does:['Plan and build the electrical layout','Crimp, solder, and route wires cleanly','Set up the CAN bus and power distribution','Troubleshoot brownouts and connection issues at competition'],
+    lead:null,
+    resources:[
+      {t:'Intro to FRC Robot Wiring', u:'https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-1/intro-to-frc-robot-wiring.html', d:'What every component does and how it all connects.', type:'Guide', start:true},
+      {t:'Radio Programming', u:'https://docs.wpilib.org/en/stable/docs/zero-to-robot/step-3/radio-programming.html', d:'How to configure the robot radio for the field and the shop.', type:'Guide'},
+      {t:'REV Docs', u:'https://docs.revrobotics.com/', d:'Power Distribution Hub, SPARK MAX/Flex, and wiring diagrams.', type:'Docs'},
+      {t:'CTRE Docs', u:'https://v6.docs.ctr-electronics.com/', d:'Wiring and setup for CTRE motors and sensors.', type:'Docs'},
+      {t:'FRC Game Manual', u:'https://www.firstinspires.org/resource-library/frc/competition-manual-qa-system', d:'The robot electrical rules. Inspectors will check these.', type:'Rules'},
+      {t:'Chief Delphi', u:'https://www.chiefdelphi.com/', d:'Search for wiring photos and debugging threads from other teams.', type:'Community'}
+    ],
+    checklist:['Learn electrical safety and battery handling','Read "Intro to FRC Robot Wiring"','Identify every component on last year\'s robot','Practice crimping a connector that passes a tug test','Help wire a test board','Learn how to read Driver Station errors']
+  },
+  business:{
+    name:'Business', color:'#34d399',
+    tagline:'Keep the team running and growing.',
+    about:'Robots cost money, and teams need a voice. Business handles sponsorships, fundraising, outreach, awards, and making sure the community knows what we do.',
+    does:['Find and talk to potential sponsors','Plan fundraisers and outreach events','Write award submissions such as the Impact Award','Manage budgets and team communication'],
+    lead:{name:'Millie Lund', role:'Business Lead', img:'assets/millielund.png'},
+    resources:[
+      {t:'FIRST Resource Library', u:'https://www.firstinspires.org/resource-library/frc', d:'Official FRC guides for team management, awards, and fundraising.', type:'Docs', start:true},
+      {t:'Our Sponsors', u:'sponsors.html', d:'See who supports us and the sponsorship tiers we offer.', type:'Team', start:true},
+      {t:'Donate Page', u:'donate.html', d:'How people can support the team. Know it well enough to pitch it.', type:'Team'},
+      {t:'Gene Haas Foundation', u:'https://www.ghaasfoundation.org/', d:'One of our sponsors, and an example of a STEM grant source.', type:'Funding'},
+      {t:'Canva', u:'https://www.canva.com/', d:'Make sponsor decks, flyers, and handouts quickly.', type:'Tool'},
+      {t:'Chief Delphi', u:'https://www.chiefdelphi.com/', d:'Teams share sponsor letters, award essays, and outreach ideas.', type:'Community'}
+    ],
+    checklist:['Read through our sponsors and donate pages','Practice a 30-second "elevator pitch" for the team','Look over a past sponsor letter or deck','Brainstorm 3 local businesses to contact','Help plan or staff an outreach event','Learn what the FRC Impact Award is']
+  },
+  design:{
+    name:'Design', color:'#f472b6',
+    tagline:'Make the team look as good as it builds.',
+    about:'Design shapes how people see the team: logos, team shirts, robot graphics, social media, photography, video, and this website.',
+    does:['Create graphics, posters, and social posts','Design team apparel and robot decals','Photograph and film builds and competitions','Keep our branding consistent everywhere'],
+    lead:null,
+    resources:[
+      {t:'Canva', u:'https://www.canva.com/', d:'Quick, friendly design for posts, posters, and slides.', type:'Tool', start:true},
+      {t:'FIRST Brand Guidelines', u:'https://www.firstinspires.org/brand', d:'The rules for using FIRST logos correctly.', type:'Rules', start:true},
+      {t:'Figma', u:'https://www.figma.com/', d:'Pro design and layout tool, free for students.', type:'Tool'},
+      {t:'Inkscape', u:'https://inkscape.org/', d:'Free vector software, good for logos and vinyl robot decals.', type:'Tool'},
+      {t:'Photopea', u:'https://www.photopea.com/', d:'A free, browser-based alternative to Photoshop.', type:'Tool'},
+      {t:'Coolors', u:'https://coolors.co/', d:'Generate and test color palettes.', type:'Tool'},
+      {t:'Our Gallery', u:'gallery.html', d:'Team photos to use, and to see the visual style we go for.', type:'Team'}
+    ],
+    checklist:['Learn our colors: navy and gold','Read the FIRST brand guidelines','Make a sample Instagram post in Canva','Take 10 photos at a build meeting','Sketch a robot decal or shirt idea','Share your work with the team for feedback']
+  }
+};
+
+const GLOSSARY = [
+  ['🚀','Kickoff','The early-January event where FIRST reveals the new game. Build season starts right after.'],
+  ['🧱','Bumpers','Padded, fabric-covered frames around the robot that protect it and show its team number.'],
+  ['🛞','Drivetrain','The wheels, motors, and gearboxes that move the robot around the field.'],
+  ['🌀','Swerve','A drivetrain where every wheel steers on its own, so the robot can move in any direction.'],
+  ['🛠️','The Pit','Our workspace at competition, where we fix, tweak, and show off the robot between matches.'],
+  ['🤝','Alliance','Three teams playing together in a match against another alliance of three.'],
+  ['💛','Gracious Professionalism','FIRST\'s core value: compete hard while treating everyone with kindness and respect.'],
+  ['🤖','Auto / Teleop','The first seconds of a match run on code alone (auto); then the drivers take over (teleop).'],
+  ['📋','Scouting','Collecting data on other teams\' robots to plan strategy and choose alliance partners.'],
+  ['🔋','Brownout','When the battery voltage drops too low and the robot shuts things off to protect itself.'],
+  ['📈','Ranking Points','Points earned in qualification matches that decide a team\'s ranking at an event.'],
+  ['🗣️','Chief Delphi','The FRC community forum, where you\'ll find answers to almost any robot question.']
+];
+
+const QUIZ = [
+  {q:'Free afternoon. What sounds most fun?', a:[
+    ['Building something detailed in Minecraft or with LEGO','cad'],
+    ['Solving a tricky logic puzzle','programming'],
+    ['Taking apart an old gadget to see how it works','electrical'],
+    ['Planning an event or running a little side hustle','business'],
+    ['Drawing, editing photos, or making a video','design']]},
+  {q:'Pick a class you actually look forward to.', a:[
+    ['Geometry or engineering','cad'],
+    ['Computer science or math','programming'],
+    ['Physics or chemistry','electrical'],
+    ['Economics or speech','business'],
+    ['Art or media','design']]},
+  {q:'It\'s competition day. Where do you want to be?', a:[
+    ['Studying other robots and sketching improvements','cad'],
+    ['Laptop out, tuning autonomous between matches','programming'],
+    ['In the pit, fixing a loose wire before the next match','electrical'],
+    ['Talking to judges and visitors about our team','business'],
+    ['In the stands with a camera, capturing the moment','design']]},
+  {q:'Which compliment would make your day?', a:[
+    ['"That design is so clean."','cad'],
+    ['"How did you make it do that?!"','programming'],
+    ['"It just works, every time."','electrical'],
+    ['"You\'re really convincing."','business'],
+    ['"That looks amazing."','design']]}
+];
+
+/* ═════════════════ UTILITIES ═════════════════ */
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const store = {
+  get(k){ try{ return JSON.parse(localStorage.getItem(k)); }catch(e){ return null; } },
+  set(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} }
+};
+const esc = s => s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* Mobile nav */
+document.getElementById('mobile-nav-toggle').addEventListener('click',()=>document.getElementById('mobile-nav').classList.toggle('open'));
+
+/* Scroll reveal */
+const ro = new IntersectionObserver(entries=>entries.forEach(e=>{
+  if(e.isIntersecting){ e.target.classList.add('visible'); ro.unobserve(e.target); }
+}),{threshold:.12});
+document.querySelectorAll('.reveal, #timeline').forEach(el=>ro.observe(el));
+
+/* ═════════════════ HERO ═════════════════ */
+// Gears: generate toothed gear paths
+function gearPath(teeth, R=92, r=76){
+  const pts=[], step=Math.PI*2/teeth;
+  for(let i=0;i<teeth;i++){
+    const a=i*step;
+    [[a,r],[a+step*.12,R],[a+step*.45,R],[a+step*.57,r]].forEach(([t,rad])=>pts.push((Math.cos(t)*rad).toFixed(1)+','+(Math.sin(t)*rad).toFixed(1)));
+  }
+  return 'M'+pts.join('L')+'Z';
+}
+document.querySelectorAll('[data-gear]').forEach(svg=>{
+  svg.innerHTML = `<path d="${gearPath(+svg.dataset.gear)}" fill="none" stroke="currentColor" stroke-width="3"/>
+    <circle r="50" fill="none" stroke="currentColor" stroke-width="2.5"/><circle r="16" fill="none" stroke="currentColor" stroke-width="3"/>
+    ${[0,60,120,180,240,300].map(d=>`<line x1="0" y1="16" x2="0" y2="50" stroke="currentColor" stroke-width="2.5" transform="rotate(${d})"/>`).join('')}`;
+});
+
+// Typewriter
+(function(){
+  const words=['engineer','programmer','builder','designer','strategist','future captain'];
+  const el=document.getElementById('typed');
+  if(reduceMotion){ el.textContent=words[0]; return; }
+  let w=0,i=words[0].length,del=true;
+  function tick(){
+    const word=words[w];
+    if(del){ i--; if(i<=0){ del=false; w=(w+1)%words.length; } }
+    else { i++; if(i>=words[w].length){ del=true; el.textContent=words[w]; return setTimeout(tick,1800); } }
+    el.textContent=words[w].slice(0,i)||'​';
+    setTimeout(tick, del?45:85);
+  }
+  setTimeout(tick,2200);
+})();
+
+// Parallax hero bg
+const heroBg=document.getElementById('hero-bg');
+if(!reduceMotion) addEventListener('scroll',()=>{ const y=scrollY; if(y<innerHeight) heroBg.style.transform=`scale(1.05) translateY(${y*.25}px)`; },{passive:true});
+
+/* Count-up stats */
+const co = new IntersectionObserver(entries=>entries.forEach(e=>{
+  if(!e.isIntersecting) return; co.unobserve(e.target);
+  const el=e.target, target=+el.dataset.count, suf=el.dataset.suffix||'', fin=el.dataset.final;
+  const start = el.hasAttribute('data-plain') ? target-40 : 0;
+  if(reduceMotion){ el.textContent = fin || target+suf; return; }
+  const t0=performance.now(), dur=1400;
+  (function step(t){
+    const p=Math.min((t-t0)/dur,1), ease=1-Math.pow(1-p,3);
+    if(fin){ el.textContent = p<1 ? Math.floor(Math.random()*9999) : fin; }
+    else el.textContent = Math.round(start+(target-start)*ease)+suf;
+    if(p<1) requestAnimationFrame(step);
+  })(t0);
+}),{threshold:.5});
+document.querySelectorAll('[data-count]').forEach(el=>co.observe(el));
+
+/* ═════════════════ DEPARTMENTS ═════════════════ */
+const tabsEl=document.getElementById('dept-tabs'), panelEl=document.getElementById('panel'), bodyEl=document.getElementById('panel-body');
+const progress = store.get('ss-checklists') || {};
+let current = null;
+
+function pct(key){ const done=(progress[key]||[]).filter(Boolean).length; return Math.round(done/DEPTS[key].checklist.length*100); }
+
+tabsEl.innerHTML = Object.entries(DEPTS).map(([k,d])=>`
+  <button class="dept-tab" role="tab" data-key="${k}" style="--c:${d.color}">
+    <div class="ico">${ICONS[k]}</div>
+    <div class="nm">${d.name}</div>
+    <div class="pct" data-pct="${k}">${pct(k)}% checklist</div>
+  </button>`).join('');
+
+function renderPanel(key){
+  const d=DEPTS[key], done=progress[key]||[];
+  const C=2*Math.PI*30;
+  bodyEl.innerHTML = `
+    <div class="grid lg:grid-cols-5 gap-10">
+      <div class="lg:col-span-2">
+        <div class="panel-ico mb-4">${ICONS[key]}</div>
+        <div class="eyebrow accent mb-1" style="color:var(--accent)">${d.name} Department</div>
+        <h3 class="text-2xl md:text-3xl font-bold mb-3">${d.tagline}</h3>
+        <p class="text-gray-300 text-sm leading-relaxed mb-5">${d.about}</p>
+        <div class="text-xs font-bold tracking-widest uppercase text-gray-500 mb-2">What you'll do</div>
+        <div class="space-y-2 mb-6">${d.does.map(x=>`<div class="do-item">${x}</div>`).join('')}</div>
+        ${d.lead ? `<div class="lead-chip"><img src="${d.lead.img}" alt="${d.lead.name}"><div><div class="text-sm font-semibold">${d.lead.name}</div><div class="text-xs text-gray-400">${d.lead.role}, ask them anything</div></div></div>`
+                 : `<div class="lead-chip" style="padding-left:1rem"><div><div class="text-sm font-semibold">Questions?</div><div class="text-xs text-gray-400">Ask any team lead or mentor at a meeting</div></div></div>`}
+      </div>
+      <div class="lg:col-span-3">
+        <div class="text-xs font-bold tracking-widest uppercase text-gray-500 mb-3">Resources</div>
+        <div class="grid sm:grid-cols-2 gap-3 mb-8">
+          ${d.resources.map(r=>{ const ext=/^https?:/.test(r.u); return `
+            <a class="res-card" href="${r.u}" ${ext?'target="_blank" rel="noopener"':''}>
+              <div class="relative">
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="tag">${r.type}</span>${r.start?'<span class="tag start">Start here</span>':''}
+                  <svg class="arrow w-4 h-4 ml-auto text-gray-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg>
+                </div>
+                <div class="font-semibold text-[0.95rem] mb-1" style="font-family:'Outfit',sans-serif">${r.t}</div>
+                <div class="text-xs text-gray-400 leading-relaxed">${r.d}</div>
+              </div>
+            </a>`;}).join('')}
+        </div>
+        <div class="rounded-xl border border-white/10 bg-black/20 p-4 md:p-5">
+          <div class="flex items-center gap-4 mb-3">
+            <div class="relative w-[72px] h-[72px] flex-shrink-0">
+              <svg class="ring w-full h-full" viewBox="0 0 72 72"><circle class="bg" cx="36" cy="36" r="30"/><circle class="fg" id="ring-fg" cx="36" cy="36" r="30" stroke-dasharray="${C}" stroke-dashoffset="${C}"/></svg>
+              <div class="absolute inset-0 flex items-center justify-center text-sm font-bold" id="ring-txt">0%</div>
+            </div>
+            <div>
+              <div class="font-bold" style="font-family:'Outfit',sans-serif">First-Weeks Checklist</div>
+              <div class="text-xs text-gray-400">Tick these off as you go. Finish them all for a surprise.</div>
+            </div>
+          </div>
+          <div>${d.checklist.map((c,i)=>`
+            <div class="check-row ${done[i]?'done':''}" data-i="${i}" role="checkbox" tabindex="0" aria-checked="${!!done[i]}">
+              <div class="check-box"><svg viewBox="0 0 16 16"><path d="M3 8.5l3.2 3L13 4.5"/></svg></div>
+              <div class="lbl">${esc(c)}</div>
+            </div>`).join('')}</div>
+        </div>
+      </div>
+    </div>`;
+
+  // stagger resource cards in
+  bodyEl.querySelectorAll('.res-card').forEach((c,i)=>{
+    setTimeout(()=>c.classList.add('in'), reduceMotion?0:60+i*55);
+    c.addEventListener('pointermove',e=>{ const r=c.getBoundingClientRect(); c.style.setProperty('--mx',(e.clientX-r.left)+'px'); c.style.setProperty('--my',(e.clientY-r.top)+'px'); });
+  });
+  bodyEl.querySelectorAll('.check-row').forEach(row=>{
+    const toggle=()=>toggleCheck(key,+row.dataset.i,row);
+    row.addEventListener('click',toggle);
+    row.addEventListener('keydown',e=>{ if(e.key===' '||e.key==='Enter'){ e.preventDefault(); toggle(); } });
+  });
+  requestAnimationFrame(()=>updateRing(key));
+}
+
+function updateRing(key){
+  const p=pct(key), C=2*Math.PI*30, fg=document.getElementById('ring-fg');
+  if(fg){ fg.style.strokeDashoffset = C*(1-p/100); document.getElementById('ring-txt').textContent=p+'%'; }
+  const lbl=tabsEl.querySelector(`[data-pct="${key}"]`); if(lbl) lbl.textContent = p===100 ? '✓ complete' : p+'% checklist';
+}
+
+function toggleCheck(key,i,row){
+  const arr = progress[key] = progress[key] || [];
+  arr[i] = !arr[i];
+  row.classList.toggle('done', arr[i]); row.setAttribute('aria-checked', arr[i]);
+  store.set('ss-checklists', progress);
+  updateRing(key);
+  if(arr[i] && pct(key)===100){
+    const r=row.getBoundingClientRect();
+    confetti(r.left+r.width/2, r.top, DEPTS[key].color);
+    toast(`🎉 ${DEPTS[key].name} checklist complete! You're officially dangerous.`);
+  }
+}
+
+function selectDept(key, scroll){
+  if(!DEPTS[key] || key===current) { if(scroll) document.getElementById('departments').scrollIntoView({behavior:'smooth'}); return; }
+  current=key;
+  tabsEl.querySelectorAll('.dept-tab').forEach(t=>{ const on=t.dataset.key===key; t.classList.toggle('active',on); t.setAttribute('aria-selected',on); });
+  panelEl.style.setProperty('--accent', DEPTS[key].color);
+  bodyEl.classList.add('out');
+  setTimeout(()=>{ renderPanel(key); bodyEl.classList.remove('out'); }, reduceMotion?0:220);
+  history.replaceState(null,'','#'+key);
+  if(scroll) document.getElementById('departments').scrollIntoView({behavior:'smooth'});
+}
+tabsEl.addEventListener('click',e=>{ const t=e.target.closest('.dept-tab'); if(t) selectDept(t.dataset.key); });
+const initialHash = location.hash.slice(1);
+if(DEPTS[initialHash]){ selectDept(initialHash); setTimeout(()=>document.getElementById('departments').scrollIntoView(),50); }
+else { selectDept('cad'); history.replaceState(null,'',location.pathname); }
+addEventListener('hashchange',()=>{ const k=location.hash.slice(1); if(DEPTS[k]) selectDept(k,true); });
+
+/* ═════════════════ QUIZ ═════════════════ */
+const quizEl=document.getElementById('quiz-card');
+let qi=0, scores={};
+function renderQuiz(){
+  if(qi>=QUIZ.length) return renderResult();
+  const q=QUIZ[qi];
+  const opts=[...q.a].sort(()=>Math.random()-.5);
+  quizEl.innerHTML=`
+    <div class="quiz-stage">
+      <div class="flex items-center justify-between text-xs text-gray-400 mb-2"><span>Question ${qi+1} of ${QUIZ.length}</span><span class="mono">${Math.round(qi/QUIZ.length*100)}%</span></div>
+      <div class="quiz-progress mb-6"><div style="width:${qi/QUIZ.length*100}%"></div></div>
+      <h3 class="text-xl md:text-2xl font-bold mb-5">${q.q}</h3>
+      <div class="space-y-3">${opts.map((o,i)=>`<button class="quiz-opt" data-d="${o[1]}"><span class="k">${'ABCDE'[i]}</span>${esc(o[0])}</button>`).join('')}</div>
+    </div>`;
+  quizEl.querySelectorAll('.quiz-opt').forEach(b=>b.addEventListener('click',()=>{
+    scores[b.dataset.d]=(scores[b.dataset.d]||0)+1;
+    const st=quizEl.querySelector('.quiz-stage'); st.classList.add('out');
+    setTimeout(()=>{ qi++; renderQuiz(); }, reduceMotion?0:240);
+  }));
+}
+function renderResult(){
+  const max=Math.max(...Object.values(scores));
+  const winners=Object.keys(scores).filter(k=>scores[k]===max);
+  const key=winners[Math.floor(Math.random()*winners.length)], d=DEPTS[key];
+  quizEl.innerHTML=`
+    <div class="text-center py-4">
+      <div class="text-xs text-gray-400 mb-4 tracking-widest uppercase">Your match</div>
+      <div class="result-pop w-24 h-24 mx-auto mb-4 rounded-2xl flex items-center justify-center" style="background:color-mix(in srgb,${d.color} 16%,transparent);border:1px solid ${d.color};color:${d.color}"><div class="w-12 h-12">${ICONS[key]}</div></div>
+      <h3 class="text-3xl font-extrabold mb-2" style="color:${d.color}">${d.name}</h3>
+      <p class="text-gray-300 mb-6">${d.tagline}${winners.length>1?` <span class="text-gray-500">(It was a tie with ${winners.filter(w=>w!==key).map(w=>DEPTS[w].name).join(' & ')}. Try both!)</span>`:''}</p>
+      <div class="flex flex-wrap justify-center gap-3">
+        <button class="btn-gold" id="go-dept">See ${d.name} Resources</button>
+        <button class="btn-outline" id="retake">Retake</button>
+      </div>
+    </div>`;
+  const r=quizEl.getBoundingClientRect(); confetti(r.left+r.width/2, r.top+r.height/3, d.color);
+  document.getElementById('go-dept').onclick=()=>selectDept(key,true);
+  document.getElementById('retake').onclick=()=>{ qi=0; scores={}; renderQuiz(); };
+}
+renderQuiz();
+
+/* ═════════════════ GLOSSARY ═════════════════ */
+document.getElementById('glossary').innerHTML = GLOSSARY.map(([e,t,d],i)=>`
+  <div class="flip reveal rd${i%4+1}" tabindex="0" role="button" aria-label="${esc(t)}: tap to flip">
+    <div class="flip-inner">
+      <div class="flip-face flip-front"><div class="text-3xl mb-2">${e}</div><div class="font-bold" style="font-family:'Outfit',sans-serif">${t}</div></div>
+      <div class="flip-face flip-back">${esc(d)}</div>
+    </div>
+  </div>`).join('');
+document.querySelectorAll('.flip').forEach(f=>{
+  ro.observe(f);
+  f.addEventListener('click',()=>f.classList.toggle('flipped'));
+  f.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); f.classList.toggle('flipped'); } });
+});
+
+/* ═════════════════ CONFETTI + TOAST ═════════════════ */
+const cv=document.getElementById('confetti'), cx=cv.getContext('2d');
+let parts=[], raf=null;
+function sizeCanvas(){ cv.width=innerWidth*devicePixelRatio; cv.height=innerHeight*devicePixelRatio; cx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0); }
+sizeCanvas(); addEventListener('resize',sizeCanvas);
+function confetti(x,y,color){
+  if(reduceMotion) return;
+  const cols=[color,'#d4af37','#ffffff','#f5d97a'];
+  for(let i=0;i<110;i++){
+    const a=Math.random()*Math.PI*2, v=4+Math.random()*8;
+    parts.push({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v-6,w:5+Math.random()*6,h:3+Math.random()*4,r:Math.random()*6,vr:(Math.random()-.5)*.4,c:cols[i%cols.length],life:1});
+  }
+  if(!raf) raf=requestAnimationFrame(draw);
+}
+function draw(){
+  cx.clearRect(0,0,innerWidth,innerHeight);
+  parts.forEach(p=>{ p.vy+=.28; p.vx*=.985; p.x+=p.vx; p.y+=p.vy; p.r+=p.vr; p.life-=.008;
+    cx.save(); cx.globalAlpha=Math.max(p.life,0); cx.translate(p.x,p.y); cx.rotate(p.r); cx.fillStyle=p.c; cx.fillRect(-p.w/2,-p.h/2,p.w,p.h); cx.restore(); });
+  parts=parts.filter(p=>p.life>0 && p.y<innerHeight+40);
+  raf = parts.length ? requestAnimationFrame(draw) : (cx.clearRect(0,0,innerWidth,innerHeight), null);
+}
+let toastT;
+function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove('show'),3600); }
+</script>
+</body>
+</html>
