@@ -266,117 +266,6 @@
   footer { border-top: 1px solid rgba(212,175,55,0.15); }
   .footer-icon { transition: transform 0.25s, color 0.2s; color: #94a3b8; }
   .footer-icon:hover { transform: translateY(-3px) scale(1.15); color: #fff; }
-
-  /* ── Secret AI chat ── */
-  .secret-dot {
-    margin-left: 6px;
-    background: none; border: none; padding: 0 2px;
-    color: rgba(255,255,255,0.12);
-    font-size: 0.9rem; line-height: 1;
-    cursor: default;
-    transition: color 0.4s;
-  }
-  .secret-dot:hover { color: var(--gold-dim); }
-  .ai-input {
-    width: 100%;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 0.6rem;
-    padding: 0.65rem 0.85rem;
-    color: #f1f5f9;
-    font-size: 0.9rem;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-  .ai-input:focus { border-color: var(--gold-dim); }
-  .ai-input option { background: var(--navy-dark); }
-  .ai-label { display: block; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: #94a3b8; margin: 0.9rem 0 0.35rem; }
-  .ai-btn {
-    background: var(--gold); color: var(--navy-dark);
-    font-weight: 700; font-size: 0.85rem; letter-spacing: 0.04em;
-    border-radius: 0.6rem; padding: 0.65rem 1.2rem;
-    transition: filter 0.2s, transform 0.2s;
-  }
-  .ai-btn:hover { filter: brightness(1.1); }
-  .ai-btn:disabled { opacity: 0.5; cursor: default; }
-  .ai-shake { animation: ai-shake 0.4s; }
-  @keyframes ai-shake { 20%,60% { transform: translateX(-8px); } 40%,80% { transform: translateX(8px); } }
-  #ai-messages { display: flex; flex-direction: column; gap: 0.7rem; }
-  .ai-msg { max-width: 85%; padding: 0.65rem 0.9rem; border-radius: 0.85rem; font-size: 0.9rem; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word; }
-  .ai-msg.user { align-self: flex-end; background: rgba(212,175,55,0.16); border: 1px solid var(--gold-dim); color: #f8f1d8; border-bottom-right-radius: 0.25rem; }
-  .ai-msg.assistant { align-self: flex-start; background: var(--slate-card); border: 1px solid rgba(255,255,255,0.07); color: #e2e8f0; border-bottom-left-radius: 0.25rem; }
-  .ai-msg.error { align-self: center; background: rgba(220,38,38,0.12); border: 1px solid rgba(220,38,38,0.4); color: #fca5a5; font-size: 0.8rem; }
-  .ai-msg.thinking { color: #94a3b8; font-style: italic; }
-
-  /* ── Gavin pride card ── */
-  :root { --rainbow: linear-gradient(90deg,#e40303,#ff8c00,#ffed00,#008026,#004dff,#750787,#e40303); }
-  @keyframes rainbow-slide { to { background-position: 200% 50%; } }
-  @keyframes pride-float { 0%,100% { transform: translateY(0) rotate(-6deg); } 50% { transform: translateY(-6px) rotate(6deg); } }
-  .pride-card {
-    border: 3px solid transparent;
-    background:
-      linear-gradient(160deg, rgba(228,3,3,.18), rgba(255,140,0,.16), rgba(255,237,0,.14), rgba(0,128,38,.16), rgba(0,77,255,.18), rgba(117,7,135,.22)) padding-box,
-      linear-gradient(160deg, #1a2840, #1a2840) padding-box,
-      var(--rainbow) border-box;
-    background-size: 100% 100%, 100% 100%, 200% 100%;
-    animation: rainbow-slide 3s linear infinite;
-    box-shadow: 0 0 24px rgba(255,0,170,.25), 0 0 48px rgba(0,77,255,.18), 0 12px 30px rgba(0,0,0,.4);
-  }
-  .pride-card::before { display: none; }
-  .pride-card:hover { border-color: transparent; box-shadow: 0 0 36px rgba(255,0,170,.45), 0 0 70px rgba(0,77,255,.3), 0 24px 50px rgba(0,0,0,.6); }
-  .pride-card .pride-photo {
-    width: 7.5rem; height: 9.5rem; margin: 0 auto .85rem; padding: 4px;
-    border-radius: .75rem; background: var(--rainbow); background-size: 200% 100%;
-    animation: rainbow-slide 2s linear infinite;
-  }
-  .pride-card .pride-photo img { width: 100%; height: 100%; margin: 0; border: none; border-radius: .55rem; }
-  .pride-card h3 {
-    background: var(--rainbow); background-size: 200% 100%;
-    -webkit-background-clip: text; background-clip: text; color: transparent;
-    animation: rainbow-slide 3s linear infinite; font-size: 1.15rem; font-weight: 800;
-  }
-  .pride-card p { color: #e2e8f0; }
-  .pride-flag-strip { display: flex; height: 6px; border-radius: 3px; overflow: hidden; margin: .6rem auto 0; width: 70%; }
-  .pride-flag-strip span { flex: 1; }
-  .pride-sparkle { position: absolute; font-size: 1.2rem; animation: pride-float 2.4s ease-in-out infinite; pointer-events: none; }
-  .pride-ribbon { background: var(--rainbow) !important; background-size: 200% 100% !important; animation: rainbow-slide 2s linear infinite; color: #fff !important; text-shadow: 0 1px 2px rgba(0,0,0,.7); }
-
-  /* ── Huge pride popup ── */
-  #prideBlast { position: fixed; inset: 0; z-index: 70; display: none; overflow: hidden; cursor: pointer; }
-  #prideBlast.show { display: block; }
-  .pride-stripes { position: absolute; inset: 0; display: flex; flex-direction: column; }
-  .pride-stripes div { flex: 1; transform: translateX(-105%); animation: stripe-in .55s cubic-bezier(.22,1,.36,1) forwards; }
-  @keyframes stripe-in { to { transform: none; } }
-  .pride-center {
-    position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
-    gap: 1rem; text-align: center; padding: 1rem; opacity: 0; transform: scale(.6);
-    animation: pride-pop .7s .55s cubic-bezier(.34,1.56,.64,1) forwards;
-  }
-  @keyframes pride-pop { to { opacity: 1; transform: none; } }
-  .pride-center img {
-    width: min(42vw, 230px); aspect-ratio: 3/4; object-fit: cover; border-radius: 1.2rem;
-    border: 8px solid #fff; box-shadow: 0 0 0 8px rgba(0,0,0,.25), 0 30px 80px rgba(0,0,0,.6);
-    animation: pride-wiggle 1.6s ease-in-out infinite;
-  }
-  @keyframes pride-wiggle { 0%,100% { transform: rotate(-4deg); } 50% { transform: rotate(4deg) scale(1.04); } }
-  .pride-title {
-    font-family: 'Outfit', sans-serif; font-weight: 900; line-height: .95;
-    font-size: clamp(3rem, 13vw, 9rem); color: #fff; letter-spacing: .02em;
-    text-shadow: 0 6px 0 rgba(0,0,0,.35), 0 0 40px rgba(255,255,255,.6);
-  }
-  .pride-sub { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: clamp(1.2rem, 4vw, 2.2rem); color: #fff; text-shadow: 0 3px 10px rgba(0,0,0,.6); }
-  .pride-btn {
-    background: #fff; color: #750787; font-weight: 800; font-size: 1rem; border-radius: 999px;
-    padding: .8rem 1.6rem; box-shadow: 0 10px 30px rgba(0,0,0,.4); transition: transform .2s;
-  }
-  .pride-btn:hover { transform: scale(1.08); }
-  .pride-hint { font-size: .75rem; color: rgba(255,255,255,.85); text-shadow: 0 1px 4px rgba(0,0,0,.6); }
-  .pride-confetti { position: absolute; top: -10vh; pointer-events: none; animation: confetti-fall linear forwards; }
-  @keyframes confetti-fall { to { transform: translateY(125vh) rotate(720deg); } }
-  @media (prefers-reduced-motion: reduce) {
-    .pride-card, .pride-card *, #prideBlast * { animation-duration: .01s !important; animation-iteration-count: 1 !important; }
-    .pride-confetti { display: none; }
-  }
 </style>
 </head>
 
@@ -500,16 +389,15 @@
         <p>Ice Skating Lead</p>
       </div>
 
-      <!-- 🏳️‍🌈 GAVIN 🏳️‍🌈 -->
-      <div class="team-card pride-card reveal reveal-delay-2" onclick="openPrideBlast()">
-        <div class="mission-ribbon pride-ribbon"><span>🏳️‍🌈 Pride</span><span>Lead</span></div>
-        <span class="pride-sparkle" style="top:14px;left:16px">🌈</span>
-        <span class="pride-sparkle" style="bottom:18px;left:22px;animation-delay:.6s">💖</span>
-        <span class="pride-sparkle" style="bottom:22px;right:22px;animation-delay:1.2s">✨</span>
-        <div class="pride-photo"><img src="assets/gavinwest.jpg" alt="Gavin West"></div>
+      <div class="team-card reveal reveal-delay-2" onclick="openModal('Gavin West','CAD Lead','assets/gavinwest.jpg',`
+        <p>I'm Gavin.</p>
+        <p>I'm in 11th grade.</p>
+        <p>I do robotics.</p>
+        <p>🗣️🔥</p>
+      `)">
+        <img src="assets/gavinwest.jpg" alt="Gavin West">
         <h3>Gavin West</h3>
-        <p>CAD Lead · LGBTQ 🏳️‍🌈 Lead</p>
-        <div class="pride-flag-strip"><span style="background:#e40303"></span><span style="background:#ff8c00"></span><span style="background:#ffed00"></span><span style="background:#008026"></span><span style="background:#004dff"></span><span style="background:#750787"></span></div>
+        <p>CAD Lead</p>
       </div>
 
       <div class="team-card reveal reveal-delay-3" onclick="openModal('Charlie Cotton','Programming Lead','assets/charliecotton.jpg','I\'m Charlie Cotton, and I\'ve been programming lead for two seasons now. When I\'m not at a robotics meeting, I\'m doing a drama production, mock trial, or being a yearbook editor. In my increasingly fleeting free time I like playing piano, doing calculus, and coding, and am currently working very slowly on making a video game in Unity. I know more than six languages including Java, C#, JavaScript, Python, C++, and English.')">
@@ -569,11 +457,11 @@
   <div class="max-w-6xl mx-auto px-5 flex flex-col md:flex-row items-center justify-between gap-5">
     <div>
       <div class="font-bold text-white" style="font-family:'Outfit',sans-serif">Socratic Schematics — Team 8885</div>
-      <div class="text-xs text-gray-500 mt-1">Karl G. Maeser Preparatory Academy<button id="secret-btn" class="secret-dot" onclick="openAiModal()" aria-label="Secret">&pi;</button></div>
+      <div class="text-xs text-gray-500 mt-1">Karl G. Maeser Preparatory Academy</div>
     </div>
     <div class="flex gap-7 items-center">
       <a href="https://instagram.com/socraticschematics" target="_blank" rel="noopener" class="footer-icon" aria-label="Instagram">
-        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.750 20.5h8.5a4.25 4.25 0 0 0 4.25-4.25v-8.5A4.25 4.25 0 0 0 16.25 3.5h-8.5z"/><path d="M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 1.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5a4.25 4.25 0 0 0 4.25-4.25v-8.5A4.25 4.25 0 0 0 16.25 3.5h-8.5z"/><path d="M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 1.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z"/><circle cx="17.5" cy="6.5" r="1"/></svg>
       </a>
       <a href="https://mail.google.com/mail/?view=cm&fs=1&to=maeserrobotics@gmail.com" target="_blank" rel="noopener" class="footer-icon" aria-label="Email">
         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm0 3.2v10.8h16V7.2l-8 5-8-5zm8 3.3 8-5H4l8 5z"/></svg>
@@ -595,80 +483,6 @@
       <h3 id="modal-role" class="text-sm font-semibold mb-5 opacity-60 uppercase tracking-widest text-[var(--gold)]"></h3>
       <div id="modal-bio" class="text-white/75 leading-relaxed text-sm"></div>
     </div>
-  </div>
-</div>
-
-<!-- ════════════════ SECRET AI CHAT MODAL ════════════════ -->
-<div id="aiModal" class="fixed inset-0 hidden items-center justify-center z-50 p-3" style="background:var(--modal-bg)">
-  <div id="aiPanel" class="modal-panel mentor-modal rounded-2xl max-w-2xl w-full p-5 md:p-7 relative shadow-2xl flex flex-col" style="max-height:90vh">
-    <button onclick="closeAiModal()" class="absolute top-4 right-4 text-white/70 hover:text-white text-xl font-bold bg-white/10 hover:bg-white/20 rounded-full w-9 h-9 flex items-center justify-center transition">&times;</button>
-
-    <!-- Password gate -->
-    <form id="ai-lock" class="hidden text-center py-6" onsubmit="unlockAi(event)">
-      <div class="text-4xl mb-3">🔒</div>
-      <h2 class="text-2xl font-extrabold text-white mb-1">Restricted Access</h2>
-      <p class="text-sm text-gray-400 mb-6">Team members only. Enter the password.</p>
-      <input id="ai-password" type="password" class="ai-input max-w-xs mx-auto text-center" placeholder="Password" autocomplete="off">
-      <div id="ai-lock-error" class="text-sm text-red-400 mt-3 h-5"></div>
-      <button id="ai-unlock-btn" type="submit" class="ai-btn mt-2">Unlock</button>
-    </form>
-
-    <!-- One-time setup (only shown while AI_VAULT is empty) -->
-    <form id="ai-setup" class="hidden overflow-y-auto pr-1" onsubmit="createVault(event)">
-      <h2 class="text-2xl font-extrabold text-white mb-1">Set Up Secret Chat</h2>
-      <p class="text-sm text-gray-400">Your API key is encrypted with the password. Paste the generated code into <code class="text-[var(--gold)]">AI_VAULT</code> in team.html to save it.</p>
-      <label class="ai-label" for="setup-provider">Provider</label>
-      <select id="setup-provider" class="ai-input" onchange="document.getElementById('setup-model').value = AI_PROVIDERS[this.value].model">
-        <option value="anthropic">Claude (Anthropic)</option>
-        <option value="openai">ChatGPT (OpenAI)</option>
-        <option value="gemini">Gemini (Google)</option>
-      </select>
-      <label class="ai-label" for="setup-model">Model</label>
-      <input id="setup-model" class="ai-input" required>
-      <label class="ai-label" for="setup-key">API key</label>
-      <input id="setup-key" type="password" class="ai-input" required autocomplete="off">
-      <label class="ai-label" for="setup-password">Password for the secret button</label>
-      <input id="setup-password" type="password" class="ai-input" required autocomplete="new-password">
-      <button type="submit" class="ai-btn mt-5">Generate</button>
-      <div id="setup-output" class="hidden">
-        <label class="ai-label" for="setup-vault">Paste this into AI_VAULT</label>
-        <textarea id="setup-vault" class="ai-input font-mono text-xs" rows="4" readonly onclick="this.select()"></textarea>
-        <p class="text-xs text-gray-400 mt-2">It already works in this tab. Close and reopen the secret button to try it.</p>
-      </div>
-    </form>
-
-    <!-- Chat -->
-    <div id="ai-chat" class="hidden flex-col min-h-0" style="height:75vh">
-      <div class="mb-4 pr-10">
-        <h2 class="text-xl font-extrabold text-white">Team Assistant</h2>
-        <div id="ai-model-label" class="text-xs uppercase tracking-widest text-[var(--gold)] opacity-70"></div>
-      </div>
-      <div id="ai-messages" class="flex-1 overflow-y-auto pr-1 min-h-0"></div>
-      <form class="flex gap-2 mt-4" onsubmit="sendAiMessage(event)">
-        <textarea id="ai-input" class="ai-input resize-none" rows="2" placeholder="Ask anything… (Enter to send, Shift+Enter for a new line)"></textarea>
-        <button id="ai-send" type="submit" class="ai-btn">Send</button>
-      </form>
-    </div>
-  </div>
-</div>
-
-<!-- ════════════════ GAVIN PRIDE POPUP ════════════════ -->
-<div id="prideBlast" role="dialog" aria-label="Gavin pride popup" onclick="if (event.target.closest('.pride-btn') === null) closePrideBlast()">
-  <div class="pride-stripes">
-    <div style="background:#e40303;animation-delay:0s"></div>
-    <div style="background:#ff8c00;animation-delay:.06s"></div>
-    <div style="background:#ffed00;animation-delay:.12s"></div>
-    <div style="background:#008026;animation-delay:.18s"></div>
-    <div style="background:#004dff;animation-delay:.24s"></div>
-    <div style="background:#750787;animation-delay:.30s"></div>
-  </div>
-  <div class="pride-center">
-    <div class="pride-title">🏳️‍🌈 PRIDE 🏳️‍🌈</div>
-    <img src="assets/gavinwest.jpg" alt="Gavin West">
-    <div class="pride-sub">GAVIN WEST · LGBTQ LEAD</div>
-    <div class="pride-sub" style="font-size:clamp(1rem,3vw,1.5rem)">Love is love 💖 Be loud, be proud 🗣️🔥</div>
-    <button class="pride-btn" onclick="closePrideBlast(true)">Read Gavin's bio →</button>
-    <div class="pride-hint">Click anywhere or press Esc to close</div>
   </div>
 </div>
 
@@ -723,57 +537,6 @@ document.getElementById('teamModal').addEventListener('click', e => { if (e.targ
 document.getElementById('modalPanel').addEventListener('touchstart', e => { startY = e.touches[0].clientY; });
 document.getElementById('modalPanel').addEventListener('touchmove', e => { if (startY && e.touches[0].clientY - startY > 90) closeModal(); });
 document.getElementById('modalPanel').addEventListener('touchend', () => startY = null);
-
-/* ─── Gavin pride popup ─── */
-const PRIDE_COLORS = ['#e40303','#ff8c00','#ffed00','#008026','#004dff','#750787','#ffffff','#f5a9b8','#5bcefa'];
-const PRIDE_BITS = ['🏳️‍🌈','💖','🌈','✨','💜','🏳️‍⚧️','⭐'];
-let prideTimer = null;
-
-function openPrideBlast() {
-  const blast = document.getElementById('prideBlast');
-  // Restart the entrance animations every time it opens
-  blast.querySelectorAll('.pride-stripes div, .pride-center').forEach(el => {
-    el.style.animation = 'none'; void el.offsetWidth; el.style.animation = '';
-  });
-  blast.classList.add('show');
-  document.body.style.overflow = 'hidden';
-  let bursts = 0;
-  clearInterval(prideTimer);
-  prideTimer = setInterval(() => {
-    for (let i = 0; i < 6; i++) spawnConfetti(blast);
-    if (++bursts > 40) clearInterval(prideTimer);
-  }, 120);
-}
-function spawnConfetti(parent) {
-  const c = document.createElement('div');
-  c.className = 'pride-confetti';
-  if (Math.random() < 0.35) {
-    c.textContent = PRIDE_BITS[Math.floor(Math.random() * PRIDE_BITS.length)];
-    c.style.fontSize = (18 + Math.random() * 26) + 'px';
-  } else {
-    c.style.width = (8 + Math.random() * 8) + 'px';
-    c.style.height = (12 + Math.random() * 10) + 'px';
-    c.style.background = PRIDE_COLORS[Math.floor(Math.random() * PRIDE_COLORS.length)];
-    c.style.borderRadius = '2px';
-  }
-  c.style.left = Math.random() * 100 + 'vw';
-  c.style.animationDuration = (2.2 + Math.random() * 2.5) + 's';
-  parent.appendChild(c);
-  c.addEventListener('animationend', () => c.remove());
-}
-function closePrideBlast(showBio) {
-  clearInterval(prideTimer);
-  const blast = document.getElementById('prideBlast');
-  blast.classList.remove('show');
-  blast.querySelectorAll('.pride-confetti').forEach(c => c.remove());
-  document.body.style.overflow = '';
-  if (showBio) openModal('Gavin West', 'LGBTQ 🏳️‍🌈 Lead · CAD Lead', 'assets/gavinwest.jpg', `
-    <p>I'm Gavin.</p>
-    <p>I'm in 11th grade.</p>
-    <p>I do robotics.</p>
-    <p>🗣️🔥</p>
-  `);
-}
 
 /* ─── Photo gallery ─── */
 const teamPhotos = [
@@ -832,8 +595,6 @@ document.addEventListener('keydown', e => {
   const bioOpen   = document.getElementById('teamModal').classList.contains('flex');
   if (photoOpen) { if (e.key === 'ArrowLeft') galleryStep(-1); if (e.key === 'ArrowRight') galleryStep(1); if (e.key === 'Escape') closePhotoModal(); }
   if (bioOpen && e.key === 'Escape') closeModal();
-  if (e.key === 'Escape' && document.getElementById('prideBlast').classList.contains('show')) closePrideBlast();
-  if (e.key === 'Escape' && document.getElementById('aiModal').classList.contains('flex')) closeAiModal();
 });
 const pm = document.getElementById('photoModal');
 pm.addEventListener('touchstart', e => { galleryTouchStartX = e.touches[0].clientX; }, { passive: true });
@@ -842,185 +603,6 @@ pm.addEventListener('touchend', e => {
   const dx = e.changedTouches[0].clientX - galleryTouchStartX;
   if (Math.abs(dx) > 50) galleryStep(dx < 0 ? 1 : -1);
   galleryTouchStartX = null;
-});
-
-/* ─── Secret AI chat ─── */
-// Encrypted {provider, model, key}. Leave empty to show the setup screen; paste the generated code here.
-const AI_VAULT = '';
-const AI_PROVIDERS = {
-  anthropic: { label: 'Claude',  model: 'claude-sonnet-5-5' },
-  openai:    { label: 'ChatGPT', model: 'gpt-5-mini' },
-  gemini:    { label: 'Gemini',  model: 'gemini-2.5-flash' },
-};
-const AI_SYSTEM = 'You are a friendly, helpful assistant for Socratic Schematics, FRC Team 8885 at Karl G. Maeser Preparatory Academy. Help with robotics, programming, CAD, strategy, schoolwork, or anything else. Keep answers clear and concise.';
-
-let aiVault = AI_VAULT;
-let aiConfig = null;
-let aiHistory = [];
-
-function showAiView(id) {
-  ['ai-lock', 'ai-setup', 'ai-chat'].forEach(v => {
-    const el = document.getElementById(v);
-    el.classList.toggle('hidden', v !== id);
-    el.classList.toggle('flex', v === id && v === 'ai-chat');
-  });
-}
-function openAiModal() {
-  const modal = document.getElementById('aiModal');
-  if (aiConfig) showAiView('ai-chat');
-  else if (aiVault) showAiView('ai-lock');
-  else {
-    showAiView('ai-setup');
-    document.getElementById('setup-model').value = AI_PROVIDERS[document.getElementById('setup-provider').value].model;
-  }
-  modal.classList.remove('hidden');
-  modal.classList.add('flex', 'modal-open');
-  document.body.style.overflow = 'hidden';
-  setTimeout(() => (aiConfig ? document.getElementById('ai-input') : document.getElementById('ai-password')).focus(), 50);
-}
-function closeAiModal() {
-  const modal = document.getElementById('aiModal');
-  modal.classList.remove('modal-open');
-  setTimeout(() => { modal.classList.add('hidden'); modal.classList.remove('flex'); }, 220);
-  document.body.style.overflow = '';
-}
-document.getElementById('aiModal').addEventListener('click', e => { if (e.target.id === 'aiModal') closeAiModal(); });
-
-// The API key is AES-GCM encrypted with a key derived from the password, so the
-// page source alone never reveals it — a wrong password simply fails to decrypt.
-const toB64 = bytes => btoa(String.fromCharCode(...bytes));
-const fromB64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
-async function deriveAiKey(password, salt) {
-  const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(password), 'PBKDF2', false, ['deriveKey']);
-  return crypto.subtle.deriveKey({ name: 'PBKDF2', salt, iterations: 250000, hash: 'SHA-256' }, base,
-    { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']);
-}
-async function sealVault(config, password) {
-  const salt = crypto.getRandomValues(new Uint8Array(16));
-  const iv = crypto.getRandomValues(new Uint8Array(12));
-  const ct = await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, await deriveAiKey(password, salt),
-    new TextEncoder().encode(JSON.stringify(config)));
-  return toB64(new Uint8Array([...salt, ...iv, ...new Uint8Array(ct)]));
-}
-async function openVault(vault, password) {
-  const bytes = fromB64(vault);
-  const key = await deriveAiKey(password, bytes.slice(0, 16));
-  const pt = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: bytes.slice(16, 28) }, key, bytes.slice(28));
-  return JSON.parse(new TextDecoder().decode(pt));
-}
-
-async function createVault(e) {
-  e.preventDefault();
-  const config = {
-    provider: document.getElementById('setup-provider').value,
-    model: document.getElementById('setup-model').value.trim(),
-    key: document.getElementById('setup-key').value.trim(),
-  };
-  aiVault = await sealVault(config, document.getElementById('setup-password').value);
-  document.getElementById('setup-vault').value = aiVault;
-  document.getElementById('setup-output').classList.remove('hidden');
-  document.getElementById('setup-key').value = '';
-  document.getElementById('setup-password').value = '';
-}
-
-async function unlockAi(e) {
-  e.preventDefault();
-  const input = document.getElementById('ai-password');
-  const error = document.getElementById('ai-lock-error');
-  const btn = document.getElementById('ai-unlock-btn');
-  btn.disabled = true;
-  error.textContent = '';
-  try {
-    aiConfig = await openVault(aiVault, input.value);
-    input.value = '';
-    document.getElementById('ai-model-label').textContent = `${AI_PROVIDERS[aiConfig.provider].label} · ${aiConfig.model}`;
-    showAiView('ai-chat');
-    if (!aiHistory.length) addAiMessage('assistant', 'Access granted. What can I help you with?');
-    document.getElementById('ai-input').focus();
-  } catch {
-    error.textContent = 'Wrong password.';
-    const form = document.getElementById('ai-lock');
-    form.classList.remove('ai-shake'); void form.offsetWidth; form.classList.add('ai-shake');
-    input.select();
-  }
-  btn.disabled = false;
-}
-
-function addAiMessage(kind, text) {
-  const el = document.createElement('div');
-  el.className = 'ai-msg ' + kind;
-  el.textContent = text;
-  const box = document.getElementById('ai-messages');
-  box.appendChild(el);
-  box.scrollTop = box.scrollHeight;
-  return el;
-}
-
-async function callAi(messages) {
-  const { provider, model, key } = aiConfig;
-  let res, data;
-  if (provider === 'anthropic') {
-    res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-        'x-api-key': key,
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-direct-browser-access': 'true',
-      },
-      body: JSON.stringify({ model, max_tokens: 4096, system: AI_SYSTEM, messages }),
-    });
-    data = await res.json();
-    if (res.ok) return data.content.filter(b => b.type === 'text').map(b => b.text).join('');
-  } else if (provider === 'openai') {
-    res = await fetch('https://api.openai.com/v1/chat/completions', {
-      method: 'POST',
-      headers: { 'content-type': 'application/json', authorization: 'Bearer ' + key },
-      body: JSON.stringify({ model, messages: [{ role: 'system', content: AI_SYSTEM }, ...messages] }),
-    });
-    data = await res.json();
-    if (res.ok) return data.choices[0].message.content;
-  } else {
-    res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(key)}`, {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({
-        systemInstruction: { parts: [{ text: AI_SYSTEM }] },
-        contents: messages.map(m => ({ role: m.role === 'assistant' ? 'model' : 'user', parts: [{ text: m.content }] })),
-      }),
-    });
-    data = await res.json();
-    if (res.ok) return data.candidates[0].content.parts.map(p => p.text || '').join('');
-  }
-  throw new Error(data?.error?.message || `Request failed (${res.status})`);
-}
-
-async function sendAiMessage(e) {
-  e?.preventDefault();
-  const input = document.getElementById('ai-input');
-  const send = document.getElementById('ai-send');
-  const text = input.value.trim();
-  if (!text || send.disabled) return;
-  input.value = '';
-  addAiMessage('user', text);
-  aiHistory.push({ role: 'user', content: text });
-  send.disabled = true;
-  const thinking = addAiMessage('assistant thinking', 'Thinking…');
-  try {
-    const reply = await callAi(aiHistory);
-    thinking.remove();
-    addAiMessage('assistant', reply);
-    aiHistory.push({ role: 'assistant', content: reply });
-  } catch (err) {
-    thinking.remove();
-    aiHistory.pop();
-    addAiMessage('error', err.message);
-  }
-  send.disabled = false;
-  input.focus();
-}
-document.getElementById('ai-input').addEventListener('keydown', e => {
-  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendAiMessage(); }
 });
 </script>
 </body>
