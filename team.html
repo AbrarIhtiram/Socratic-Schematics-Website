@@ -262,118 +262,6 @@
   .photo-close-btn:hover { background: rgba(212,175,55,0.3); }
   .key-hint { font-size: 0.68rem; color: rgba(255,255,255,0.3); letter-spacing: 0.05em; }
 
-  /* ── 🏳️‍🌈 Gavin Pride Card ── */
-  @keyframes rainbowShift { 0% { background-position: 0% 50%; } 100% { background-position: 300% 50%; } }
-  @keyframes floatUp { 0%,100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-8px) rotate(10deg); } }
-  @keyframes prideGlow {
-    0%   { box-shadow: 0 0 22px rgba(228,3,3,0.55); }
-    17%  { box-shadow: 0 0 22px rgba(255,140,0,0.55); }
-    33%  { box-shadow: 0 0 22px rgba(255,237,0,0.55); }
-    50%  { box-shadow: 0 0 22px rgba(0,128,38,0.55); }
-    67%  { box-shadow: 0 0 22px rgba(0,77,255,0.55); }
-    83%  { box-shadow: 0 0 22px rgba(117,7,135,0.55); }
-    100% { box-shadow: 0 0 22px rgba(228,3,3,0.55); }
-  }
-  .gavin-card {
-    border: 3px solid transparent !important;
-    background:
-      linear-gradient(160deg, #2a1440, #14203a 50%, #1f1238) padding-box,
-      linear-gradient(90deg,#e40303,#ff8c00,#ffed00,#008026,#004dff,#750787,#e40303) border-box !important;
-    background-size: 100% 100%, 300% 100% !important;
-    animation: rainbowShift 4s linear infinite, prideGlow 4s linear infinite;
-  }
-  .gavin-card::before { background: linear-gradient(135deg, rgba(255,0,150,0.18), rgba(0,200,255,0.18), rgba(255,237,0,0.18)) !important; }
-  .gavin-card:hover { transform: translateY(-10px) scale(1.03) rotate(-1deg); }
-  .gavin-img-ring {
-    width: fit-content; margin: 0 auto 0.85rem; padding: 4px; border-radius: 0.8rem;
-    background: linear-gradient(90deg,#e40303,#ff8c00,#ffed00,#008026,#004dff,#750787,#e40303);
-    background-size: 300% 100%; animation: rainbowShift 3s linear infinite;
-  }
-  .gavin-card .gavin-img-ring img { margin: 0; border: none; display: block; }
-  .rainbow-text {
-    background: linear-gradient(90deg,#ff4d4d,#ffa64d,#ffee55,#4dd47a,#4d8cff,#c45cff,#ff4d4d);
-    background-size: 300% 100%;
-    -webkit-background-clip: text; background-clip: text; color: transparent !important;
-    animation: rainbowShift 3s linear infinite;
-    font-size: 1.2rem !important; font-weight: 800 !important;
-  }
-  .gavin-card .gavin-role { color: #f9d7ff !important; font-weight: 600; }
-  .pride-stripe {
-    height: 6px; border-radius: 3px; margin-top: 0.9rem;
-    background: linear-gradient(90deg,#e40303 0 16.6%,#ff8c00 0 33.3%,#ffed00 0 50%,#008026 0 66.6%,#004dff 0 83.3%,#750787 0);
-  }
-  .pride-ribbon {
-    position: absolute; top: 20px; right: -36px; width: 170px; z-index: 10; pointer-events: none;
-    background: linear-gradient(90deg,#e40303,#ff8c00,#ffed00,#008026,#004dff,#750787);
-    color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.8);
-    font-size: 0.6rem; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase;
-    text-align: center; padding: 5px 0; line-height: 1.4; transform: rotate(38deg);
-    box-shadow: 0 4px 14px rgba(0,0,0,0.55);
-  }
-  .pride-ribbon span { display: block; }
-  .pride-sparkles span { position: absolute; font-size: 1.1rem; animation: floatUp 2.6s ease-in-out infinite; pointer-events: none; }
-  .pride-sparkles span:nth-child(1) { top: 12px; left: 14px; }
-  .pride-sparkles span:nth-child(2) { top: 46%; left: 10px; animation-delay: .4s; }
-  .pride-sparkles span:nth-child(3) { bottom: 16px; left: 18px; animation-delay: .8s; }
-  .pride-sparkles span:nth-child(4) { top: 42%; right: 12px; animation-delay: 1.2s; }
-  .pride-sparkles span:nth-child(5) { bottom: 18px; right: 16px; animation-delay: 1.6s; }
-  .pride-sparkles span:nth-child(6) { top: 70%; left: 50%; animation-delay: 2s; opacity: .7; }
-
-  /* ── 🏳️‍🌈 Giant Pride Popup ── */
-  #prideModal {
-    position: fixed; inset: 0; z-index: 70; display: none;
-    align-items: center; justify-content: center; flex-direction: column;
-    overflow: hidden; text-align: center; padding: 1.5rem;
-    background: linear-gradient(180deg,#e40303 0 16.66%,#ff8c00 0 33.33%,#ffed00 0 50%,#008026 0 66.66%,#004dff 0 83.33%,#750787 0);
-  }
-  #prideModal.flex { display: flex; }
-  #prideModal::after {
-    content: ''; position: absolute; inset: 0; pointer-events: none;
-    background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,0.35) 50%, transparent 70%);
-    background-size: 250% 100%; animation: rainbowShift 2.5s linear infinite;
-  }
-  @keyframes prideZoom { 0% { transform: scale(0.2) rotate(-12deg); opacity: 0; } 60% { transform: scale(1.12) rotate(3deg); opacity: 1; } 100% { transform: scale(1) rotate(0); } }
-  @keyframes pridePulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.06); } }
-  @keyframes prideWave { 0%,100% { transform: rotate(-8deg); } 50% { transform: rotate(8deg); } }
-  @keyframes confettiFall { to { transform: translateY(115vh) rotate(720deg); } }
-  .pride-inner { position: relative; z-index: 2; animation: prideZoom 0.8s cubic-bezier(.22,1.4,.36,1) both; }
-  .pride-flag-big { font-size: clamp(5rem, 16vw, 11rem); line-height: 1; display: inline-block; animation: prideWave 1.4s ease-in-out infinite; filter: drop-shadow(0 10px 25px rgba(0,0,0,0.4)); }
-  .pride-title {
-    font-family: 'Outfit', sans-serif; font-weight: 800; color: #fff;
-    font-size: clamp(3.5rem, 13vw, 9rem); line-height: 0.95; letter-spacing: 0.04em;
-    text-shadow: 0 0 2px #000, 0 6px 0 rgba(0,0,0,0.35), 0 12px 40px rgba(0,0,0,0.5);
-    animation: pridePulse 1.2s ease-in-out infinite;
-  }
-  .pride-sub {
-    margin-top: 0.8rem; font-family: 'Outfit', sans-serif; font-weight: 800; color: #fff;
-    font-size: clamp(1.2rem, 4vw, 2.2rem); text-shadow: 0 3px 12px rgba(0,0,0,0.6);
-  }
-  .pride-gavin-photo {
-    width: 9rem; height: 9rem; object-fit: cover; border-radius: 50%; margin: 1.2rem auto 0;
-    border: 6px solid #fff; box-shadow: 0 0 0 6px rgba(0,0,0,0.25), 0 18px 40px rgba(0,0,0,0.5);
-  }
-  .pride-btn-row { margin-top: 1.6rem; display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap; }
-  .pride-btn {
-    font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1rem;
-    padding: 0.8rem 1.6rem; border-radius: 999px; cursor: pointer;
-    background: #fff; color: #750787; border: none;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.35); transition: transform .2s;
-  }
-  .pride-btn:hover { transform: translateY(-3px) scale(1.05); }
-  .pride-btn.ghost { background: rgba(0,0,0,0.35); color: #fff; border: 2px solid #fff; }
-  .confetti { position: absolute; top: -20px; z-index: 1; pointer-events: none; animation: confettiFall linear forwards; }
-
-  /* Rainbow bio modal for Gavin */
-  .pride-modal-panel {
-    border: 4px solid transparent;
-    background:
-      linear-gradient(180deg,#24103c,#0f1830) padding-box,
-      linear-gradient(90deg,#e40303,#ff8c00,#ffed00,#008026,#004dff,#750787,#e40303) border-box !important;
-    background-size: 100% 100%, 300% 100% !important;
-    animation: rainbowShift 4s linear infinite;
-  }
-  .pride-modal-panel #modal-role { color: #ff9cf0 !important; opacity: 1 !important; }
-
   /* ── Footer ── */
   footer { border-top: 1px solid rgba(212,175,55,0.15); }
   .footer-icon { transition: transform 0.25s, color 0.2s; color: #94a3b8; }
@@ -501,15 +389,15 @@
         <p>Ice Skating Lead</p>
       </div>
 
-      <div class="team-card gavin-card reveal reveal-delay-2" onclick="openGavinPride()">
-        <div class="pride-ribbon"><span>🏳️‍🌈 Pride</span><span>Lead</span></div>
-        <div class="pride-sparkles" aria-hidden="true">
-          <span>✨</span><span>🌈</span><span>💖</span><span>✨</span><span>🦄</span><span>💜</span>
-        </div>
-        <div class="gavin-img-ring"><img src="assets/gavinwest.jpg" alt="Gavin West"></div>
-        <h3 class="rainbow-text">Gavin West</h3>
-        <p class="gavin-role">🏳️‍🌈 LGBTQ Lead · CAD Lead 🏳️‍🌈</p>
-        <div class="pride-stripe"></div>
+      <div class="team-card reveal reveal-delay-2" onclick="openModal('Gavin West','CAD Lead','assets/gavinwest.jpg',`
+        <p>I'm Gavin.</p>
+        <p>I'm in 11th grade.</p>
+        <p>I do robotics.</p>
+        <p>🗣️🔥</p>
+      `)">
+        <img src="assets/gavinwest.jpg" alt="Gavin West">
+        <h3>Gavin West</h3>
+        <p>CAD Lead</p>
       </div>
 
       <div class="team-card reveal reveal-delay-3" onclick="openModal('Charlie Cotton','Programming Lead','assets/charliecotton.jpg','I\'m Charlie Cotton, and I\'ve been programming lead for two seasons now. When I\'m not at a robotics meeting, I\'m doing a drama production, mock trial, or being a yearbook editor. In my increasingly fleeting free time I like playing piano, doing calculus, and coding, and am currently working very slowly on making a video game in Unity. I know more than six languages including Java, C#, JavaScript, Python, C++, and English.')">
@@ -598,21 +486,6 @@
   </div>
 </div>
 
-<!-- ════════════════ 🏳️‍🌈 GAVIN PRIDE POPUP ════════════════ -->
-<div id="prideModal" onclick="if (event.target.id === 'prideModal') closePride()">
-  <div class="pride-inner">
-    <div class="pride-flag-big">🏳️‍🌈</div>
-    <div class="pride-title">PRIDE!</div>
-    <div class="pride-sub">✨ Gavin West · LGBTQ Lead ✨</div>
-    <img class="pride-gavin-photo" src="assets/gavinwest.jpg" alt="Gavin West">
-    <div class="pride-btn-row">
-      <button class="pride-btn" onclick="prideToBio()">💖 Meet Gavin 💖</button>
-      <button class="pride-btn ghost" onclick="launchConfetti(180)">🎉 More Confetti</button>
-      <button class="pride-btn ghost" onclick="closePride()">Close</button>
-    </div>
-  </div>
-</div>
-
 <!-- ════════════════ PHOTO GALLERY MODAL ════════════════ -->
 <div id="photoModal" class="fixed inset-0 z-60 hidden items-center justify-center p-5" style="background:rgba(0,0,0,0.94)">
   <div class="photo-modal-inner">
@@ -650,7 +523,6 @@ function openModal(name, role, img, bio) {
   document.getElementById('modal-img').src = img;
   document.getElementById('modal-bio').innerHTML = bio;
   panel.classList.toggle('mentor-modal', role.toLowerCase().includes('mentor'));
-  panel.classList.toggle('pride-modal-panel', name === 'Gavin West');
   modal.classList.remove('hidden');
   modal.classList.add('flex', 'modal-open');
   document.body.style.overflow = 'hidden';
@@ -665,61 +537,6 @@ document.getElementById('teamModal').addEventListener('click', e => { if (e.targ
 document.getElementById('modalPanel').addEventListener('touchstart', e => { startY = e.touches[0].clientY; });
 document.getElementById('modalPanel').addEventListener('touchmove', e => { if (startY && e.touches[0].clientY - startY > 90) closeModal(); });
 document.getElementById('modalPanel').addEventListener('touchend', () => startY = null);
-
-/* ─── 🏳️‍🌈 Gavin pride popup ─── */
-const PRIDE_COLORS = ['#e40303','#ff8c00','#ffed00','#008026','#004dff','#750787','#ffffff','#ff69b4','#5bcefa'];
-const PRIDE_EMOJI  = ['🏳️‍🌈','🌈','💖','✨','🦄','💜','💙','💛','🧡','❤️','💚'];
-
-function launchConfetti(count = 150) {
-  const modal = document.getElementById('prideModal');
-  for (let i = 0; i < count; i++) {
-    const c = document.createElement('div');
-    c.className = 'confetti';
-    if (Math.random() < 0.25) {
-      c.textContent = PRIDE_EMOJI[Math.floor(Math.random() * PRIDE_EMOJI.length)];
-      c.style.fontSize = (16 + Math.random() * 22) + 'px';
-    } else {
-      const s = 7 + Math.random() * 9;
-      c.style.width = s + 'px';
-      c.style.height = (s * (Math.random() < 0.5 ? 1 : 0.45)) + 'px';
-      c.style.background = PRIDE_COLORS[Math.floor(Math.random() * PRIDE_COLORS.length)];
-      c.style.borderRadius = Math.random() < 0.4 ? '50%' : '2px';
-      c.style.border = '1px solid rgba(0,0,0,0.15)';
-    }
-    c.style.left = Math.random() * 100 + 'vw';
-    c.style.animationDuration = (2.5 + Math.random() * 3) + 's';
-    c.style.animationDelay = (Math.random() * 1.2) + 's';
-    modal.appendChild(c);
-    setTimeout(() => c.remove(), 7000);
-  }
-}
-function openGavinPride() {
-  const modal = document.getElementById('prideModal');
-  modal.classList.add('flex');
-  document.body.style.overflow = 'hidden';
-  // restart the zoom-in animation every time
-  const inner = modal.querySelector('.pride-inner');
-  inner.style.animation = 'none'; void inner.offsetWidth; inner.style.animation = '';
-  launchConfetti(220);
-}
-function closePride() {
-  const modal = document.getElementById('prideModal');
-  modal.classList.remove('flex');
-  modal.querySelectorAll('.confetti').forEach(c => c.remove());
-  document.body.style.overflow = '';
-}
-function prideToBio() {
-  closePride();
-  openModal('Gavin West', 'LGBTQ 🏳️‍🌈 Lead', 'assets/gavinwest.jpg', `
-    <p>I'm Gavin.</p>
-    <p>I'm in 11th grade.</p>
-    <p>I do robotics.</p>
-    <p>🗣️🔥</p>
-  `);
-}
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape' && document.getElementById('prideModal').classList.contains('flex')) closePride();
-});
 
 /* ─── Photo gallery ─── */
 const teamPhotos = [
@@ -789,4 +606,4 @@ pm.addEventListener('touchend', e => {
 });
 </script>
 </body>
-</html>
+</html>
